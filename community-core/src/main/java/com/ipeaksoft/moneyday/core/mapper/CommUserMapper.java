@@ -20,4 +20,6 @@ public interface CommUserMapper {
     CommUser selectByIndicate(String indicate);
     
     CommUser selectByOpenid(String openid);
+    
+    CommUser selectByIndicateSelective(String indicate);
 }

@@ -32,6 +32,10 @@ public class CommUserService extends BaseService{
 	public CommUser selectByOpenid(String openid) {
 		return commUserMapper.selectByOpenid(openid);
 	}
+	
+	public CommUser selectByIndicateSelective(String indicate){
+		return commUserMapper.selectByIndicateSelective(indicate);
+	}
 
 	public CommUser toUser(CommUser commUser, JSONObject json) {
 		if (commUser == null) {
@@ -62,7 +66,7 @@ public class CommUserService extends BaseService{
 	
 	public JSONObject userInfo(String indicate){
 		JSONObject result = new JSONObject();
-		CommUser commUser = selectByIndicate(indicate);
+		CommUser commUser = selectByIndicateSelective(indicate);
 		//result.put("token", commUser.getIndicate());
 		result.put("user", commUser);
 		result.put("sumIncome", "");
