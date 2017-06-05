@@ -138,6 +138,7 @@ public class ComUserController extends BaseController {
 			// 生成token 注册西瓜妹社区
 			// 验证是否注册过西瓜妹社区
 			CommUser model = commUserService.selectBymobile(phoneNumber);
+			JSONObject userInfo = new JSONObject();
 			if (model == null) {
 				String token = UUID.randomUUID().toString().replace("-", "");
 				Integer pid = pCommUser.getId();
@@ -156,10 +157,12 @@ public class ComUserController extends BaseController {
 					result.put("msg", "西瓜妹注册失败");
 					return result;
 				}
+				userInfo = commUserService.userInfo(token);
 			}
 			// 注册小妹公会服务器 不需要验证是否注册过了
 			result.put("result", 4);
 			result.put("liveUrl", "");
+			result.put("userInfo", userInfo);
 			result.put("msg", "注册成功");
 		} else {
 			result.put("result", 2);
@@ -197,7 +200,7 @@ public class ComUserController extends BaseController {
 				JSONObject userInfo = commUserService.userInfo(model
 						.getIndicate());
 				result.put("result", 4);
-				result.put("token", model.getIndicate());
+				//result.put("token", model.getIndicate());
 				result.put("userInfo", userInfo);
 				result.put("msg", "登陆成功");
 				return result;
@@ -266,7 +269,7 @@ public class ComUserController extends BaseController {
 			JSONObject userInfo = commUserService.userInfo(commUser
 					.getIndicate());
 			result.put("result", 1);
-			result.put("token", commUser.getIndicate());
+			//result.put("token", commUser.getIndicate());
 			result.put("userInfo", userInfo);
 			result.put("msg", "登陆成功");
 		}

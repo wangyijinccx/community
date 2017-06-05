@@ -63,15 +63,16 @@ public class CommUserService extends BaseService{
 	public JSONObject userInfo(String indicate){
 		JSONObject result = new JSONObject();
 		CommUser commUser = selectByIndicate(indicate);
-		result.put("token", commUser.getIndicate());
+		//result.put("token", commUser.getIndicate());
+		result.put("user", commUser);
 		result.put("sumIncome", "");
 		result.put("todayRegisterNum", "");
 		result.put("todayRechargeNum", "");
 		result.put("todayCommission", "");
 		result.put("consumptionThisMonth", "");
-		result.put("accountBalance", commUser.getAward());
+		//result.put("accountBalance", commUser.getAward());
 		result.put("todayWithdrawalsCount", "");
-		result.put("openid", commUser.getOpenid());
+		//result.put("openid", commUser.getOpenid());
 		return result;
 	}
 
