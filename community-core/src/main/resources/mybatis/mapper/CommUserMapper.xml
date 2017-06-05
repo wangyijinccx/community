@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="indicate" property="indicate" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="SMALLINT" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="idfa" property="idfa" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="award" property="award" jdbcType="INTEGER" />
+    <result column="tdaward" property="tdaward" jdbcType="INTEGER" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="commid" property="commid" jdbcType="INTEGER" />
+    <result column="udid" property="udid" jdbcType="VARCHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="device_model" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="device_serial" property="deviceSerial" jdbcType="VARCHAR" />
+    <result column="device_version" property="deviceVersion" jdbcType="VARCHAR" />
+    <result column="device_iccid" property="deviceIccid" jdbcType="VARCHAR" />
+    <result column="user_agent" property="userAgent" jdbcType="VARCHAR" />
+    <result column="get_udid_time" property="getUdidTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, indicate, openid, unionid, nickname, sex, language, city, province, country, 
+    headimgurl, privilege, create_time, update_time, enable, idfa, mobile, award, tdaward, 
+    invite_code, pid, commid, udid, imei, device_model, device_serial, device_version, 
+    device_iccid, user_agent, get_udid_time, status, appid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    insert into tb_comm_user (id, indicate, openid, 
+      unionid, nickname, sex, 
+      language, city, province, 
+      country, headimgurl, privilege, 
+      create_time, update_time, enable, 
+      idfa, mobile, award, 
+      tdaward, invite_code, pid, 
+      commid, udid, imei, 
+      device_model, device_serial, device_version, 
+      device_iccid, user_agent, get_udid_time, 
+      status, appid)
+    values (#{id,jdbcType=INTEGER}, #{indicate,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{unionid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
+      #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=BIT}, 
+      #{idfa,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{award,jdbcType=INTEGER}, 
+      #{tdaward,jdbcType=INTEGER}, #{inviteCode,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{commid,jdbcType=INTEGER}, #{udid,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{deviceModel,jdbcType=VARCHAR}, #{deviceSerial,jdbcType=VARCHAR}, #{deviceVersion,jdbcType=VARCHAR}, 
+      #{deviceIccid,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, #{getUdidTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    insert into tb_comm_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="indicate != null" >
+        indicate,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="idfa != null" >
+        idfa,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="award != null" >
+        award,
+      </if>
+      <if test="tdaward != null" >
+        tdaward,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="commid != null" >
+        commid,
+      </if>
+      <if test="udid != null" >
+        udid,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="deviceModel != null" >
+        device_model,
+      </if>
+      <if test="deviceSerial != null" >
+        device_serial,
+      </if>
+      <if test="deviceVersion != null" >
+        device_version,
+      </if>
+      <if test="deviceIccid != null" >
+        device_iccid,
+      </if>
+      <if test="userAgent != null" >
+        user_agent,
+      </if>
+      <if test="getUdidTime != null" >
+        get_udid_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="appid != null" >
+        appid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="indicate != null" >
+        #{indicate,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="idfa != null" >
+        #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="award != null" >
+        #{award,jdbcType=INTEGER},
+      </if>
+      <if test="tdaward != null" >
+        #{tdaward,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="commid != null" >
+        #{commid,jdbcType=INTEGER},
+      </if>
+      <if test="udid != null" >
+        #{udid,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSerial != null" >
+        #{deviceSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null" >
+        #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIccid != null" >
+        #{deviceIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="getUdidTime != null" >
+        #{getUdidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    update tb_comm_user
+    <set >
+      <if test="indicate != null" >
+        indicate = #{indicate,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="idfa != null" >
+        idfa = #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="award != null" >
+        award = #{award,jdbcType=INTEGER},
+      </if>
+      <if test="tdaward != null" >
+        tdaward = #{tdaward,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="commid != null" >
+        commid = #{commid,jdbcType=INTEGER},
+      </if>
+      <if test="udid != null" >
+        udid = #{udid,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        device_model = #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSerial != null" >
+        device_serial = #{deviceSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null" >
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIccid != null" >
+        device_iccid = #{deviceIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="getUdidTime != null" >
+        get_udid_time = #{getUdidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    update tb_comm_user
+    set indicate = #{indicate,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=SMALLINT},
+      language = #{language,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      privilege = #{privilege,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=BIT},
+      idfa = #{idfa,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      award = #{award,jdbcType=INTEGER},
+      tdaward = #{tdaward,jdbcType=INTEGER},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      commid = #{commid,jdbcType=INTEGER},
+      udid = #{udid,jdbcType=VARCHAR},
+      imei = #{imei,jdbcType=VARCHAR},
+      device_model = #{deviceModel,jdbcType=VARCHAR},
+      device_serial = #{deviceSerial,jdbcType=VARCHAR},
+      device_version = #{deviceVersion,jdbcType=VARCHAR},
+      device_iccid = #{deviceIccid,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      get_udid_time = #{getUdidTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      appid = #{appid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectBymobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+</mapper>
