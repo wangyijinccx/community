@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.service.ComConfirmService;
+import com.ipeaksoft.moneyday.api.service.WeChatService;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.enums.SMSType;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
@@ -28,6 +29,8 @@ public class ComUserController extends BaseController {
 	CommUserService commUserService;
 	@Autowired
 	private HttpService httpService;
+	@Autowired
+	WeChatService  weChatService;
 
 	@ResponseBody
 	@RequestMapping("testMobile")
@@ -129,6 +132,9 @@ public class ComUserController extends BaseController {
 				commUser.setCreateTime(new Date());
 				commUser.setUpdateTime(new Date());
 				commUser.setStatus("1");
+				commUser.setAward(0);
+				commUser.setTdaward(0);
+				commUser.setTotalaward(0);
 				if (commUserService.insertSelective(commUser) < 1) {
 					result.put("result", 3);
 					result.put("msg", "西瓜妹注册失败");
@@ -136,6 +142,9 @@ public class ComUserController extends BaseController {
 				}
 			}
 			// 注册小妹公会服务器 不需要验证是否注册过了
+			result.put("result", 4);
+			result.put("liveUrl", "");
+			result.put("msg", "注册成功");
 		} else {
 			result.put("result", 2);
 			result.put("msg", "验证码错误");
@@ -167,8 +176,10 @@ public class ComUserController extends BaseController {
 				return result;
 			}else{
 				//共用接口
+				JSONObject userInfo = commUserService.userInfo(model.getIndicate());
 				result.put("result", 4);
 				result.put("token", model.getIndicate());
+				result.put("userInfo", userInfo);
 				result.put("msg", "登陆成功");
 				return result;
 			}
@@ -179,5 +190,87 @@ public class ComUserController extends BaseController {
 		logger.info("request url:{}, result:{}", request.getRequestURI(),
 				result);
 		return result;
+	}
+	
+	/**
+	 * 绑定微信
+	 * @param code
+	 * @param token 推广员令牌
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("bindingWeiXin")
+	public Object bindingWeiXin(String code, String token,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		//判断用户是是否存在
+		CommUser model = commUserService.selectByIndicate(token);
+		if(model == null){
+			result.put("result", 2);
+			result.put("msg", "用户不存在");
+			return result;
+		}
+		JSONObject json = weChatService.getUserInfo(code);
+		CommUser commUser = commUserService.toUser(null ,json);
+		commUser.setId(model.getId());
+		if(commUserService.updateByPrimaryKeySelective(commUser)<1){
+			result.put("result", 2);
+			result.put("msg", "保存信息失败");
+			return result;
+		}
+		result.put("result", 1);
+		result.put("msg", "绑定成功");
+		return result;
+	}
+	
+	
+	/**
+	 * 微信登录
+	 * @param code
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("weiXinLogin")
+	public Object weiXinLogin(String code,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		JSONObject json = weChatService.getUserInfo(code);
+		String openid = json.getString("openid");
+		CommUser commUser = commUserService.selectByOpenid(openid);
+		if(commUser == null){
+			result.put("result", 2);
+			result.put("msg", "登陆失败");
+		}else{
+			JSONObject userInfo = commUserService.userInfo(commUser.getIndicate());
+			result.put("result", 1);
+			result.put("token", commUser.getIndicate());
+			result.put("userInfo", userInfo);
+			result.put("msg", "登陆成功");
+		}
+		return result;
+	}	
+	
+	/**
+	 * 用户信息 --公共接口
+	 * @param token
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("userinfo")
+	public Object userInfo(String token,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		CommUser model = commUserService.selectByIndicate(token);
+		if(model == null){
+			result.put("result", 2);
+			result.put("msg", "用户不存在");
+			return result;
+		}
+		result = commUserService.userInfo(token);
+		result.put("result", 1);
+		return "";
 	}
 }

@@ -16,4 +16,8 @@ public interface CommUserMapper {
     int updateByPrimaryKey(CommUser record);
     
     CommUser selectBymobile(String mobile);
+    
+    CommUser selectByIndicate(String indicate);
+    
+    CommUser selectByOpenid(String openid);
 }

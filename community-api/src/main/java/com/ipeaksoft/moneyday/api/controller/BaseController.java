@@ -15,6 +15,7 @@ public class BaseController {
 
     protected Logger logger = null;
     protected String className = "";
+    public static final Integer withdrawalNumber = 3;
 
     public BaseController(){
         className = getClass().getName();

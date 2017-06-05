@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 public abstract class BaseService {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+    public static final Integer withdrawalNumber = 3;
 //    protected Logger logger;
 //    protected String classname;
 //    

@@ -34,12 +34,13 @@
     <result column="get_udid_time" property="getUdidTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="totalaward" property="totalaward" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, indicate, openid, unionid, nickname, sex, language, city, province, country, 
     headimgurl, privilege, create_time, update_time, enable, idfa, mobile, award, tdaward, 
     invite_code, pid, commid, udid, imei, device_model, device_serial, device_version, 
-    device_iccid, user_agent, get_udid_time, status, appid
+    device_iccid, user_agent, get_udid_time, status, appid, totalaward
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -62,7 +63,8 @@
       commid, udid, imei, 
       device_model, device_serial, device_version, 
       device_iccid, user_agent, get_udid_time, 
-      status, appid)
+      status, appid, totalaward
+      )
     values (#{id,jdbcType=INTEGER}, #{indicate,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
       #{unionid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
       #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
@@ -73,7 +75,8 @@
       #{commid,jdbcType=INTEGER}, #{udid,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
       #{deviceModel,jdbcType=VARCHAR}, #{deviceSerial,jdbcType=VARCHAR}, #{deviceVersion,jdbcType=VARCHAR}, 
       #{deviceIccid,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, #{getUdidTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, #{totalaward,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
     insert into tb_comm_user
@@ -174,6 +177,9 @@
       <if test="appid != null" >
         appid,
       </if>
+      <if test="totalaward != null" >
+        totalaward,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -271,6 +277,9 @@
       </if>
       <if test="appid != null" >
         #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalaward != null" >
+        #{totalaward,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -370,6 +379,9 @@
       <if test="appid != null" >
         appid = #{appid,jdbcType=VARCHAR},
       </if>
+      <if test="totalaward != null" >
+        totalaward = #{totalaward,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -405,7 +417,8 @@
       user_agent = #{userAgent,jdbcType=VARCHAR},
       get_udid_time = #{getUdidTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      appid = #{appid,jdbcType=VARCHAR}
+      appid = #{appid,jdbcType=VARCHAR},
+      totalaward = #{totalaward,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -415,5 +428,19 @@
     <include refid="Base_Column_List" />
     from tb_comm_user
     where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIndicate" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user
+    where indicate = #{indicate,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user
+    where openid = #{openid,jdbcType=VARCHAR}
   </select>
 </mapper>

@@ -67,6 +67,8 @@ public class CommUser {
 
     private String appid;
 
+    private Integer totalaward;
+
     public Integer getId() {
         return id;
     }
@@ -321,5 +323,13 @@ public class CommUser {
 
     public void setAppid(String appid) {
         this.appid = appid;
+    }
+
+    public Integer getTotalaward() {
+        return totalaward;
+    }
+
+    public void setTotalaward(Integer totalaward) {
+        this.totalaward = totalaward;
     }
 }
