@@ -28,7 +28,7 @@ public class ComSMSService extends BaseService {
 	public static final String SMS_URL = "http://utf8.sms.webchinese.cn/";
 	public static final String SMS_UID = "zhangtongwireless";
 	public static final String SMS_KEY = "4e40d5a2077f4584278b";
-	public static final String SMS_SHORTNAME = "";
+	public static final String SMS_SHORTNAME = "【西瓜妹社区】";
 
 	public static final String SMS_CL_URL = "http://222.73.117.158/msg/HttpBatchSendSM";
 	public static final String SMS_CL_UID = "tjztwx";
@@ -38,7 +38,7 @@ public class ComSMSService extends BaseService {
     @Async
     public void sendMessage(SMSType type, String mobile, String... contents) throws IOException {
         //ResourceBundle resourceBundle = ResourceBundle.getBundle("com.ipeaksoft.sms.messages", Locale.CHINESE);
-        String contentTemplate = "【西瓜妹社区】通知您手机验证码为:%s,验证码在10分钟内有效";
+        String contentTemplate = "%s通知您手机验证码为:%s,验证码在10分钟内有效";
 
         switch (type) {
             case CONFIRM_AUTHENTICATE_MOBILE:
@@ -61,7 +61,7 @@ public class ComSMSService extends BaseService {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
             logger.debug("Sending messge. [destination=" + destination + "][content=" + content[0] + "]");
             HttpClient httpClient = new DefaultHttpClient();
-            post = new HttpPost(SMS_URL);
+            post = new HttpPost(SMS_CL_URL);
 //            post = new HttpPost(SMS_CL_URL);
             post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(initnameValuePairs(destination, content), "UTF-8");

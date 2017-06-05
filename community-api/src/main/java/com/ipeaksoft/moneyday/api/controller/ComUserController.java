@@ -1,6 +1,8 @@
 package com.ipeaksoft.moneyday.api.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +32,11 @@ public class ComUserController extends BaseController {
 	@Autowired
 	private HttpService httpService;
 	@Autowired
-	WeChatService  weChatService;
+	WeChatService weChatService;
+	
+	public static final String auth_type = "1";
+	public static final String account = "v14903519";
+	public static final String password = "anywn123";
 
 	@ResponseBody
 	@RequestMapping("testMobile")
@@ -97,10 +103,15 @@ public class ComUserController extends BaseController {
 			}
 			// 注册微吼 密码为手机号的后六位
 			// 验证手机号是否注册过微吼账号 注册过就不用注册了
-			String validationUrl = "http://e.vhall.com/api/vhallapi/v2/user/get-user-id?third_user_id="
-					+ phoneNumber;
-			String validationCallback = httpService.get(validationUrl);
-			JSONObject validationJson = JSONObject.parseObject(validationCallback);
+			String validationUrl = "http://e.vhall.com/api/vhallapi/v2/user/get-user-id";
+			Map<String, String> postParams = new HashMap<String, String>();
+			postParams.put("third_user_id", phoneNumber);
+			postParams.put("auth_type", auth_type);
+			postParams.put("account", account);
+			postParams.put("password", password);
+			String validationCallback = httpService.post(validationUrl, postParams);
+			JSONObject validationJson = JSONObject
+					.parseObject(validationCallback);
 			if (null == validationJson) {
 				result.put("result", 3);
 				result.put("msg", "请求微吼服务器异常");
@@ -108,10 +119,15 @@ public class ComUserController extends BaseController {
 			}
 			if (!"200".equals(validationJson.getString("code"))) {
 				// 没有注册过
-				String password = passUtil.getPassWord(phoneNumber);
-				String url = "http://e.vhall.com/api/vhallapi/v2/user/register?third_user_id="
-						+ phoneNumber + "&pass=" + password;
-				String callback = httpService.get(url);
+				String pass = passUtil.getPassWord(phoneNumber);
+				String url = "http://e.vhall.com/api/vhallapi/v2/user/register";
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("third_user_id", phoneNumber);
+				params.put("pass", pass);
+				params.put("auth_type", auth_type);
+				params.put("account", account);
+				params.put("password", password);
+				String callback = httpService.post(url, params);
 				JSONObject json = JSONObject.parseObject(callback);
 				if (null == json || !"200".equals(json.getString("code"))) {
 					result.put("result", 3);
@@ -153,9 +169,10 @@ public class ComUserController extends BaseController {
 				result);
 		return result;
 	}
-     
+
 	/**
 	 * 手机号登录
+	 * 
 	 * @param phoneNumber
 	 * @param checkCode
 	 * @param response
@@ -167,16 +184,18 @@ public class ComUserController extends BaseController {
 			HttpServletResponse response) {
 		// 1 验证验证码是否正确 2 保存注册信息
 		JSONObject result = new JSONObject();
-		String mob = confirmService.checkMobile(checkCode,SMSType.CONFIRM_AUTHENTICATE_MOBILE);
+		String mob = confirmService.checkMobile(checkCode,
+				SMSType.CONFIRM_AUTHENTICATE_MOBILE);
 		if (!StringUtils.isEmpty(mob) && mob.equals(phoneNumber)) {
 			CommUser model = commUserService.selectBymobile(phoneNumber);
-			if(model == null){
+			if (model == null) {
 				result.put("result", 3);
 				result.put("msg", "用户不存在");
 				return result;
-			}else{
-				//共用接口
-				JSONObject userInfo = commUserService.userInfo(model.getIndicate());
+			} else {
+				// 共用接口
+				JSONObject userInfo = commUserService.userInfo(model
+						.getIndicate());
 				result.put("result", 4);
 				result.put("token", model.getIndicate());
 				result.put("userInfo", userInfo);
@@ -191,11 +210,13 @@ public class ComUserController extends BaseController {
 				result);
 		return result;
 	}
-	
+
 	/**
 	 * 绑定微信
+	 * 
 	 * @param code
-	 * @param token 推广员令牌
+	 * @param token
+	 *            推广员令牌
 	 * @param response
 	 * @return
 	 */
@@ -204,17 +225,17 @@ public class ComUserController extends BaseController {
 	public Object bindingWeiXin(String code, String token,
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
-		//判断用户是是否存在
+		// 判断用户是是否存在
 		CommUser model = commUserService.selectByIndicate(token);
-		if(model == null){
+		if (model == null) {
 			result.put("result", 2);
 			result.put("msg", "用户不存在");
 			return result;
 		}
 		JSONObject json = weChatService.getUserInfo(code);
-		CommUser commUser = commUserService.toUser(null ,json);
+		CommUser commUser = commUserService.toUser(null, json);
 		commUser.setId(model.getId());
-		if(commUserService.updateByPrimaryKeySelective(commUser)<1){
+		if (commUserService.updateByPrimaryKeySelective(commUser) < 1) {
 			result.put("result", 2);
 			result.put("msg", "保存信息失败");
 			return result;
@@ -223,48 +244,48 @@ public class ComUserController extends BaseController {
 		result.put("msg", "绑定成功");
 		return result;
 	}
-	
-	
+
 	/**
 	 * 微信登录
+	 * 
 	 * @param code
 	 * @param response
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("weiXinLogin")
-	public Object weiXinLogin(String code,
-			HttpServletResponse response) {
+	public Object weiXinLogin(String code, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		JSONObject json = weChatService.getUserInfo(code);
 		String openid = json.getString("openid");
 		CommUser commUser = commUserService.selectByOpenid(openid);
-		if(commUser == null){
+		if (commUser == null) {
 			result.put("result", 2);
 			result.put("msg", "登陆失败");
-		}else{
-			JSONObject userInfo = commUserService.userInfo(commUser.getIndicate());
+		} else {
+			JSONObject userInfo = commUserService.userInfo(commUser
+					.getIndicate());
 			result.put("result", 1);
 			result.put("token", commUser.getIndicate());
 			result.put("userInfo", userInfo);
 			result.put("msg", "登陆成功");
 		}
 		return result;
-	}	
-	
+	}
+
 	/**
 	 * 用户信息 --公共接口
+	 * 
 	 * @param token
 	 * @param response
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("userinfo")
-	public Object userInfo(String token,
-			HttpServletResponse response) {
+	public Object userInfo(String token, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		CommUser model = commUserService.selectByIndicate(token);
-		if(model == null){
+		if (model == null) {
 			result.put("result", 2);
 			result.put("msg", "用户不存在");
 			return result;
