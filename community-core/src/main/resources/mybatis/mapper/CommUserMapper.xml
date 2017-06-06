@@ -549,6 +549,6 @@
         totalaward = #{totalaward,jdbcType=INTEGER},
       </if>
     </set>
-    where indicate = #{id,jdbcType=VARCHAR}
+    where indicate = #{indicate,jdbcType=VARCHAR}
   </update>
 </mapper>
