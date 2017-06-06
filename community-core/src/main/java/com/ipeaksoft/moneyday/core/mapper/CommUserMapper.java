@@ -24,4 +24,6 @@ public interface CommUserMapper {
     CommUser selectByOpenid(String openid);
     
     Map<String, Object> selectByIndicateSelective(String indicate);
+    
+    int updateByIndicate(CommUser record);
 }

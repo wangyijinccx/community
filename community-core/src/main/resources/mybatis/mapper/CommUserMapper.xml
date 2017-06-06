@@ -446,8 +446,109 @@
   
   <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
-      id,indicate token,IFNULL(openid,"") openid,IFNULL(nickname,"") nickname,IFNULL(headimgurl,"") headimgurl,mobile,award,tdaward,totalaward
+      id,indicate token,IFNULL(openid,"") openid,IFNULL(nickname,"") nickname,IFNULL(headimgurl,"") headimgurl,
+      mobile,award,tdaward,totalaward,IFNULL(commid,0) hostid
     from tb_comm_user
     where indicate = #{indicate,jdbcType=VARCHAR}
   </select>
+  
+  <update id="updateByIndicate" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
+    update tb_comm_user
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="idfa != null" >
+        idfa = #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="award != null" >
+        award = #{award,jdbcType=INTEGER},
+      </if>
+      <if test="tdaward != null" >
+        tdaward = #{tdaward,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="commid != null" >
+        commid = #{commid,jdbcType=INTEGER},
+      </if>
+      <if test="udid != null" >
+        udid = #{udid,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        device_model = #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSerial != null" >
+        device_serial = #{deviceSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null" >
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIccid != null" >
+        device_iccid = #{deviceIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="getUdidTime != null" >
+        get_udid_time = #{getUdidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalaward != null" >
+        totalaward = #{totalaward,jdbcType=INTEGER},
+      </if>
+    </set>
+    where indicate = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>

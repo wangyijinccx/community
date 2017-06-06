@@ -16,6 +16,9 @@ public class BaseController {
     protected Logger logger = null;
     protected String className = "";
     public static final Integer withdrawalNumber = 3;
+    public static final String auth_type = "1";
+	public static final String account = "v14903519";
+	public static final String password = "anywn123";
 
     public BaseController(){
         className = getClass().getName();

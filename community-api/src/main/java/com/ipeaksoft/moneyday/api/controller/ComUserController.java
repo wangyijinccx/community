@@ -34,10 +34,6 @@ public class ComUserController extends BaseController {
 	@Autowired
 	WeChatService weChatService;
 
-	public static final String auth_type = "1";
-	public static final String account = "v14903519";
-	public static final String password = "anywn123";
-
 	@ResponseBody
 	@RequestMapping("testMobile")
 	public Object test() {

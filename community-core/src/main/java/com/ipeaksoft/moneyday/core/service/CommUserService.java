@@ -39,6 +39,10 @@ public class CommUserService extends BaseService{
 	public Map<String, Object> selectByIndicateSelective(String indicate){
 		return commUserMapper.selectByIndicateSelective(indicate);
 	}
+	
+	public int updateByIndicate(CommUser record){
+		return commUserMapper.updateByIndicate(record);
+	}
 
 	public CommUser toUser(CommUser commUser, JSONObject json) {
 		if (commUser == null) {

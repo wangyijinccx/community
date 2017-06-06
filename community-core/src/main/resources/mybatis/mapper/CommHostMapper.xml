@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommHostMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommHost" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="onlineStatus" property="onlinestatus" jdbcType="INTEGER" />
+    <result column="webinar_id" property="webinarId" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, pass, mobile, subject, introduction, img_url, onlineStatus, webinar_id, 
+    nickname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_host
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_host
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
+    insert into tb_comm_host (id, account, pass, 
+      mobile, subject, introduction, 
+      img_url, onlineStatus, webinar_id, 
+      nickname)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{onlinestatus,jdbcType=INTEGER}, #{webinarId,jdbcType=INTEGER}, 
+      #{nickname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
+    insert into tb_comm_host
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="onlinestatus != null" >
+        onlineStatus,
+      </if>
+      <if test="webinarId != null" >
+        webinar_id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinestatus != null" >
+        #{onlinestatus,jdbcType=INTEGER},
+      </if>
+      <if test="webinarId != null" >
+        #{webinarId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
+    update tb_comm_host
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinestatus != null" >
+        onlineStatus = #{onlinestatus,jdbcType=INTEGER},
+      </if>
+      <if test="webinarId != null" >
+        webinar_id = #{webinarId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
+    update tb_comm_host
+    set account = #{account,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      onlineStatus = #{onlinestatus,jdbcType=INTEGER},
+      webinar_id = #{webinarId,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_host
+  </select>
+</mapper>
