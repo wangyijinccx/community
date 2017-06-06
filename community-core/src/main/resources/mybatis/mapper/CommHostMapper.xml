@@ -152,9 +152,15 @@
   </update>
   
   
-   <select id="selectAll" resultMap="BaseResultMap"  >
+  <select id="selectAll" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />
     from tb_comm_host
+  </select>
+   <select id="selectByWebinarId" resultMap="BaseResultMap"  >
+    select 
+     <include refid="Base_Column_List" />
+    from tb_comm_host
+    where webinar_id = #{webinarId,jdbcType=INTEGER}
   </select>
 </mapper>

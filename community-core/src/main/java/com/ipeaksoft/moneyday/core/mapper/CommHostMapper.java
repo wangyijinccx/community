@@ -18,4 +18,6 @@ public interface CommHostMapper {
     int updateByPrimaryKey(CommHost record);
     
     List<CommHost> selectAll();
+    
+    CommHost selectByWebinarId(Integer webinarId);
 }

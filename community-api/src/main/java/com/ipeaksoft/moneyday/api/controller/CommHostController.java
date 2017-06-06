@@ -121,11 +121,20 @@ public class CommHostController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 获取回访列表
+	 * 
+	 * @param webinarId
+	 * @param token
+	 * @param pos
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("getrecords")
 	public Object getRecords(Integer webinarId, String token, Integer pos,
 			HttpServletResponse response) {
-		//不判断主播是否在线
+		// 不判断主播是否在线
 		JSONObject result = new JSONObject();
 		String url = "http://e.vhall.com/api/vhallapi/v2/record/list";
 		Map<String, String> params = new HashMap<String, String>();
@@ -139,14 +148,27 @@ public class CommHostController extends BaseController {
 		String callback = httpService.post(url, params);
 		JSONObject json = JSONObject.parseObject(callback);
 		if (null == json
-				|| (!"200".equals(json.getString("code")) && !"10019".equals(json
-						.getString("code")))) {
+				|| (!"200".equals(json.getString("code")) && !"10019"
+						.equals(json.getString("code")))) {
 			result.put("result", 2);
 			result.put("msg", "获取回放列表失败");
 			return result;
 		}
+		// 获取主播状态
+		CommHost commHost =  commHostService.selectByWebinarId(webinarId);
+		//主播信息
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(1 == commHost.getOnlinestatus()){
+			map.put("id", commHost.getId());
+			map.put("webinarId", webinarId);
+			map.put("subject", commHost.getSubject());
+			map.put("imgUrl", commHost.getImgUrl());
+			map.put("onlinestatus", commHost.getOnlinestatus());
+			map.put("nickname", commHost.getNickname());
+		}
 		result.put("result", 1);
 		result.put("records", json);
+		result.put("onlineLive",map);
 		result.put("msg", "获取回放列表成功");
 		return result;
 	}

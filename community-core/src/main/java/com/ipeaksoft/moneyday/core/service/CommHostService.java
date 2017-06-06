@@ -28,4 +28,8 @@ public class CommHostService extends BaseService{
 		return commHostMapper.selectByPrimaryKey(id);
 	}
 	
+	public CommHost selectByWebinarId(Integer webinarId){
+		return commHostMapper.selectByWebinarId(webinarId);
+	}
+	
 }
