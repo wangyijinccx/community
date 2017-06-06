@@ -33,7 +33,7 @@ public class ComUserController extends BaseController {
 	private HttpService httpService;
 	@Autowired
 	WeChatService weChatService;
-	
+
 	public static final String auth_type = "1";
 	public static final String account = "v14903519";
 	public static final String password = "anywn123";
@@ -94,6 +94,15 @@ public class ComUserController extends BaseController {
 		String mob = confirmService.checkMobile(code,
 				SMSType.CONFIRM_AUTHENTICATE_MOBILE);
 		if (!StringUtils.isEmpty(mob) && mob.equals(phoneNumber)) {
+			// 是否注册
+			CommUser model = commUserService.selectBymobile(phoneNumber);
+			JSONObject userInfo = new JSONObject();
+			if (model != null) {
+				result.put("result", 5);
+				result.put("msg", "账号已存在");
+				return result;
+			}
+
 			// 验证邀请码
 			CommUser pCommUser = commUserService.selectBymobile(invitationCode);
 			if (pCommUser == null) {
@@ -101,6 +110,7 @@ public class ComUserController extends BaseController {
 				result.put("msg", "邀请码不存在");
 				return result;
 			}
+
 			// 注册微吼 密码为手机号的后六位
 			// 验证手机号是否注册过微吼账号 注册过就不用注册了
 			String validationUrl = "http://e.vhall.com/api/vhallapi/v2/user/get-user-id";
@@ -109,7 +119,8 @@ public class ComUserController extends BaseController {
 			postParams.put("auth_type", auth_type);
 			postParams.put("account", account);
 			postParams.put("password", password);
-			String validationCallback = httpService.post(validationUrl, postParams);
+			String validationCallback = httpService.post(validationUrl,
+					postParams);
 			JSONObject validationJson = JSONObject
 					.parseObject(validationCallback);
 			if (null == validationJson) {
@@ -135,31 +146,30 @@ public class ComUserController extends BaseController {
 					return result;
 				}
 			}
+
+			// 注册小妹公会服务器 不需要验证是否注册过了
+
 			// 生成token 注册西瓜妹社区
 			// 验证是否注册过西瓜妹社区
-			CommUser model = commUserService.selectBymobile(phoneNumber);
-			JSONObject userInfo = new JSONObject();
-			if (model == null) {
-				String token = UUID.randomUUID().toString().replace("-", "");
-				Integer pid = pCommUser.getId();
-				CommUser commUser = new CommUser();
-				commUser.setMobile(phoneNumber);
-				commUser.setPid(pid);
-				commUser.setIndicate(token);
-				commUser.setCreateTime(new Date());
-				commUser.setUpdateTime(new Date());
-				commUser.setStatus("1");
-				commUser.setAward(0);
-				commUser.setTdaward(0);
-				commUser.setTotalaward(0);
-				if (commUserService.insertSelective(commUser) < 1) {
-					result.put("result", 3);
-					result.put("msg", "西瓜妹注册失败");
-					return result;
-				}
-				userInfo = commUserService.userInfo(token);
+			String token = UUID.randomUUID().toString().replace("-", "");
+			Integer pid = pCommUser.getId();
+			CommUser commUser = new CommUser();
+			commUser.setMobile(phoneNumber);
+			commUser.setPid(pid);
+			commUser.setIndicate(token);
+			commUser.setCreateTime(new Date());
+			commUser.setUpdateTime(new Date());
+			commUser.setStatus("1");
+			commUser.setAward(0);
+			commUser.setTdaward(0);
+			commUser.setTotalaward(0);
+			if (commUserService.insertSelective(commUser) < 1) {
+				result.put("result", 3);
+				result.put("msg", "西瓜妹注册失败");
+				return result;
 			}
-			// 注册小妹公会服务器 不需要验证是否注册过了
+			userInfo = commUserService.userInfo(token);
+
 			result.put("result", 4);
 			result.put("liveUrl", "");
 			result.put("userInfo", userInfo);
@@ -200,7 +210,7 @@ public class ComUserController extends BaseController {
 				JSONObject userInfo = commUserService.userInfo(model
 						.getIndicate());
 				result.put("result", 4);
-				//result.put("token", model.getIndicate());
+				// result.put("token", model.getIndicate());
 				result.put("userInfo", userInfo);
 				result.put("msg", "登陆成功");
 				return result;
@@ -269,7 +279,7 @@ public class ComUserController extends BaseController {
 			JSONObject userInfo = commUserService.userInfo(commUser
 					.getIndicate());
 			result.put("result", 1);
-			//result.put("token", commUser.getIndicate());
+			// result.put("token", commUser.getIndicate());
 			result.put("userInfo", userInfo);
 			result.put("msg", "登陆成功");
 		}
