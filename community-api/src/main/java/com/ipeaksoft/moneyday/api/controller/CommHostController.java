@@ -184,8 +184,8 @@ public class CommHostController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("updathostinfo")
-	public Object updatHostInfo(Integer hostid) {
+	@RequestMapping("updatehostinfo")
+	public Object updateHostInfo(Integer hostid) {
 		JSONObject result = new JSONObject();
 		String fields = "subject,introduction,img_url,type";
 		CommHost commHost = commHostService.selectByPrimaryKey(hostid);
@@ -247,6 +247,4 @@ public class CommHostController extends BaseController {
 		result.put("msg", "获取主播信息成功");
 		return result;
 	}
-	
-	
 }

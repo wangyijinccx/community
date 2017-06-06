@@ -7,7 +7,7 @@ public class CommPlayback {
 
     private String subject;
 
-    private Date createTime;
+    private Date playCreateTime;
 
     private String url;
 
@@ -41,12 +41,12 @@ public class CommPlayback {
         this.subject = subject;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getPlayCreateTime() {
+        return playCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPlayCreateTime(Date playCreateTime) {
+        this.playCreateTime = playCreateTime;
     }
 
     public String getUrl() {

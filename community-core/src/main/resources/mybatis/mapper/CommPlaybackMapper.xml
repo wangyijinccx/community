@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommPlaybackMapper" >
   <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommPlayback" >
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="play_create_time" property="playCreateTime" jdbcType="TIMESTAMP" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="webinar_id" property="webinarId" jdbcType="INTEGER" />
     <result column="duration" property="duration" jdbcType="INTEGER" />
@@ -14,12 +14,26 @@
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Base_Column_List" >
+    id, subject, play_create_time, url, webinar_id, duration, webinar_subject, status, 
+    is_default, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_playback
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_playback
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommPlayback" >
-    insert into tb_comm_playback (id, subject, create_time, 
+    insert into tb_comm_playback (id, subject, play_create_time, 
       url, webinar_id, duration, 
       webinar_subject, status, is_default, 
       createtime, updatetime)
-    values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{playCreateTime,jdbcType=TIMESTAMP}, 
       #{url,jdbcType=VARCHAR}, #{webinarId,jdbcType=INTEGER}, #{duration,jdbcType=INTEGER}, 
       #{webinarSubject,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, 
       #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
@@ -33,8 +47,8 @@
       <if test="subject != null" >
         subject,
       </if>
-      <if test="createTime != null" >
-        create_time,
+      <if test="playCreateTime != null" >
+        play_create_time,
       </if>
       <if test="url != null" >
         url,
@@ -68,8 +82,8 @@
       <if test="subject != null" >
         #{subject,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="playCreateTime != null" >
+        #{playCreateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
@@ -97,4 +111,65 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommPlayback" >
+    update tb_comm_playback
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="playCreateTime != null" >
+        play_create_time = #{playCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="webinarId != null" >
+        webinar_id = #{webinarId,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="webinarSubject != null" >
+        webinar_subject = #{webinarSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommPlayback" >
+    update tb_comm_playback
+    set subject = #{subject,jdbcType=VARCHAR},
+      play_create_time = #{playCreateTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      webinar_id = #{webinarId,jdbcType=INTEGER},
+      duration = #{duration,jdbcType=INTEGER},
+      webinar_subject = #{webinarSubject,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPlaybacks"  parameterType="java.lang.Integer"  resultType="java.util.HashMap">
+    select 
+     id, IFNULL(subject,""), play_create_time,IFNULL(url,""), webinar_id, IFNULL(duration,""), 
+     IFNULL(webinar_subject,""), status,is_default
+    from tb_comm_playback
+    where webinar_id = #{webinarId,jdbcType=INTEGER}
+    <if test="currentPage !=null and pageSize != null">
+      <![CDATA[  LIMIT #{currentPage},#{pageSize} ]]>
+	</if>
+  </select>
 </mapper>
