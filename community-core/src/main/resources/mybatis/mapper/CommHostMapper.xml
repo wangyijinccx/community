@@ -12,10 +12,12 @@
     <result column="onlineStatus" property="onlinestatus" jdbcType="INTEGER" />
     <result column="webinar_id" property="webinarId" jdbcType="INTEGER" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account, pass, mobile, subject, introduction, img_url, onlineStatus, webinar_id, 
-    nickname
+    nickname, createtime, updatetime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,11 +33,13 @@
     insert into tb_comm_host (id, account, pass, 
       mobile, subject, introduction, 
       img_url, onlineStatus, webinar_id, 
-      nickname)
+      nickname, createtime, updatetime
+      )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
       #{imgUrl,jdbcType=VARCHAR}, #{onlinestatus,jdbcType=INTEGER}, #{webinarId,jdbcType=INTEGER}, 
-      #{nickname,jdbcType=VARCHAR})
+      #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
     insert into tb_comm_host
@@ -70,6 +74,12 @@
       <if test="nickname != null" >
         nickname,
       </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -101,6 +111,12 @@
       </if>
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -134,6 +150,12 @@
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -147,7 +169,9 @@
       img_url = #{imgUrl,jdbcType=VARCHAR},
       onlineStatus = #{onlinestatus,jdbcType=INTEGER},
       webinar_id = #{webinarId,jdbcType=INTEGER},
-      nickname = #{nickname,jdbcType=VARCHAR}
+      nickname = #{nickname,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.core.entity;
 
+import java.util.Date;
+
 public class CommHost {
     private Integer id;
 
@@ -20,6 +22,10 @@ public class CommHost {
     private Integer webinarId;
 
     private String nickname;
+
+    private Date createtime;
+
+    private Date updatetime;
 
     public Integer getId() {
         return id;
@@ -99,5 +105,21 @@ public class CommHost {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 }
