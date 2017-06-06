@@ -23,7 +23,7 @@ import com.ipeaksoft.moneyday.core.service.HttpService;
 import com.ipeaksoft.moneyday.core.util.passUtil;
 
 @Controller
-public class ComUserController extends BaseController {
+public class CommUserController extends BaseController {
 
 	@Autowired
 	ComConfirmService confirmService;

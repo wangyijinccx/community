@@ -22,7 +22,7 @@ import com.ipeaksoft.moneyday.core.service.HttpService;
 
 @Controller
 @RequestMapping(value = "/host")
-public class ComHostController extends BaseController {
+public class CommGameController extends BaseController {
 
 	@Autowired
 	CommUserService commUserService;
