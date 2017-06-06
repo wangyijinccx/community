@@ -444,7 +444,7 @@
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIndicateSelective" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
       id,indicate token,openid,nickname,headimgurl,mobile,award,tdaward,totalaward
     from tb_comm_user

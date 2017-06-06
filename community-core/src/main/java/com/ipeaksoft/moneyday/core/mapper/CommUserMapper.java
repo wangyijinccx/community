@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import java.util.Map;
+
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 
 public interface CommUserMapper {
@@ -21,5 +23,5 @@ public interface CommUserMapper {
     
     CommUser selectByOpenid(String openid);
     
-    CommUser selectByIndicateSelective(String indicate);
+    Map<String, Object> selectByIndicateSelective(String indicate);
 }

@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.core.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class CommUserService extends BaseService{
 		return commUserMapper.selectByOpenid(openid);
 	}
 	
-	public CommUser selectByIndicateSelective(String indicate){
+	public Map<String, Object> selectByIndicateSelective(String indicate){
 		return commUserMapper.selectByIndicateSelective(indicate);
 	}
 
@@ -66,7 +68,7 @@ public class CommUserService extends BaseService{
 	
 	public JSONObject userInfo(String indicate){
 		JSONObject result = new JSONObject();
-		CommUser commUser = selectByIndicateSelective(indicate);
+		Map<String, Object> commUser = selectByIndicateSelective(indicate);
 		//result.put("token", commUser.getIndicate());
 		result.put("user", commUser);
 		result.put("sumIncome", "");

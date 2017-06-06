@@ -295,6 +295,6 @@ public class ComUserController extends BaseController {
 		}
 		result = commUserService.userInfo(token);
 		result.put("result", 1);
-		return "";
+		return result;
 	}
 }
