@@ -446,7 +446,7 @@
   
   <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
-      id,indicate token,openid,nickname,headimgurl,mobile,award,tdaward,totalaward
+      id,indicate token,IFNULL(openid,"") openid,IFNULL(nickname,"") nickname,IFNULL(headimgurl,"") headimgurl,mobile,award,tdaward,totalaward
     from tb_comm_user
     where indicate = #{indicate,jdbcType=VARCHAR}
   </select>
