@@ -42,7 +42,8 @@ public class CommHostController extends BaseController {
 		JSONObject result = new JSONObject();
 		// 暂时先这样获取活动信息
 		String fields = "subject,introduction,img_url,type";
-		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> listsOnline = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> listsUonline = new ArrayList<Map<String, Object>>();
 		List<CommHost> commHosts = commHostService.selectAll();
 		for (CommHost commHost : commHosts) {
 			Integer webinar_id = commHost.getWebinarId();
@@ -78,10 +79,17 @@ public class CommHostController extends BaseController {
 			map.put("imgUrl", commHost.getImgUrl());
 			map.put("onlinestatus", commHost.getOnlinestatus());
 			map.put("nickname", commHost.getNickname());
-			lists.add(map);
+			if(1 == commHost.getOnlinestatus()){
+				listsOnline.add(map);
+			}else{
+				listsUonline.add(map);
+			}
+		}
+		for(Map<String, Object> map :listsUonline){
+			listsOnline.add(map);
 		}
 		result.put("result", 1);
-		result.put("webinar", lists);
+		result.put("webinar", listsOnline);
 		result.put("msg", "获取主播信息成功");
 		return result;
 	}

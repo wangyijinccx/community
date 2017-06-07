@@ -25,6 +25,23 @@
 		</encoder>
 	</appender>
 	
+	<appender name="event" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${catalina.base}/logs/sdkapi.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${catalina.base}/logs/sdkapi-%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger:%line - %msg%n
+			</pattern>
+			<charset class="java.nio.charset.Charset">UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<logger name="sdkLog" level="INFO" additivity="false">
+        <appender-ref ref="event" /> 
+    </logger>
+	
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="apiLogAppender" />

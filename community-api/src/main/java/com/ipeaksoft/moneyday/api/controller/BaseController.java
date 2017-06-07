@@ -14,15 +14,20 @@ public class BaseController {
     protected HttpServletRequest request;
 
     protected Logger logger = null;
+    protected Logger sdklogger = null;
     protected String className = "";
     public static final Integer withdrawalNumber = 3;
     public static final String auth_type = "1";
 	public static final String account = "v14903519";
 	public static final String password = "anywn123";
+	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";
+	public static final String PLAT_ID ="ztwireless";
 
     public BaseController(){
         className = getClass().getName();
         logger = LoggerFactory.getLogger(className);
+        sdklogger = LoggerFactory.getLogger("sdkLog");
+
     }
     
 	public String requestUrl(){

@@ -180,6 +180,7 @@
     select 
     <include refid="Base_Column_List" />
     from tb_comm_host
+    ORDER BY onlineStatus DESC
   </select>
    <select id="selectByWebinarId" resultMap="BaseResultMap"  >
     select 
