@@ -196,4 +196,47 @@
       parent_id = #{parentId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateByGameid" parameterType="com.ipeaksoft.moneyday.core.entity.CommGame" >
+    update tb_comm_game
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gameflag != null" >
+        gameflag = #{gameflag,jdbcType=VARCHAR},
+      </if>
+      <if test="initial != null" >
+        initial = #{initial,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="listorder != null" >
+        listorder = #{listorder,jdbcType=INTEGER},
+      </if>
+      <if test="targetCnt != null" >
+        target_cnt = #{targetCnt,jdbcType=INTEGER},
+      </if>
+      <if test="targetLevel != null" >
+        target_level = #{targetLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where game_id = #{gameId,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommGameServerMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommGameServer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+    <result column="oa_app_id" property="oaAppId" jdbcType="INTEGER" />
+    <result column="ser_code" property="serCode" jdbcType="VARCHAR" />
+    <result column="ser_name" property="serName" jdbcType="VARCHAR" />
+    <result column="ser_desc" property="serDesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, start_time, oa_app_id, ser_code, ser_name, ser_desc, status, is_delete, create_time, 
+    update_time, parent_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_game_server
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_game_server
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameServer" >
+    insert into tb_comm_game_server (id, start_time, oa_app_id, 
+      ser_code, ser_name, ser_desc, 
+      status, is_delete, create_time, 
+      update_time, parent_id)
+    values (#{id,jdbcType=INTEGER}, #{startTime,jdbcType=BIGINT}, #{oaAppId,jdbcType=INTEGER}, 
+      #{serCode,jdbcType=VARCHAR}, #{serName,jdbcType=VARCHAR}, #{serDesc,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{parentId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameServer" >
+    insert into tb_comm_game_server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="oaAppId != null" >
+        oa_app_id,
+      </if>
+      <if test="serCode != null" >
+        ser_code,
+      </if>
+      <if test="serName != null" >
+        ser_name,
+      </if>
+      <if test="serDesc != null" >
+        ser_desc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="oaAppId != null" >
+        #{oaAppId,jdbcType=INTEGER},
+      </if>
+      <if test="serCode != null" >
+        #{serCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serName != null" >
+        #{serName,jdbcType=VARCHAR},
+      </if>
+      <if test="serDesc != null" >
+        #{serDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameServer" >
+    update tb_comm_game_server
+    <set >
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="oaAppId != null" >
+        oa_app_id = #{oaAppId,jdbcType=INTEGER},
+      </if>
+      <if test="serCode != null" >
+        ser_code = #{serCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serName != null" >
+        ser_name = #{serName,jdbcType=VARCHAR},
+      </if>
+      <if test="serDesc != null" >
+        ser_desc = #{serDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameServer" >
+    update tb_comm_game_server
+    set start_time = #{startTime,jdbcType=BIGINT},
+      oa_app_id = #{oaAppId,jdbcType=INTEGER},
+      ser_code = #{serCode,jdbcType=VARCHAR},
+      ser_name = #{serName,jdbcType=VARCHAR},
+      ser_desc = #{serDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      parent_id = #{parentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

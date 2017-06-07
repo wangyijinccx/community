@@ -14,4 +14,6 @@ public interface CommGameMapper {
     int updateByPrimaryKeySelective(CommGame record);
 
     int updateByPrimaryKey(CommGame record);
+    
+    int updateByGameid(CommGame record);
 }
