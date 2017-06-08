@@ -80,6 +80,7 @@ public class CommMembersController extends BaseController {
 			commMembers.setPlatId(json.getInteger("plat_id"));
 			commMembers.setFrom(json.getByte("from"));
 			commMembers.setOaAppId(json.getInteger("app_id"));
+			//接口传的是name，这边存的是id，是不是需要个推广员表
 			commMembers.setPromoterId(json.getInteger("agentname"));
 			commMembers.setRegTime(json.getLong("time"));
 			commMembers.setUpdateTime(json.getLong("time"));
