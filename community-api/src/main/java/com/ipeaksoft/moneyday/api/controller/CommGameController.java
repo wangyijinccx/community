@@ -76,7 +76,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/add");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -101,7 +101,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/add");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 
@@ -110,7 +110,7 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/add");
 			result.put("time", new Date());
 			result.put("info", json);
-			sdklogger.info("ERROR:{}",result.toString());
+			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
 		result.put("code", 200);
@@ -155,7 +155,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -168,19 +168,21 @@ public class CommGameController extends BaseController {
 			commGame.setStatus(jsonUpInfo.getByte("status"));
 			commGame.setUpdateTime(jsonUpInfo.getLong("update_time"));
 			commGame.setListorder(0);
-			commGame.setTargetCnt(null == jsonUpInfo.getInteger("target_cnt") ? 7
-					: jsonUpInfo.getInteger("target_cnt"));
-			commGame.setTargetLevel(null == jsonUpInfo
-					.getInteger("target_level") ? 140 : jsonUpInfo
-					.getInteger("target_level"));
-			commGame.setParentId(null == jsonUpInfo.getInteger("parent_id") ? 0
-					: jsonUpInfo.getInteger("parent_id"));
+			if (null != jsonUpInfo.getInteger("target_cnt")) {
+				commGame.setTargetCnt(jsonUpInfo.getInteger("target_cnt"));
+			}
+			if (null != jsonUpInfo.getInteger("target_level")) {
+				commGame.setTargetLevel(jsonUpInfo.getInteger("target_level"));
+			}
+			if (null != jsonUpInfo.getInteger("parent_id")) {
+				commGame.setParentId(jsonUpInfo.getInteger("parent_id"));
+			}
 			if (commGameService.updateByGameid(commGame) < 1) {
 				result.put("code", 1000);
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 
@@ -189,7 +191,7 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/update");
 			result.put("time", new Date());
 			result.put("info", json);
-			sdklogger.info("ERROR:{}",result.toString());
+			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
 		result.put("code", 200);
@@ -234,7 +236,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/delete");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -246,17 +248,16 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/delete");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-			
 
 		} catch (IOException e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/delete");
 			result.put("time", new Date());
 			result.put("info", json);
-			sdklogger.info("ERROR:{}",result.toString());
+			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
 		result.put("code", 200);
@@ -294,19 +295,19 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/restore");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
 			commGame.setGameId(json.getInteger("app_id"));
-			commGame.setStatus((byte)1);
+			commGame.setStatus((byte) 1);
 			commGame.setUpdateTime(json.getLong("restore_time"));
 			if (commGameService.updateByGameid(commGame) < 1) {
 				result.put("code", 1000);
 				result.put("fun", "/game/restore");
 				result.put("time", new Date());
 				result.put("info", json);
-				sdklogger.info("ERROR:{}",result.toString());
+				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 		} catch (IOException e) {
@@ -314,7 +315,7 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/restore");
 			result.put("time", new Date());
 			result.put("info", json);
-			sdklogger.info("ERROR:{}",result.toString());
+			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
 		result.put("code", 200);

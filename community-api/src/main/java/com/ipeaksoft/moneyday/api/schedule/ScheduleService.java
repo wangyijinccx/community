@@ -11,7 +11,7 @@ import com.ipeaksoft.moneyday.api.service.CallbackService;
 import com.ipeaksoft.moneyday.core.service.BaseService;
 
 @Service
-//@Lazy(false)
+@Lazy(true)
 public class ScheduleService extends BaseService {
 	@Autowired
 	CallbackService callbackService;

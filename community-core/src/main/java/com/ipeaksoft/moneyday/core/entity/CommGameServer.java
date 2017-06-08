@@ -23,6 +23,8 @@ public class CommGameServer {
 
     private Integer parentId;
 
+    private Integer serverId;
+
     public Integer getId() {
         return id;
     }
@@ -109,5 +111,13 @@ public class CommGameServer {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(Integer serverId) {
+        this.serverId = serverId;
     }
 }
