@@ -76,6 +76,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/add");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -100,6 +101,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/add");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 
@@ -108,8 +110,10 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/add");
 			result.put("time", new Date());
 			result.put("info", json);
+			sdklogger.info("ERROR:{}",result.toString());
 			return result;
 		}
+		result.put("code", 200);
 		return result;
 	}
 
@@ -151,6 +155,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -175,6 +180,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 
@@ -183,8 +189,10 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/update");
 			result.put("time", new Date());
 			result.put("info", json);
+			sdklogger.info("ERROR:{}",result.toString());
 			return result;
 		}
+		result.put("code", 200);
 		return result;
 	}
 
@@ -226,6 +234,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/delete");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -237,6 +246,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/delete");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 			
@@ -246,8 +256,10 @@ public class CommGameController extends BaseController {
 			result.put("fun", "/game/delete");
 			result.put("time", new Date());
 			result.put("info", json);
+			sdklogger.info("ERROR:{}",result.toString());
 			return result;
 		}
+		result.put("code", 200);
 		return result;
 	}
 
@@ -282,6 +294,7 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/restore");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
 			CommGame commGame = new CommGame();
@@ -293,16 +306,18 @@ public class CommGameController extends BaseController {
 				result.put("fun", "/game/restore");
 				result.put("time", new Date());
 				result.put("info", json);
+				sdklogger.info("ERROR:{}",result.toString());
 				return result;
 			}
-
 		} catch (IOException e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/restore");
 			result.put("time", new Date());
 			result.put("info", json);
+			sdklogger.info("ERROR:{}",result.toString());
 			return result;
 		}
+		result.put("code", 200);
 		return result;
 	}
 
