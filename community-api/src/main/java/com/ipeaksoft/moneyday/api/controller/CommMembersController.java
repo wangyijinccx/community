@@ -87,6 +87,14 @@ public class CommMembersController extends BaseController {
 			commMembers.setOaAppId(json.getInteger("app_id"));
 			String agentname = json.getString("agentname");
 			CommUser commUser = commUserService.selectBymobile(strUtil.getAgentName(agentname));
+			if(null == commUser){
+				result.put("code", 407);
+				result.put("fun", "/user/uproleinfo");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			commMembers.setPromoterId(commUser.getId());
 			commMembers.setRegTime(json.getLong("time"));
 			commMembers.setUpdateTime(json.getLong("time"));

@@ -15,5 +15,9 @@ public class CommMembersService extends BaseService {
 	public int insertSelective(CommMembers record) {
 		return commMembersMapper.insertSelective(record);
 	}
+	
+	public CommMembers selectByUserName(String username){
+		return commMembersMapper.selectByUserName(username);
+	}
 
 }

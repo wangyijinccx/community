@@ -14,4 +14,6 @@ public interface CommMembersMapper {
     int updateByPrimaryKeySelective(CommMembers record);
 
     int updateByPrimaryKey(CommMembers record);
+    
+    CommMembers selectByUserName(String username);
 }
