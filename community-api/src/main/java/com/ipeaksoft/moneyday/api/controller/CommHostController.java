@@ -144,6 +144,7 @@ public class CommHostController extends BaseController {
 	@RequestMapping("getrecords")
 	public Object getRecords(String token, Integer pos,
 			HttpServletResponse response) {
+		getlist();
 		CommUser commUser = commUserService.selectByIndicate(token);
 		CommHost commhost = commHostService.selectByPrimaryKey(commUser.getCommid());
 		Integer webinarId = commhost.getWebinarId();
