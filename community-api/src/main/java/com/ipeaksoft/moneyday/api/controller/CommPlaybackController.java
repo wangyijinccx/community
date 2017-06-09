@@ -131,6 +131,7 @@ public class CommPlaybackController extends BaseController {
 	@RequestMapping("getrecords")
 	public Object getRecords(Integer webinarId, String token, Integer pos,
 			HttpServletResponse response) {
+		//不传webinarId
 		JSONObject result = new JSONObject();
 		 List<Map<String, Object>> lists = commPlaybackService.selectPlaybacks(webinarId, pos, 30);
 		// 获取主播状态

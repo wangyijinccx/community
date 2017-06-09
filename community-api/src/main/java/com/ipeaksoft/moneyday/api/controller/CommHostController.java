@@ -142,8 +142,11 @@ public class CommHostController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("getrecords")
-	public Object getRecords(Integer webinarId, String token, Integer pos,
+	public Object getRecords(String token, Integer pos,
 			HttpServletResponse response) {
+		CommUser commUser = commUserService.selectByIndicate(token);
+		CommHost commhost = commHostService.selectByPrimaryKey(commUser.getId());
+		Integer webinarId = commhost.getWebinarId();
 		// 不判断主播是否在线
 		JSONObject result = new JSONObject();
 		String url = "http://e.vhall.com/api/vhallapi/v2/record/list";
