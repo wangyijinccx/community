@@ -47,7 +47,7 @@ public class CommGameServerController extends BaseController {
 				contentBuffer.append(buf, 0, len);
 			}
 			String content = contentBuffer.toString();
-			logger.info("comm_gameadd:{}", content);
+			logger.info("comm_serveradd:{}", content);
 			json = JSONObject.parseObject(content);
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
 					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
@@ -125,7 +125,7 @@ public class CommGameServerController extends BaseController {
 				contentBuffer.append(buf, 0, len);
 			}
 			String content = contentBuffer.toString();
-			logger.info("comm_gameadd:{}", content);
+			logger.info("comm_serverupdate:{}", content);
 			json = JSONObject.parseObject(content);
 			JSONObject jsonUpInfo = json.getJSONObject("serinfo");
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)

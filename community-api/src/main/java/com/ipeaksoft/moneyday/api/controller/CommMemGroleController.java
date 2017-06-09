@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
+import com.ipeaksoft.moneyday.core.entity.CommMemGrole;
 import com.ipeaksoft.moneyday.core.entity.CommMembers;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
+import com.ipeaksoft.moneyday.core.service.CommMemGroleService;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.util.strUtil;
@@ -25,17 +27,15 @@ import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
 @RequestMapping(value = "/user")
-public class CommMembersController extends BaseController {
+public class CommMemGroleController extends BaseController {
 
 	@Autowired
-	CommMembersService commMembersService;
-	@Autowired
-	CommUserService commUserService;
-	 
+	CommMemGroleService commMemGroleService;
+	
 	@SuppressWarnings("deprecation")
 	@ResponseBody
-	@RequestMapping("reg")
-	public Object add(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("uproleinfo")
+	public Object uproleinfo(HttpServletRequest request, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
@@ -47,7 +47,7 @@ public class CommMembersController extends BaseController {
 				contentBuffer.append(buf, 0, len);
 			}
 			String content = contentBuffer.toString();
-			logger.info("comm_userreg:{}", content);
+			logger.info("comm_useruproleinfo:{}", content);
 			json = JSONObject.parseObject(content);
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
 					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
@@ -71,28 +71,17 @@ public class CommMembersController extends BaseController {
 			String reqSign = json.getString("sign");
 			if (!sign.equals(reqSign)) {
 				result.put("code", 404);
-				result.put("fun", "/user/reg");
+				result.put("fun", "/user/uproleinfo");
 				result.put("time", new Date());
 				result.put("info", json);
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-			CommMembers commMembers = new CommMembers();
-			commMembers.setUsername(json.getString("uersname"));
-			commMembers.setPassword(json.getString("password"));
-			commMembers.setDeviceId(json.getString("device_id"));
-			commMembers.setRegIp(json.getInteger("ip"));
-			commMembers.setPlatId(json.getInteger("plat_id"));
-			commMembers.setFrom(json.getByte("from"));
-			commMembers.setOaAppId(json.getInteger("app_id"));
-			String agentname = json.getString("agentname");
-			CommUser commUser = commUserService.selectBymobile(strUtil.getAgentName(agentname));
-			commMembers.setPromoterId(commUser.getId());
-			commMembers.setRegTime(json.getLong("time"));
-			commMembers.setUpdateTime(json.getLong("time"));
-			if (commMembersService.insertSelective(commMembers) < 1) {
+			CommMemGrole commMemGrole = new CommMemGrole();
+			
+			if (commMemGroleService.insertSelective(commMemGrole) < 1) {
 				result.put("code", 1000);
-				result.put("fun", "/user/reg");
+				result.put("fun", "/user/uproleinfo");
 				result.put("time", new Date());
 				result.put("info", json);
 				sdklogger.info("ERROR:{}", result.toString());
@@ -101,7 +90,7 @@ public class CommMembersController extends BaseController {
 
 		} catch (IOException e) {
 			result.put("code", 1000);
-			result.put("fun", "/user/reg");
+			result.put("fun", "/user/uproleinfo");
 			result.put("time", new Date());
 			result.put("info", json);
 			sdklogger.info("ERROR:{}", result.toString());

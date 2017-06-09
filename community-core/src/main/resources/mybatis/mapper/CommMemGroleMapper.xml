@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommMemGroleMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="plat_id" property="platId" jdbcType="INTEGER" />
+    <result column="oa_app_id" property="oaAppId" jdbcType="INTEGER" />
+    <result column="mem_id" property="memId" jdbcType="INTEGER" />
+    <result column="promoter_id" property="promoterId" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="from" property="from" jdbcType="TINYINT" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="role_level" property="roleLevel" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+    <result column="server_name" property="serverName" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="BIGINT" />
+    <result column="rolelevel_ctime" property="rolelevelCtime" jdbcType="BIGINT" />
+    <result column="rolelevel_mtime" property="rolelevelMtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plat_id, oa_app_id, mem_id, promoter_id, ip, update_time, device_id, from, role_id, 
+    role_level, role_name, server_id, server_name, creat_time, rolelevel_ctime, rolelevel_mtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_mem_grole
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_mem_grole
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    insert into tb_comm_mem_grole (id, plat_id, oa_app_id, 
+      mem_id, promoter_id, ip, 
+      update_time, device_id, from, 
+      role_id, role_level, role_name, 
+      server_id, server_name, creat_time, 
+      rolelevel_ctime, rolelevel_mtime)
+    values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{oaAppId,jdbcType=INTEGER}, 
+      #{memId,jdbcType=INTEGER}, #{promoterId,jdbcType=INTEGER}, #{ip,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, 
+      #{roleId,jdbcType=VARCHAR}, #{roleLevel,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, 
+      #{serverId,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR}, #{creatTime,jdbcType=BIGINT}, 
+      #{rolelevelCtime,jdbcType=BIGINT}, #{rolelevelMtime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    insert into tb_comm_mem_grole
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platId != null" >
+        plat_id,
+      </if>
+      <if test="oaAppId != null" >
+        oa_app_id,
+      </if>
+      <if test="memId != null" >
+        mem_id,
+      </if>
+      <if test="promoterId != null" >
+        promoter_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="from != null" >
+        from,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="roleLevel != null" >
+        role_level,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="serverId != null" >
+        server_id,
+      </if>
+      <if test="serverName != null" >
+        server_name,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="rolelevelCtime != null" >
+        rolelevel_ctime,
+      </if>
+      <if test="rolelevelMtime != null" >
+        rolelevel_mtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platId != null" >
+        #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="oaAppId != null" >
+        #{oaAppId,jdbcType=INTEGER},
+      </if>
+      <if test="memId != null" >
+        #{memId,jdbcType=INTEGER},
+      </if>
+      <if test="promoterId != null" >
+        #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        #{from,jdbcType=TINYINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleLevel != null" >
+        #{roleLevel,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null" >
+        #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelCtime != null" >
+        #{rolelevelCtime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelMtime != null" >
+        #{rolelevelMtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    update tb_comm_mem_grole
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="oaAppId != null" >
+        oa_app_id = #{oaAppId,jdbcType=INTEGER},
+      </if>
+      <if test="memId != null" >
+        mem_id = #{memId,jdbcType=INTEGER},
+      </if>
+      <if test="promoterId != null" >
+        promoter_id = #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        from = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleLevel != null" >
+        role_level = #{roleLevel,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null" >
+        server_id = #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="serverName != null" >
+        server_name = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelCtime != null" >
+        rolelevel_ctime = #{rolelevelCtime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelMtime != null" >
+        rolelevel_mtime = #{rolelevelMtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    update tb_comm_mem_grole
+    set plat_id = #{platId,jdbcType=INTEGER},
+      oa_app_id = #{oaAppId,jdbcType=INTEGER},
+      mem_id = #{memId,jdbcType=INTEGER},
+      promoter_id = #{promoterId,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      from = #{from,jdbcType=TINYINT},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      role_level = #{roleLevel,jdbcType=INTEGER},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      server_id = #{serverId,jdbcType=INTEGER},
+      server_name = #{serverName,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=BIGINT},
+      rolelevel_ctime = #{rolelevelCtime,jdbcType=BIGINT},
+      rolelevel_mtime = #{rolelevelMtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
