@@ -107,23 +107,34 @@ public class CommMemGroleController extends BaseController {
 			comm.setRoleName(json.getString("role_name"));
 			comm.setServerId(json.getInteger("server_id"));
 			comm.setServerName(json.getString("server_name"));
-			// comm.setCreatTime(json.getLong(""));
 			if (null != json.getLong("rolelevel_ctime")) {
 				comm.setRolelevelCtime(json.getLong("rolelevel_ctime"));
 			}
 			if (null != json.getLong("rolelevel_mtime")) {
 				comm.setRolelevelMtime(json.getLong("rolelevel_mtime"));
 			}
-
-			if (commMemGroleService.insertSelective(comm) < 1) {
-				result.put("code", 1000);
-				result.put("fun", "/user/uproleinfo");
-				result.put("time", new Date());
-				result.put("info", json);
-				sdklogger.info("ERROR:{}", result.toString());
-				return result;
+            
+			CommMemGrole commMemGrole = commMemGroleService.selectByRoleId(json.getString("role_id"));
+			if(null == commMemGrole){
+				comm.setCreatTime(json.getLong("time"));
+				if (commMemGroleService.insertSelective(comm) < 1) {
+					result.put("code", 1000);
+					result.put("fun", "/user/uproleinfo");
+					result.put("time", new Date());
+					result.put("info", json);
+					sdklogger.info("ERROR:{}", result.toString());
+					return result;
+				}
+			}else{
+				if (commMemGroleService.updateByRoleId(comm) < 1) {
+					result.put("code", 1000);
+					result.put("fun", "/user/uproleinfo");
+					result.put("time", new Date());
+					result.put("info", json);
+					sdklogger.info("ERROR:{}", result.toString());
+					return result;
+				}
 			}
-
 		} catch (IOException e) {
 			result.put("code", 1000);
 			result.put("fun", "/user/uproleinfo");

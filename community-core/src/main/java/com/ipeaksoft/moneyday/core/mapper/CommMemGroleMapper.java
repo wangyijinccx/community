@@ -14,4 +14,8 @@ public interface CommMemGroleMapper {
     int updateByPrimaryKeySelective(CommMemGrole record);
 
     int updateByPrimaryKey(CommMemGrole record);
+    
+    int updateByRoleId(CommMemGrole record);
+    
+    CommMemGrole selectByRoleId(String roleId);
 }

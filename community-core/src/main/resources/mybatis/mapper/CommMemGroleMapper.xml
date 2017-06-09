@@ -231,4 +231,63 @@
       rolelevel_mtime = #{rolelevelMtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <update id="updateByRoleId" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
+    update tb_comm_mem_grole
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="oaAppId != null" >
+        oa_app_id = #{oaAppId,jdbcType=INTEGER},
+      </if>
+      <if test="memId != null" >
+        mem_id = #{memId,jdbcType=INTEGER},
+      </if>
+      <if test="promoterId != null" >
+        promoter_id = #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        from = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="roleLevel != null" >
+        role_level = #{roleLevel,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null" >
+        server_id = #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="serverName != null" >
+        server_name = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelCtime != null" >
+        rolelevel_ctime = #{rolelevelCtime,jdbcType=BIGINT},
+      </if>
+      <if test="rolelevelMtime != null" >
+        rolelevel_mtime = #{rolelevelMtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_mem_grole
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
 </mapper>

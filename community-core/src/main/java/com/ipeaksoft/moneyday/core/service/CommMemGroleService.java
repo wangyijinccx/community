@@ -22,5 +22,13 @@ public class CommMemGroleService extends BaseService{
 		return commMemGroleMapper.updateByPrimaryKeySelective(record);
 	}
 	
+	public int updateByRoleId(CommMemGrole record){
+		return commMemGroleMapper.updateByRoleId(record);
+	}
+	
+	public CommMemGrole selectByRoleId(String roleId){
+		return commMemGroleMapper.selectByRoleId(roleId);
+	}
+	
 	
 }
