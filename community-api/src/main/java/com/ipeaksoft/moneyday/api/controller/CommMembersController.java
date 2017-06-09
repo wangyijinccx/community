@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommMembers;
+import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
+import com.ipeaksoft.moneyday.core.service.CommUserService;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 
 @Controller
@@ -26,7 +29,9 @@ public class CommMembersController extends BaseController {
 
 	@Autowired
 	CommMembersService commMembersService;
-	
+	@Autowired
+	CommUserService commUserService;
+	 
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("reg")
@@ -81,7 +86,8 @@ public class CommMembersController extends BaseController {
 			commMembers.setFrom(json.getByte("from"));
 			commMembers.setOaAppId(json.getInteger("app_id"));
 			String agentname = json.getString("agentname");
-			commMembers.setPromoterId(json.getInteger("agentname"));
+			CommUser commUser = commUserService.selectBymobile(strUtil.getAgentName(agentname));
+			commMembers.setPromoterId(commUser.getId());
 			commMembers.setRegTime(json.getLong("time"));
 			commMembers.setUpdateTime(json.getLong("time"));
 			if (commMembersService.insertSelective(commMembers) < 1) {
