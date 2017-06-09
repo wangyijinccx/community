@@ -21,7 +21,7 @@ public class BaseController {
 	public static final String account = "v14903519";
 	public static final String password = "anywn123";
 	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";
-	public static final String PLAT_ID ="ztwireless";
+	public static final String PLAT_ID ="1869527";
 
     public BaseController(){
         className = getClass().getName();

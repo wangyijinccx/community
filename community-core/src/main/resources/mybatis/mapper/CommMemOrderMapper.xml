@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommMemOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="plat_id" property="platId" jdbcType="INTEGER" />
+    <result column="grole_id" property="groleId" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="from" property="from" jdbcType="TINYINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="payway" property="payway" jdbcType="VARCHAR" />
+    <result column="real_amount" property="realAmount" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="gm_cnt" property="gmCnt" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="rebate_cnt" property="rebateCnt" jdbcType="DOUBLE" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plat_id, grole_id, ip, time, device_id, from, order_id, payway, real_amount, 
+    amount, gm_cnt, status, rebate_cnt, role_id, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_mem_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_mem_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    insert into tb_comm_mem_order (id, plat_id, grole_id, 
+      ip, time, device_id, 
+      from, order_id, payway, 
+      real_amount, amount, gm_cnt, 
+      status, rebate_cnt, role_id, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{groleId,jdbcType=INTEGER}, 
+      #{ip,jdbcType=INTEGER}, #{time,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, 
+      #{from,jdbcType=TINYINT}, #{orderId,jdbcType=VARCHAR}, #{payway,jdbcType=VARCHAR}, 
+      #{realAmount,jdbcType=DOUBLE}, #{amount,jdbcType=DOUBLE}, #{gmCnt,jdbcType=DOUBLE}, 
+      #{status,jdbcType=TINYINT}, #{rebateCnt,jdbcType=DOUBLE}, #{roleId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    insert into tb_comm_mem_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platId != null" >
+        plat_id,
+      </if>
+      <if test="groleId != null" >
+        grole_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="from != null" >
+        from,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="payway != null" >
+        payway,
+      </if>
+      <if test="realAmount != null" >
+        real_amount,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="gmCnt != null" >
+        gm_cnt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="rebateCnt != null" >
+        rebate_cnt,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platId != null" >
+        #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="groleId != null" >
+        #{groleId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        #{from,jdbcType=TINYINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="realAmount != null" >
+        #{realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="gmCnt != null" >
+        #{gmCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="rebateCnt != null" >
+        #{rebateCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    update tb_comm_mem_order
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="groleId != null" >
+        grole_id = #{groleId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        from = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        payway = #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="realAmount != null" >
+        real_amount = #{realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="gmCnt != null" >
+        gm_cnt = #{gmCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="rebateCnt != null" >
+        rebate_cnt = #{rebateCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    update tb_comm_mem_order
+    set plat_id = #{platId,jdbcType=INTEGER},
+      grole_id = #{groleId,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=INTEGER},
+      time = #{time,jdbcType=BIGINT},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      from = #{from,jdbcType=TINYINT},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      payway = #{payway,jdbcType=VARCHAR},
+      real_amount = #{realAmount,jdbcType=DOUBLE},
+      amount = #{amount,jdbcType=DOUBLE},
+      gm_cnt = #{gmCnt,jdbcType=DOUBLE},
+      status = #{status,jdbcType=TINYINT},
+      rebate_cnt = #{rebateCnt,jdbcType=DOUBLE},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
