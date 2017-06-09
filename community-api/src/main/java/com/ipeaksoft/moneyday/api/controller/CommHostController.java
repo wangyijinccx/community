@@ -145,7 +145,7 @@ public class CommHostController extends BaseController {
 	public Object getRecords(String token, Integer pos,
 			HttpServletResponse response) {
 		CommUser commUser = commUserService.selectByIndicate(token);
-		CommHost commhost = commHostService.selectByPrimaryKey(commUser.getId());
+		CommHost commhost = commHostService.selectByPrimaryKey(commUser.getCommid());
 		Integer webinarId = commhost.getWebinarId();
 		// 不判断主播是否在线
 		JSONObject result = new JSONObject();
