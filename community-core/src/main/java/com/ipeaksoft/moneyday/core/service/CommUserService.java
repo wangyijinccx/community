@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.mapper.CommUserMapper;
-import com.ipeaksoft.moneyday.core.util.passUtil;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Service
 public class CommUserService extends BaseService{
@@ -76,7 +76,7 @@ public class CommUserService extends BaseService{
 		Map<String, Object> commUser = selectByIndicateSelective(indicate);
 		//result.put("token", commUser.getIndicate());
 		String mobile =  (String) commUser.get("mobile");
-		String pass = passUtil.getPassWord(mobile);
+		String pass = strUtil.getPassWord(mobile);
 		commUser.put("whaccount",mobile);
 		commUser.put("whpass",pass);
 		commUser.put("xmaccount","xg_"+mobile);

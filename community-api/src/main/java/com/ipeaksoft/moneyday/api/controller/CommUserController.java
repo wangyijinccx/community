@@ -20,7 +20,7 @@ import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.enums.SMSType;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
-import com.ipeaksoft.moneyday.core.util.passUtil;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
 public class CommUserController extends BaseController {
@@ -126,7 +126,7 @@ public class CommUserController extends BaseController {
 			}
 			if (!"200".equals(validationJson.getString("code"))) {
 				// 没有注册过
-				String pass = passUtil.getPassWord(phoneNumber);
+				String pass = strUtil.getPassWord(phoneNumber);
 				String url = "http://e.vhall.com/api/vhallapi/v2/user/register";
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("third_user_id", phoneNumber);
