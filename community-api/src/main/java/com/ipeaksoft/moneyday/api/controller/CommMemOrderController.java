@@ -169,8 +169,9 @@ public class CommMemOrderController extends BaseController {
 				return result;
 			}
 
-			// 计算
-			
+			// 计算 总收入 一直加   余额 没有值的时候添加，有了之后就得判断减价
+			//tb_comm_user totalaward  award tdaward   
+			//来源 师徒  玩家充值
 			
 			
 

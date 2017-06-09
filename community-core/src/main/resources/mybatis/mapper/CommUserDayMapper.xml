@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommUserDayMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="todayRegisterNum" property="todayregisternum" jdbcType="INTEGER" />
+    <result column="todayRechargeNum" property="todayrechargenum" jdbcType="INTEGER" />
+    <result column="todayCommission" property="todaycommission" jdbcType="DOUBLE" />
+    <result column="time" property="time" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, todayRegisterNum, todayRechargeNum, todayCommission, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user_day
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_user_day
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    insert into tb_comm_user_day (id, userid, todayRegisterNum, 
+      todayRechargeNum, todayCommission, time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{todayregisternum,jdbcType=INTEGER}, 
+      #{todayrechargenum,jdbcType=INTEGER}, #{todaycommission,jdbcType=DOUBLE}, #{time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    insert into tb_comm_user_day
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="todayregisternum != null" >
+        todayRegisterNum,
+      </if>
+      <if test="todayrechargenum != null" >
+        todayRechargeNum,
+      </if>
+      <if test="todaycommission != null" >
+        todayCommission,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="todayregisternum != null" >
+        #{todayregisternum,jdbcType=INTEGER},
+      </if>
+      <if test="todayrechargenum != null" >
+        #{todayrechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="todaycommission != null" >
+        #{todaycommission,jdbcType=DOUBLE},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    update tb_comm_user_day
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="todayregisternum != null" >
+        todayRegisterNum = #{todayregisternum,jdbcType=INTEGER},
+      </if>
+      <if test="todayrechargenum != null" >
+        todayRechargeNum = #{todayrechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="todaycommission != null" >
+        todayCommission = #{todaycommission,jdbcType=DOUBLE},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    update tb_comm_user_day
+    set userid = #{userid,jdbcType=INTEGER},
+      todayRegisterNum = #{todayregisternum,jdbcType=INTEGER},
+      todayRechargeNum = #{todayrechargenum,jdbcType=INTEGER},
+      todayCommission = #{todaycommission,jdbcType=DOUBLE},
+      time = #{time,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
