@@ -19,8 +19,8 @@
     <result column="enable" property="enable" jdbcType="BIT" />
     <result column="idfa" property="idfa" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-    <result column="award" property="award" jdbcType="INTEGER" />
-    <result column="tdaward" property="tdaward" jdbcType="INTEGER" />
+    <result column="award" property="award" jdbcType="DOUBLE" />
+    <result column="tdaward" property="tdaward" jdbcType="DOUBLE" />
     <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="commid" property="commid" jdbcType="INTEGER" />
@@ -34,7 +34,7 @@
     <result column="get_udid_time" property="getUdidTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="appid" property="appid" jdbcType="VARCHAR" />
-    <result column="totalaward" property="totalaward" jdbcType="INTEGER" />
+    <result column="totalaward" property="totalaward" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, indicate, openid, unionid, nickname, sex, language, city, province, country, 
@@ -70,12 +70,12 @@
       #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=BIT}, 
-      #{idfa,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{award,jdbcType=INTEGER}, 
-      #{tdaward,jdbcType=INTEGER}, #{inviteCode,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{idfa,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{award,jdbcType=DOUBLE}, 
+      #{tdaward,jdbcType=DOUBLE}, #{inviteCode,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
       #{commid,jdbcType=INTEGER}, #{udid,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
       #{deviceModel,jdbcType=VARCHAR}, #{deviceSerial,jdbcType=VARCHAR}, #{deviceVersion,jdbcType=VARCHAR}, 
       #{deviceIccid,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, #{getUdidTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, #{totalaward,jdbcType=INTEGER}
+      #{status,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, #{totalaward,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >
@@ -234,10 +234,10 @@
         #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="award != null" >
-        #{award,jdbcType=INTEGER},
+        #{award,jdbcType=DOUBLE},
       </if>
       <if test="tdaward != null" >
-        #{tdaward,jdbcType=INTEGER},
+        #{tdaward,jdbcType=DOUBLE},
       </if>
       <if test="inviteCode != null" >
         #{inviteCode,jdbcType=VARCHAR},
@@ -279,7 +279,7 @@
         #{appid,jdbcType=VARCHAR},
       </if>
       <if test="totalaward != null" >
-        #{totalaward,jdbcType=INTEGER},
+        #{totalaward,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -335,10 +335,10 @@
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="award != null" >
-        award = #{award,jdbcType=INTEGER},
+        award = #{award,jdbcType=DOUBLE},
       </if>
       <if test="tdaward != null" >
-        tdaward = #{tdaward,jdbcType=INTEGER},
+        tdaward = #{tdaward,jdbcType=DOUBLE},
       </if>
       <if test="inviteCode != null" >
         invite_code = #{inviteCode,jdbcType=VARCHAR},
@@ -380,7 +380,7 @@
         appid = #{appid,jdbcType=VARCHAR},
       </if>
       <if test="totalaward != null" >
-        totalaward = #{totalaward,jdbcType=INTEGER},
+        totalaward = #{totalaward,jdbcType=DOUBLE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -403,8 +403,8 @@
       enable = #{enable,jdbcType=BIT},
       idfa = #{idfa,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
-      award = #{award,jdbcType=INTEGER},
-      tdaward = #{tdaward,jdbcType=INTEGER},
+      award = #{award,jdbcType=DOUBLE},
+      tdaward = #{tdaward,jdbcType=DOUBLE},
       invite_code = #{inviteCode,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
       commid = #{commid,jdbcType=INTEGER},
@@ -418,7 +418,7 @@
       get_udid_time = #{getUdidTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
       appid = #{appid,jdbcType=VARCHAR},
-      totalaward = #{totalaward,jdbcType=INTEGER}
+      totalaward = #{totalaward,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -501,10 +501,10 @@
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="award != null" >
-        award = #{award,jdbcType=INTEGER},
+        award = #{award,jdbcType=DOUBLE},
       </if>
       <if test="tdaward != null" >
-        tdaward = #{tdaward,jdbcType=INTEGER},
+        tdaward = #{tdaward,jdbcType=DOUBLE},
       </if>
       <if test="inviteCode != null" >
         invite_code = #{inviteCode,jdbcType=VARCHAR},
@@ -546,7 +546,7 @@
         appid = #{appid,jdbcType=VARCHAR},
       </if>
       <if test="totalaward != null" >
-        totalaward = #{totalaward,jdbcType=INTEGER},
+        totalaward = #{totalaward,jdbcType=DOUBLE},
       </if>
     </set>
     where indicate = #{indicate,jdbcType=VARCHAR}

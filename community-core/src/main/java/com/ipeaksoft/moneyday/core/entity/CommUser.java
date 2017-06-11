@@ -37,9 +37,9 @@ public class CommUser {
 
     private String mobile;
 
-    private Integer award;
+    private Double award;
 
-    private Integer tdaward;
+    private Double tdaward;
 
     private String inviteCode;
 
@@ -67,7 +67,7 @@ public class CommUser {
 
     private String appid;
 
-    private Integer totalaward;
+    private Double totalaward;
 
     public Integer getId() {
         return id;
@@ -205,19 +205,19 @@ public class CommUser {
         this.mobile = mobile;
     }
 
-    public Integer getAward() {
+    public Double getAward() {
         return award;
     }
 
-    public void setAward(Integer award) {
+    public void setAward(Double award) {
         this.award = award;
     }
 
-    public Integer getTdaward() {
+    public Double getTdaward() {
         return tdaward;
     }
 
-    public void setTdaward(Integer tdaward) {
+    public void setTdaward(Double tdaward) {
         this.tdaward = tdaward;
     }
 
@@ -325,11 +325,11 @@ public class CommUser {
         this.appid = appid;
     }
 
-    public Integer getTotalaward() {
+    public Double getTotalaward() {
         return totalaward;
     }
 
-    public void setTotalaward(Integer totalaward) {
+    public void setTotalaward(Double totalaward) {
         this.totalaward = totalaward;
     }
 }
