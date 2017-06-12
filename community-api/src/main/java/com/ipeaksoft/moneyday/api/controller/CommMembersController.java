@@ -19,6 +19,7 @@ import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommMembers;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
+import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.util.strUtil;
 
@@ -31,6 +32,8 @@ public class CommMembersController extends BaseController {
 	CommMembersService commMembersService;
 	@Autowired
 	CommUserService commUserService;
+	@Autowired
+	CommUserDayService commUserDayService;
 	 
 	@SuppressWarnings("deprecation")
 	@ResponseBody
@@ -106,7 +109,7 @@ public class CommMembersController extends BaseController {
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-
+			commUserDayService.registered(commUser);
 		} catch (IOException e) {
 			result.put("code", 1000);
 			result.put("fun", "/user/reg");

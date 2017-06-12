@@ -103,4 +103,28 @@
       time = #{time,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="selectCurrentInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+       <include refid="Base_Column_List" />  
+    from tb_comm_user_day where time =current_date and userid= #{userid,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateCurrentInfo" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
+    update tb_comm_user_day
+    <set >
+      <if test="todayregisternum != null" >
+        todayRegisterNum = #{todayregisternum,jdbcType=INTEGER},
+      </if>
+      <if test="todayrechargenum != null" >
+        todayRechargeNum = #{todayrechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="todaycommission != null" >
+        todayCommission = #{todaycommission,jdbcType=DOUBLE},
+      </if>
+    </set>
+   where time =current_date and userid= #{userid,jdbcType=INTEGER}
+  </update>
+  
 </mapper>

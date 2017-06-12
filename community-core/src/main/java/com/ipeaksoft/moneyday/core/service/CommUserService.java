@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
+import com.ipeaksoft.moneyday.core.entity.CommUserDay;
 import com.ipeaksoft.moneyday.core.mapper.CommUserMapper;
 import com.ipeaksoft.moneyday.core.util.strUtil;
 
@@ -42,6 +43,10 @@ public class CommUserService extends BaseService{
 	
 	public int updateByIndicate(CommUser record){
 		return commUserMapper.updateByIndicate(record);
+	}
+	
+	public  CommUser selectByPrimaryKey(Integer id){
+		return commUserMapper.selectByPrimaryKey(id);
 	}
 
 	public CommUser toUser(CommUser commUser, JSONObject json) {

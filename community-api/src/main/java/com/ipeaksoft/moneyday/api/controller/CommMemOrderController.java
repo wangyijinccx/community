@@ -20,6 +20,7 @@ import com.ipeaksoft.moneyday.core.entity.CommMemOrder;
 import com.ipeaksoft.moneyday.core.service.CommMemGroleService;
 import com.ipeaksoft.moneyday.core.service.CommMemOrderService;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
+import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 
 @Controller
@@ -34,6 +35,8 @@ public class CommMemOrderController extends BaseController {
 	CommUserService commUserService;
 	@Autowired
 	CommMemOrderService commMemOrderService;
+	@Autowired
+	CommUserDayService commUserDayService;
 
 	@SuppressWarnings("deprecation")
 	@ResponseBody
@@ -168,13 +171,9 @@ public class CommMemOrderController extends BaseController {
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-
-			// 计算 总收入 一直加   余额 没有值的时候添加，有了之后就得判断减价
-			//tb_comm_user totalaward  award tdaward   
-			//来源 师徒  玩家充值
-		    
-			
-			
+            //收益
+			commUserDayService.statistical(json.getString("agentname"),
+					json.getDouble("real_amount"));
 
 		} catch (IOException e) {
 			result.put("code", 1000);

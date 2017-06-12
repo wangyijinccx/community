@@ -14,4 +14,8 @@ public interface CommUserDayMapper {
     int updateByPrimaryKeySelective(CommUserDay record);
 
     int updateByPrimaryKey(CommUserDay record);
+    
+    CommUserDay selectCurrentInfo(Integer userid);
+    
+    int updateCurrentInfo(CommUserDay record);
 }
