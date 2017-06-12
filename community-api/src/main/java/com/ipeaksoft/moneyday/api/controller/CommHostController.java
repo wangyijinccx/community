@@ -197,12 +197,12 @@ public class CommHostController extends BaseController {
 		//主播信息
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(1 == commHost.getOnlinestatus()){
-			map.put("id", commHost.getId());
+			//map.put("id", commHost.getId());
 			map.put("webinarId", webinarId);
 			map.put("subject", commHost.getSubject());
 			map.put("imgUrl", commHost.getImgUrl());
 			map.put("onlinestatus", commHost.getOnlinestatus());
-			map.put("nickname", commHost.getNickname());
+			//map.put("nickname", commHost.getNickname());
 			result.put("members", memberInfo.getInteger("members"));
 		}else{
 			result.put("members", 0);
@@ -213,6 +213,8 @@ public class CommHostController extends BaseController {
 		result.put("students", memberInfo.getInteger("students"));
 		result.put("headimg",commHost.getHeadimg());
 		result.put("coverimg",commHost.getCoverimg());
+		result.put("nickname", commHost.getNickname());
+		result.put("id", commHost.getId());
 		result.put("records", json);
 		result.put("onlineLive",map);
 		result.put("msg", "获取回放列表成功");
