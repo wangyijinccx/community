@@ -33,8 +33,13 @@ public class CommHostService extends BaseService{
 		return commHostMapper.selectByWebinarId(webinarId);
 	}
 	
+
 	public List<Map<String,Object>> getStudents(Integer webinarId){
 		return commHostMapper.getStudents(webinarId);
+	}
+
+	public Map<String ,Object> getwebinarId(String token){
+		return commHostMapper.getwebinarId(token);
 	}
 	
 }

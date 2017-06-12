@@ -156,9 +156,9 @@ public class CommUserController extends BaseController {
 			commUser.setCreateTime(new Date());
 			commUser.setUpdateTime(new Date());
 			commUser.setStatus("1");
-			commUser.setAward(0);
-			commUser.setTdaward(0);
-			commUser.setTotalaward(0);
+			commUser.setAward((double)0);
+			commUser.setTdaward((double)0);
+			commUser.setTotalaward((double)0);
 			if (commUserService.insertSelective(commUser) < 1) {
 				result.put("result", 3);
 				result.put("msg", "西瓜妹注册失败");

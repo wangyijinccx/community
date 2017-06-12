@@ -210,9 +210,15 @@
     from tb_comm_host
     where webinar_id = #{webinarId,jdbcType=INTEGER}
   </select>
+
   <select id="getStudents" resultType="java.util.HashMap" parameterType="java.lang.Integer" > 
    select tu.*  from tb_comm_host th 
 	 LEFT JOIN tb_comm_user tu on th.id = tu.commid 
    where th.webinar_id= #{webinarId,jdbcType=INTEGER}
+   </select>
+   <select id="getwebinarId" resultType="java.util.HashMap"  >
+	select th.webinar_id webinarId from  tb_comm_host th
+	left  JOIN tb_comm_user tu on th.id = tu.commid
+	 where tu.indicate =#{token,jdbcType=VARCHAR}
   </select>
 </mapper>

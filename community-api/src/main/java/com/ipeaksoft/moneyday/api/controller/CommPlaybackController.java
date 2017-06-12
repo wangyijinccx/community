@@ -44,10 +44,17 @@ public class CommPlaybackController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("updateplayback")
-	public Object updatePlayback(Integer webinarId,
+	public Object updatePlayback(String  token,
 			HttpServletResponse response) {
 		// 是否存在回访id为空的情况？
 		JSONObject result = new JSONObject();
+		Map<String ,Object> map = commHostService.getwebinarId(token);
+		if(null == map){
+			result.put("result", 2);
+			result.put("msg", "更新回放列表失败");
+			return result;
+		}
+		Integer webinarId = (Integer) map.get("getwebinarId");
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 			String url = "http://e.vhall.com/api/vhallapi/v2/record/list";
@@ -129,11 +136,18 @@ public class CommPlaybackController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("getrecords")
-	public Object getRecords(Integer webinarId, String token, Integer pos,
+	public Object getRecords(String token, Integer pos,
 			HttpServletResponse response) {
 		//不传webinarId
 		JSONObject result = new JSONObject();
-		 List<Map<String, Object>> lists = commPlaybackService.selectPlaybacks(webinarId, pos, 30);
+		Map<String ,Object> map_webinarId = commHostService.getwebinarId(token);
+		if(null == map_webinarId){
+			result.put("result", 2);
+			result.put("msg", "获取回放列表失败");
+			return result;
+		}
+		Integer webinarId = (Integer) map_webinarId.get("getwebinarId");
+		List<Map<String, Object>> lists = commPlaybackService.selectPlaybacks(webinarId, pos, 30);
 		// 获取主播状态
 		CommHost commHost =  commHostService.selectByWebinarId(webinarId);
 		//主播信息
