@@ -31,6 +31,12 @@ public class CommHost {
 
     private String coverimg;
 
+    private Double award;
+
+    private Double tdaward;
+
+    private Double totalaward;
+
     public Integer getId() {
         return id;
     }
@@ -141,5 +147,29 @@ public class CommHost {
 
     public void setCoverimg(String coverimg) {
         this.coverimg = coverimg;
+    }
+
+    public Double getAward() {
+        return award;
+    }
+
+    public void setAward(Double award) {
+        this.award = award;
+    }
+
+    public Double getTdaward() {
+        return tdaward;
+    }
+
+    public void setTdaward(Double tdaward) {
+        this.tdaward = tdaward;
+    }
+
+    public Double getTotalaward() {
+        return totalaward;
+    }
+
+    public void setTotalaward(Double totalaward) {
+        this.totalaward = totalaward;
     }
 }

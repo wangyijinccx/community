@@ -8,9 +8,10 @@
     <result column="todayRechargeNum" property="todayrechargenum" jdbcType="INTEGER" />
     <result column="todayCommission" property="todaycommission" jdbcType="DOUBLE" />
     <result column="time" property="time" jdbcType="DATE" />
+    <result column="todayWithdrawalsCount" property="todaywithdrawalscount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, todayRegisterNum, todayRechargeNum, todayCommission, time
+    id, userid, todayRegisterNum, todayRechargeNum, todayCommission, time, todayWithdrawalsCount
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
     insert into tb_comm_user_day (id, userid, todayRegisterNum, 
-      todayRechargeNum, todayCommission, time
-      )
+      todayRechargeNum, todayCommission, time, 
+      todayWithdrawalsCount)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{todayregisternum,jdbcType=INTEGER}, 
-      #{todayrechargenum,jdbcType=INTEGER}, #{todaycommission,jdbcType=DOUBLE}, #{time,jdbcType=DATE}
-      )
+      #{todayrechargenum,jdbcType=INTEGER}, #{todaycommission,jdbcType=DOUBLE}, #{time,jdbcType=DATE}, 
+      #{todaywithdrawalscount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
     insert into tb_comm_user_day
@@ -51,6 +52,9 @@
       <if test="time != null" >
         time,
       </if>
+      <if test="todaywithdrawalscount != null" >
+        todayWithdrawalsCount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -70,6 +74,9 @@
       </if>
       <if test="time != null" >
         #{time,jdbcType=DATE},
+      </if>
+      <if test="todaywithdrawalscount != null" >
+        #{todaywithdrawalscount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -91,6 +98,9 @@
       <if test="time != null" >
         time = #{time,jdbcType=DATE},
       </if>
+      <if test="todaywithdrawalscount != null" >
+        todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -100,7 +110,8 @@
       todayRegisterNum = #{todayregisternum,jdbcType=INTEGER},
       todayRechargeNum = #{todayrechargenum,jdbcType=INTEGER},
       todayCommission = #{todaycommission,jdbcType=DOUBLE},
-      time = #{time,jdbcType=DATE}
+      time = #{time,jdbcType=DATE},
+      todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -109,6 +120,11 @@
     select 
        <include refid="Base_Column_List" />  
     from tb_comm_user_day where time =current_date and userid= #{userid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getConsumptionThisMonth" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	  select sum(todayCommission)  consumptionThisMonth from tb_comm_user_day 
+	  where  DATE_FORMAT(time,'%Y-%m')  =   DATE_FORMAT(current_date,'%Y-%m') and userid= #{userid,jdbcType=INTEGER}
   </select>
   
   <update id="updateCurrentInfo" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
@@ -122,6 +138,9 @@
       </if>
       <if test="todaycommission != null" >
         todayCommission = #{todaycommission,jdbcType=DOUBLE},
+      </if>
+      <if test="todaywithdrawalscount != null" >
+        todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER},
       </if>
     </set>
    where time =current_date and userid= #{userid,jdbcType=INTEGER}

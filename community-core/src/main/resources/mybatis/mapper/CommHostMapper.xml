@@ -16,10 +16,13 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="headimg" property="headimg" jdbcType="VARCHAR" />
     <result column="coverimg" property="coverimg" jdbcType="VARCHAR" />
+    <result column="award" property="award" jdbcType="DOUBLE" />
+    <result column="tdaward" property="tdaward" jdbcType="DOUBLE" />
+    <result column="totalaward" property="totalaward" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account, pass, mobile, subject, introduction, img_url, onlineStatus, webinar_id, 
-    nickname, createtime, updatetime, headimg, coverimg
+    nickname, createtime, updatetime, headimg, coverimg, award, tdaward, totalaward
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -36,12 +39,14 @@
       mobile, subject, introduction, 
       img_url, onlineStatus, webinar_id, 
       nickname, createtime, updatetime, 
-      headimg, coverimg)
+      headimg, coverimg, award, 
+      tdaward, totalaward)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
       #{imgUrl,jdbcType=VARCHAR}, #{onlinestatus,jdbcType=INTEGER}, #{webinarId,jdbcType=INTEGER}, 
       #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{headimg,jdbcType=VARCHAR}, #{coverimg,jdbcType=VARCHAR})
+      #{headimg,jdbcType=VARCHAR}, #{coverimg,jdbcType=VARCHAR}, #{award,jdbcType=DOUBLE}, 
+      #{tdaward,jdbcType=DOUBLE}, #{totalaward,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
     insert into tb_comm_host
@@ -88,6 +93,15 @@
       <if test="coverimg != null" >
         coverimg,
       </if>
+      <if test="award != null" >
+        award,
+      </if>
+      <if test="tdaward != null" >
+        tdaward,
+      </if>
+      <if test="totalaward != null" >
+        totalaward,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -131,6 +145,15 @@
       </if>
       <if test="coverimg != null" >
         #{coverimg,jdbcType=VARCHAR},
+      </if>
+      <if test="award != null" >
+        #{award,jdbcType=DOUBLE},
+      </if>
+      <if test="tdaward != null" >
+        #{tdaward,jdbcType=DOUBLE},
+      </if>
+      <if test="totalaward != null" >
+        #{totalaward,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -176,6 +199,15 @@
       <if test="coverimg != null" >
         coverimg = #{coverimg,jdbcType=VARCHAR},
       </if>
+      <if test="award != null" >
+        award = #{award,jdbcType=DOUBLE},
+      </if>
+      <if test="tdaward != null" >
+        tdaward = #{tdaward,jdbcType=DOUBLE},
+      </if>
+      <if test="totalaward != null" >
+        totalaward = #{totalaward,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -193,7 +225,10 @@
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       headimg = #{headimg,jdbcType=VARCHAR},
-      coverimg = #{coverimg,jdbcType=VARCHAR}
+      coverimg = #{coverimg,jdbcType=VARCHAR},
+      award = #{award,jdbcType=DOUBLE},
+      tdaward = #{tdaward,jdbcType=DOUBLE},
+      totalaward = #{totalaward,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

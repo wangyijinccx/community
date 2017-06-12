@@ -16,6 +16,8 @@ public class CommUserService extends BaseService{
 
 	@Autowired
 	private CommUserMapper commUserMapper;
+	@Autowired
+	private CommUserDayService commUserDayService;
 
 	public int insertSelective(CommUser record) {
 		return commUserMapper.insertSelective(record);
@@ -79,22 +81,18 @@ public class CommUserService extends BaseService{
 	public JSONObject userInfo(String indicate){
 		JSONObject result = new JSONObject();
 		Map<String, Object> commUser = selectByIndicateSelective(indicate);
+		Map<String, Object> commUserDay = commUserDayService.getConsumptionThisMonth((Integer) commUser.get("id"));
 		//result.put("token", commUser.getIndicate());
+		Long todayWithdrawalsCount = (Long) commUser.get("todayWithdrawalsCount");
 		String mobile =  (String) commUser.get("mobile");
 		String pass = strUtil.getPassWord(mobile);
 		commUser.put("whaccount",mobile);
 		commUser.put("whpass",pass);
 		commUser.put("xmaccount","xg_"+mobile);
 		commUser.put("xmpass",pass);
+		commUser.put("todayWithdrawalsCount",withdrawalNumber - todayWithdrawalsCount);
+		commUser.put("consumptionThisMonth",null == commUserDay?0:commUserDay.get("consumptionThisMonth"));
 		result.put("user", commUser);
-		result.put("sumIncome", "");
-		result.put("todayRegisterNum", "");
-		result.put("todayRechargeNum", "");
-		result.put("todayCommission", "");
-		result.put("consumptionThisMonth", "");
-		//result.put("accountBalance", commUser.getAward());
-		result.put("todayWithdrawalsCount", "");
-		//result.put("openid", commUser.getOpenid());
 		return result;
 	}
 

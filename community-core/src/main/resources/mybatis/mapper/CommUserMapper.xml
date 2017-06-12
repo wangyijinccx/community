@@ -446,10 +446,13 @@
   
   <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
-      id,indicate token,IFNULL(openid,"") openid,IFNULL(nickname,"") nickname,IFNULL(headimgurl,"") headimgurl,
-      mobile,award,tdaward,totalaward,IFNULL(commid,0) hostid
-    from tb_comm_user
-    where indicate = #{indicate,jdbcType=VARCHAR}
+      tu.id,tu.indicate token,IFNULL(tu.openid,"") openid,IFNULL(tu.nickname,"") nickname,IFNULL(tu.headimgurl,"") headimgurl,
+      tu.mobile,tu.award accountBalance,tu.tdaward,totalaward sumIncome,IFNULL(tu.commid,0) hostid,
+      IFNULL(tud.todayCommission,0) todayCommission,IFNULL(tud.todayRechargeNum,0) todayRechargeNum,IFNULL(tud.todayRegisterNum,0) todayRegisterNum
+      ,IFNULL(tud.todayWithdrawalsCount,0) todayWithdrawalsCount
+    from tb_comm_user tu
+    LEFT JOIN tb_comm_user_day tud on tu.id = tud.userid
+    where tu.indicate = #{indicate,jdbcType=VARCHAR}
   </select>
   
   <update id="updateByIndicate" parameterType="com.ipeaksoft.moneyday.core.entity.CommUser" >

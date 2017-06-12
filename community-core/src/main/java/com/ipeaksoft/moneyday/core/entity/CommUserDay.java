@@ -15,6 +15,8 @@ public class CommUserDay {
 
     private Date time;
 
+    private Integer todaywithdrawalscount;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class CommUserDay {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Integer getTodaywithdrawalscount() {
+        return todaywithdrawalscount;
+    }
+
+    public void setTodaywithdrawalscount(Integer todaywithdrawalscount) {
+        this.todaywithdrawalscount = todaywithdrawalscount;
     }
 }
