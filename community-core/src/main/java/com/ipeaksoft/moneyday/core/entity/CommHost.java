@@ -27,6 +27,10 @@ public class CommHost {
 
     private Date updatetime;
 
+    private String headimg;
+
+    private String coverimg;
+
     public Integer getId() {
         return id;
     }
@@ -121,5 +125,21 @@ public class CommHost {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getHeadimg() {
+        return headimg;
+    }
+
+    public void setHeadimg(String headimg) {
+        this.headimg = headimg;
+    }
+
+    public String getCoverimg() {
+        return coverimg;
+    }
+
+    public void setCoverimg(String coverimg) {
+        this.coverimg = coverimg;
     }
 }

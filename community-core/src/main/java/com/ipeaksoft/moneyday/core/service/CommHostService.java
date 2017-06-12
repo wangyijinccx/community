@@ -2,6 +2,7 @@ package com.ipeaksoft.moneyday.core.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class CommHostService extends BaseService{
 	
 	public CommHost selectByWebinarId(Integer webinarId){
 		return commHostMapper.selectByWebinarId(webinarId);
+	}
+	
+	public List<Map<String,Object>> getStudents(Integer webinarId){
+		return commHostMapper.getStudents(webinarId);
 	}
 	
 }
