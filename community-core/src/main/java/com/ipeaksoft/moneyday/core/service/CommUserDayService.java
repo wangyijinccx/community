@@ -33,8 +33,8 @@ public class CommUserDayService extends BaseService {
 	public int updateCurrentInfo(CommUserDay record) {
 		return commUserDayMapper.updateCurrentInfo(record);
 	}
-	
-	public Map<String, Object> getConsumptionThisMonth(Integer userid){
+
+	public Map<String, Object> getConsumptionThisMonth(Integer userid) {
 		return commUserDayMapper.getConsumptionThisMonth(userid);
 	}
 
@@ -49,7 +49,7 @@ public class CommUserDayService extends BaseService {
 		BigDecimal promoterAward = realAmonut.multiply(promoterCommission);
 		BigDecimal masterAward = realAmonut.multiply(masterCommission);
 		BigDecimal hostAward = realAmonut.multiply(hostCommission);
-	
+
 		// 推广员
 		CommUserDay cud = selectCurrentInfo(promoterId);
 		CommUserDay commUserDay = new CommUserDay();
@@ -57,21 +57,26 @@ public class CommUserDayService extends BaseService {
 		if (null == cud) {
 			commUserDay.setTodayrechargenum(1);
 			commUserDay.setTodaycommission(promoterAward.doubleValue());
+			commUserDay.setTodayrechargetotal(real_amount);
 			commUserDayMapper.insertSelective(commUserDay);
 		} else {
 			commUserDay.setTodayrechargenum(cud.getTodayrechargenum() + 1);
 			BigDecimal original = new BigDecimal(cud.getTodaycommission());
 			commUserDay.setTodaycommission(original.add(promoterAward)
 					.doubleValue());
+			commUserDay.setTodayrechargetotal(realAmonut.add(
+					new BigDecimal(commUserDay.getTodayrechargetotal()))
+					.doubleValue());
 			commUserDayMapper.updateCurrentInfo(commUserDay);
 		}
-		//累计 aworad 余额      totalaword 总收益
-		CommUser  model = new CommUser();
+		// 累计 aworad 余额 totalaword 总收益
+		CommUser model = new CommUser();
 		model.setId(promoterId);
-		model.setTotalaward(promoterAward.add(new BigDecimal(commUser.getTotalaward())).doubleValue());
-		model.setAward(promoterAward.add(new BigDecimal(commUser.getAward())).doubleValue());
+		model.setTotalaward(promoterAward.add(
+				new BigDecimal(commUser.getTotalaward())).doubleValue());
+		model.setAward(promoterAward.add(new BigDecimal(commUser.getAward()))
+				.doubleValue());
 		commUserService.updateByPrimaryKeySelective(model);
-		
 
 		// 推广员的师傅
 		CommUserDay masterCud = selectCurrentInfo(masterId);
@@ -86,15 +91,17 @@ public class CommUserDayService extends BaseService {
 					.doubleValue());
 			commUserDayMapper.updateCurrentInfo(masterCommUserDay);
 		}
-		//累计  aworad 余额  tbaword 徒弟收益    totalaword 总收益
+		// 累计 aworad 余额 tbaword 徒弟收益 totalaword 总收益
 		CommUser masterCu = commUserService.selectByPrimaryKey(masterId);
-		CommUser  masterModel = new CommUser();
+		CommUser masterModel = new CommUser();
 		masterModel.setId(masterId);
-		masterModel.setTotalaward(masterAward.add(new BigDecimal(masterCu.getTotalaward())).doubleValue());
-		masterModel.setAward(masterAward.add(new BigDecimal(masterCu.getAward())).doubleValue());
-		masterModel.setTdaward(masterAward.add(new BigDecimal(masterCu.getTdaward())).doubleValue());
+		masterModel.setTotalaward(masterAward.add(
+				new BigDecimal(masterCu.getTotalaward())).doubleValue());
+		masterModel.setAward(masterAward.add(
+				new BigDecimal(masterCu.getAward())).doubleValue());
+		masterModel.setTdaward(masterAward.add(
+				new BigDecimal(masterCu.getTdaward())).doubleValue());
 		commUserService.updateByPrimaryKeySelective(masterModel);
-		
 
 		// 主播
 		CommUserDay hostCud = selectCurrentInfo(hostId);
@@ -103,6 +110,7 @@ public class CommUserDayService extends BaseService {
 		if (null == hostCud) {
 			hostCommUserDay.setTodayrechargenum(1);
 			hostCommUserDay.setTodaycommission(hostAward.doubleValue());
+			hostCommUserDay.setTodayrechargetotal(real_amount);
 			commUserDayMapper.insertSelective(hostCommUserDay);
 		} else {
 			hostCommUserDay
@@ -110,14 +118,19 @@ public class CommUserDayService extends BaseService {
 			BigDecimal original = new BigDecimal(hostCud.getTodaycommission());
 			hostCommUserDay.setTodaycommission(original.add(hostAward)
 					.doubleValue());
+			hostCommUserDay.setTodayrechargetotal(realAmonut.add(
+					new BigDecimal(hostCud.getTodayrechargetotal()))
+					.doubleValue());
 			commUserDayMapper.updateCurrentInfo(hostCommUserDay);
 		}
-		//累计 aworad 余额      totalaword 总收益
-		CommHost  ch = commHostService.selectByPrimaryKey(hostId);
-		CommHost  commHost = new CommHost();
+		// 累计 aworad 余额 totalaword 总收益
+		CommHost ch = commHostService.selectByPrimaryKey(hostId);
+		CommHost commHost = new CommHost();
 		commHost.setId(hostId);
-		commHost.setTotalaward(hostAward.add(new BigDecimal(ch.getTotalaward())).doubleValue());
-		commHost.setAward(hostAward.add(new BigDecimal(ch.getAward())).doubleValue());
+		commHost.setTotalaward(hostAward
+				.add(new BigDecimal(ch.getTotalaward())).doubleValue());
+		commHost.setAward(hostAward.add(new BigDecimal(ch.getAward()))
+				.doubleValue());
 		commHostService.updateByPrimaryKeySelective(commHost);
 	}
 
@@ -129,33 +142,24 @@ public class CommUserDayService extends BaseService {
 		registered_update(promotersId);
 		registered_update(hostId);
 		/*
-		// 今日推广员 注册数+1
-		CommUserDay cud = selectCurrentInfo(promotersId);
-		CommUserDay commUserDay = new CommUserDay();
-		commUserDay.setUserid(promotersId);
-		if (null == cud) {
-			commUserDay.setTodayregisternum(1);
-			commUserDayMapper.insertSelective(commUserDay);
-		} else {
-			commUserDay.setTodayregisternum(cud.getTodayregisternum() + 1);
-			commUserDayMapper.updateCurrentInfo(commUserDay);
-		}
-
-		// 今日主播 注册数+1
-		CommUserDay hostcud = selectCurrentInfo(hostId);
-		CommUserDay hostcommUserDay = new CommUserDay();
-		hostcommUserDay.setUserid(promotersId);
-		if (null == hostcud) {
-			hostcommUserDay.setTodayregisternum(1);
-			commUserDayMapper.insertSelective(hostcommUserDay);
-		} else {
-			hostcommUserDay
-					.setTodayregisternum(hostcud.getTodayregisternum() + 1);
-			commUserDayMapper.updateCurrentInfo(hostcommUserDay);
-		}
-		*/
+		 * // 今日推广员 注册数+1 CommUserDay cud = selectCurrentInfo(promotersId);
+		 * CommUserDay commUserDay = new CommUserDay();
+		 * commUserDay.setUserid(promotersId); if (null == cud) {
+		 * commUserDay.setTodayregisternum(1);
+		 * commUserDayMapper.insertSelective(commUserDay); } else {
+		 * commUserDay.setTodayregisternum(cud.getTodayregisternum() + 1);
+		 * commUserDayMapper.updateCurrentInfo(commUserDay); }
+		 * 
+		 * // 今日主播 注册数+1 CommUserDay hostcud = selectCurrentInfo(hostId);
+		 * CommUserDay hostcommUserDay = new CommUserDay();
+		 * hostcommUserDay.setUserid(promotersId); if (null == hostcud) {
+		 * hostcommUserDay.setTodayregisternum(1);
+		 * commUserDayMapper.insertSelective(hostcommUserDay); } else {
+		 * hostcommUserDay .setTodayregisternum(hostcud.getTodayregisternum() +
+		 * 1); commUserDayMapper.updateCurrentInfo(hostcommUserDay); }
+		 */
 	}
-	
+
 	public void registered_update(Integer id) {
 		CommUserDay cud = selectCurrentInfo(id);
 		CommUserDay commUserDay = new CommUserDay();

@@ -17,6 +17,8 @@ public class CommUserDay {
 
     private Integer todaywithdrawalscount;
 
+    private Double todayrechargetotal;
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class CommUserDay {
 
     public void setTodaywithdrawalscount(Integer todaywithdrawalscount) {
         this.todaywithdrawalscount = todaywithdrawalscount;
+    }
+
+    public Double getTodayrechargetotal() {
+        return todayrechargetotal;
+    }
+
+    public void setTodayrechargetotal(Double todayrechargetotal) {
+        this.todayrechargetotal = todayrechargetotal;
     }
 }

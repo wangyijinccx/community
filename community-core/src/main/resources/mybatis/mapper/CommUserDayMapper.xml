@@ -9,9 +9,11 @@
     <result column="todayCommission" property="todaycommission" jdbcType="DOUBLE" />
     <result column="time" property="time" jdbcType="DATE" />
     <result column="todayWithdrawalsCount" property="todaywithdrawalscount" jdbcType="INTEGER" />
+    <result column="todayRechargeTotal" property="todayrechargetotal" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, todayRegisterNum, todayRechargeNum, todayCommission, time, todayWithdrawalsCount
+    id, userid, todayRegisterNum, todayRechargeNum, todayCommission, time, todayWithdrawalsCount, 
+    todayRechargeTotal
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +28,12 @@
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
     insert into tb_comm_user_day (id, userid, todayRegisterNum, 
       todayRechargeNum, todayCommission, time, 
-      todayWithdrawalsCount)
+      todayWithdrawalsCount, todayRechargeTotal
+      )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{todayregisternum,jdbcType=INTEGER}, 
       #{todayrechargenum,jdbcType=INTEGER}, #{todaycommission,jdbcType=DOUBLE}, #{time,jdbcType=DATE}, 
-      #{todaywithdrawalscount,jdbcType=INTEGER})
+      #{todaywithdrawalscount,jdbcType=INTEGER}, #{todayrechargetotal,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommUserDay" >
     insert into tb_comm_user_day
@@ -55,6 +59,9 @@
       <if test="todaywithdrawalscount != null" >
         todayWithdrawalsCount,
       </if>
+      <if test="todayrechargetotal != null" >
+        todayRechargeTotal,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,6 +84,9 @@
       </if>
       <if test="todaywithdrawalscount != null" >
         #{todaywithdrawalscount,jdbcType=INTEGER},
+      </if>
+      <if test="todayrechargetotal != null" >
+        #{todayrechargetotal,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -101,6 +111,9 @@
       <if test="todaywithdrawalscount != null" >
         todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER},
       </if>
+      <if test="todayrechargetotal != null" >
+        todayRechargeTotal = #{todayrechargetotal,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -111,7 +124,8 @@
       todayRechargeNum = #{todayrechargenum,jdbcType=INTEGER},
       todayCommission = #{todaycommission,jdbcType=DOUBLE},
       time = #{time,jdbcType=DATE},
-      todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER}
+      todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER},
+      todayRechargeTotal = #{todayrechargetotal,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -141,6 +155,9 @@
       </if>
       <if test="todaywithdrawalscount != null" >
         todayWithdrawalsCount = #{todaywithdrawalscount,jdbcType=INTEGER},
+      </if>
+      <if test="todayrechargetotal != null" >
+        todayRechargeTotal = #{todayrechargetotal,jdbcType=DOUBLE},
       </if>
     </set>
    where time =current_date and userid= #{userid,jdbcType=INTEGER}
