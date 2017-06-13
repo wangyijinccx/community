@@ -145,10 +145,10 @@ public class CommMembersController extends BaseController {
 	@ResponseBody
 	@RequestMapping("getgamemems")
 	public Object getGameMems(HttpServletRequest request, Integer gameID,
-			String Token, String sortType, Integer pos, Integer pageSize,
+			String token, String sortType, Integer pos, Integer pageSize,
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
-		CommUser commUser = commUserService.selectByIndicate(Token);
+		CommUser commUser = commUserService.selectByIndicate(token);
 		if (null == commUser) {
 			result.put("result", 2);
 			result.put("msg", "该推广员不存在");

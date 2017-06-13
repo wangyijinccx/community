@@ -1,5 +1,6 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ipeaksoft.moneyday.core.entity.CommUserDay;
@@ -22,4 +23,6 @@ public interface CommUserDayMapper {
 	int updateCurrentInfo(CommUserDay record);
 
 	Map<String, Object> getConsumptionThisMonth(Integer userid);
+
+	List<Map<String, Object>> selectByUserId(Integer userid);
 }

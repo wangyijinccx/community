@@ -2,6 +2,7 @@ package com.ipeaksoft.moneyday.core.service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,10 @@ public class CommUserDayService extends BaseService {
 		return commUserDayMapper.getConsumptionThisMonth(userid);
 	}
 
+	public List<Map<String, Object>> selectByUserId(Integer userid) {
+		return commUserDayMapper.selectByUserId(userid);
+	}
+
 	public void statistical(String agentname, double real_amount) {
 		String xgAccount = strUtil.getAgentName(agentname);
 		CommUser commUser = commUserService.selectBymobile(xgAccount);
@@ -50,8 +55,8 @@ public class CommUserDayService extends BaseService {
 		BigDecimal promoterAward = realAmonut.multiply(promoterCommission);
 		BigDecimal masterAward = realAmonut.multiply(masterCommission);
 		BigDecimal hostAward = realAmonut.multiply(hostCommission);
-        //todayRegisterNum 今日注册数    todayRechargeNum 今日充值人数  todayCommission 今日收益总数
-		//todayRechargeTotal 今日充值总数(推广员玩家)   todayRechargeTd 今日徒弟玩家充值总数
+		// todayRegisterNum 今日注册数 todayRechargeNum 今日充值人数 todayCommission 今日收益总数
+		// todayRechargeTotal 今日充值总数(推广员玩家) todayRechargeTd 今日徒弟玩家充值总数
 		// 推广员
 		CommUserDay cud = selectCurrentInfo(promoterId);
 		CommUserDay commUserDay = new CommUserDay();
@@ -148,23 +153,6 @@ public class CommUserDayService extends BaseService {
 		Integer promotersId = commUser.getId();
 		registered_update(promotersId);
 		registered_update(hostId);
-		/*
-		 * // 今日推广员 注册数+1 CommUserDay cud = selectCurrentInfo(promotersId);
-		 * CommUserDay commUserDay = new CommUserDay();
-		 * commUserDay.setUserid(promotersId); if (null == cud) {
-		 * commUserDay.setTodayregisternum(1);
-		 * commUserDayMapper.insertSelective(commUserDay); } else {
-		 * commUserDay.setTodayregisternum(cud.getTodayregisternum() + 1);
-		 * commUserDayMapper.updateCurrentInfo(commUserDay); }
-		 * 
-		 * // 今日主播 注册数+1 CommUserDay hostcud = selectCurrentInfo(hostId);
-		 * CommUserDay hostcommUserDay = new CommUserDay();
-		 * hostcommUserDay.setUserid(promotersId); if (null == hostcud) {
-		 * hostcommUserDay.setTodayregisternum(1);
-		 * commUserDayMapper.insertSelective(hostcommUserDay); } else {
-		 * hostcommUserDay .setTodayregisternum(hostcud.getTodayregisternum() +
-		 * 1); commUserDayMapper.updateCurrentInfo(hostcommUserDay); }
-		 */
 	}
 
 	public void registered_update(Integer id) {

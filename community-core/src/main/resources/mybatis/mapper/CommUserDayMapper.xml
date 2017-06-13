@@ -177,4 +177,12 @@
    where time =current_date and userid= #{userid,jdbcType=INTEGER}
   </update>
   
+  
+  <select id="selectByUserId" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    SELECT  todayRechargeTotal+todayRechargeTd sumRecharge ,todayRechargeTotal*0.3 consumptionRoyalty,
+	todayRechargeTd*0.03 apprenticeCommission,todayCommission sumIncoming,time promotionDate
+	from tb_comm_user_day
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  
 </mapper>

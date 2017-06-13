@@ -2,6 +2,7 @@ package com.ipeaksoft.moneyday.api.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import com.ipeaksoft.moneyday.api.service.ComConfirmService;
 import com.ipeaksoft.moneyday.api.service.WeChatService;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.enums.SMSType;
+import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
 import com.ipeaksoft.moneyday.core.util.strUtil;
@@ -33,6 +35,8 @@ public class CommUserController extends BaseController {
 	private HttpService httpService;
 	@Autowired
 	WeChatService weChatService;
+	@Autowired
+	CommUserDayService commUserDayService;
 
 	@ResponseBody
 	@RequestMapping("testMobile")
@@ -301,6 +305,29 @@ public class CommUserController extends BaseController {
 		}
 		result = commUserService.userInfo(token);
 		result.put("result", 1);
+		return result;
+	}
+	
+	/**
+	 * 收益详情
+	 * @param token
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("incominglist")
+	public Object incomingList(String token, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		CommUser model = commUserService.selectByIndicate(token);
+		if (model == null) {
+			result.put("result", 2);
+			result.put("msg", "用户不存在");
+			return result;
+		}
+		List<Map<String,Object>> lists = commUserDayService.selectByUserId(model.getId());
+		result.put("result", 1);
+		result.put("incomingInfoList", lists);
+		result.put("msg", "获取收益详情成功");
 		return result;
 	}
 }
