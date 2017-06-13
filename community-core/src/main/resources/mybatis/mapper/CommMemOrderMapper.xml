@@ -277,4 +277,10 @@
     where order_id = #{orderI,jdbcType=VARCHAR}
   </update>
   
+  <select id="getOrders" resultType="java.util.HashMap">
+     select tmo.order_id orderName,tmo.time orderTime,tmo.real_amount orderPrice, tmo.real_amount*0.3 orderCommission from tb_comm_members tm
+	   LEFT JOIN tb_comm_mem_grole tmg on tmg.mem_id = tm.id
+	   LEFT JOIN tb_comm_mem_order tmo on tmo.grole_id = tmg.id
+     where tm.id=#{id,jdbcType=BIGINT};
+   </select>
 </mapper>

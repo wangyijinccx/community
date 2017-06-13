@@ -156,7 +156,7 @@ public class CommMembersController extends BaseController {
 		List<Map<String, Object>> mems = commMembersService.selectGameMems(
 				gameID, commUser.getId(), sortType, pos, pageSize);
 		result.put("result", 1);
-		result.put("mems", mems);
+		result.put("userList", mems);
 		result.put("msg", "获取用户信息成功");
 		return result;
 	}

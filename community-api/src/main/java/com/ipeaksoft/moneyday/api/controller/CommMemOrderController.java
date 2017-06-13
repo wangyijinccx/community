@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommMemGrole;
 import com.ipeaksoft.moneyday.core.entity.CommMemOrder;
+import com.ipeaksoft.moneyday.core.entity.CommMembers;
 import com.ipeaksoft.moneyday.core.service.CommMemGroleService;
 import com.ipeaksoft.moneyday.core.service.CommMemOrderService;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
@@ -37,7 +40,13 @@ public class CommMemOrderController extends BaseController {
 	CommMemOrderService commMemOrderService;
 	@Autowired
 	CommUserDayService commUserDayService;
-
+    
+	/**
+	 * 充值
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("pay")
@@ -187,6 +196,18 @@ public class CommMemOrderController extends BaseController {
 			return result;
 		}
 		result.put("code", 200);
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getorders")
+	public Object getOrders(HttpServletRequest request, Long userId, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		List<Map<String,Object>> lists = commMemOrderService.getOrders(userId);
+		result.put("result", 1);
+		result.put("userOrderList", lists);
+		result.put("msg", "添加qq微信成功");
 		return result;
 	}
 }

@@ -229,7 +229,7 @@
     where username = #{username,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectGameMems" resultType="java.util.HashMap"  >
+  <select id="selectGameMems" resultType="java.util.HashMap">
      select tm.id userID ,tmg.role_name nickName,tg.`name` gameName,tmg.server_name gameServerType,tm.username userName,tmg.role_level levelInDay1,
       FROM_UNIXTIME(tm.reg_time, '%Y-%m-%d %H:%i:%S') registeTime,IFNULL(tmo.sumConsumption,0) sumConsumption,IFNULL(tm.qq,'') qq,IFNULL(tm.weixin,'') weixin
      from tb_comm_members tm
@@ -244,5 +244,4 @@
 	    <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
 	 </if>
    </select>
-  
 </mapper>
