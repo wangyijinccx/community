@@ -257,7 +257,7 @@
   </update>
   
   <select id="selectGameList" resultType="java.util.HashMap" >
-    select tg.id gameID,tg.`name` gameName,tgs.start_time gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
+    select tg.id gameID,tg.`name` gameName,FROM_UNIXTIME(tgs.start_time, '%Y-%m-%d %H:%i:%S') gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
     from tb_comm_game tg
     LEFT JOIN (select a.* from tb_comm_game_server a inner join (select oa_app_id,max(start_time) start_time from tb_comm_game_server group by oa_app_id)b on a.oa_app_id=b.oa_app_id
     and a.start_time=b.start_time ) tgs on tg.game_id = tgs.oa_app_id
