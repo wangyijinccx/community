@@ -19,6 +19,8 @@ public class CommUserDay {
 
     private Double todayrechargetotal;
 
+    private Double todayrechargetd;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +83,13 @@ public class CommUserDay {
 
     public void setTodayrechargetotal(Double todayrechargetotal) {
         this.todayrechargetotal = todayrechargetotal;
+    }
+
+    public Double getTodayrechargetd() {
+        return todayrechargetd;
+    }
+
+    public void setTodayrechargetd(Double todayrechargetd) {
+        this.todayrechargetd = todayrechargetd;
     }
 }

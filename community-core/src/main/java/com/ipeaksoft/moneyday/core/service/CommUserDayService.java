@@ -1,6 +1,7 @@
 package com.ipeaksoft.moneyday.core.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,8 @@ public class CommUserDayService extends BaseService {
 		BigDecimal promoterAward = realAmonut.multiply(promoterCommission);
 		BigDecimal masterAward = realAmonut.multiply(masterCommission);
 		BigDecimal hostAward = realAmonut.multiply(hostCommission);
-
+        //todayRegisterNum 今日注册数    todayRechargeNum 今日充值人数  todayCommission 今日收益总数
+		//todayRechargeTotal 今日充值总数(推广员玩家)   todayRechargeTd 今日徒弟玩家充值总数
 		// 推广员
 		CommUserDay cud = selectCurrentInfo(promoterId);
 		CommUserDay commUserDay = new CommUserDay();
@@ -58,6 +60,7 @@ public class CommUserDayService extends BaseService {
 			commUserDay.setTodayrechargenum(1);
 			commUserDay.setTodaycommission(promoterAward.doubleValue());
 			commUserDay.setTodayrechargetotal(real_amount);
+			commUserDay.setTime(new Date());
 			commUserDayMapper.insertSelective(commUserDay);
 		} else {
 			commUserDay.setTodayrechargenum(cud.getTodayrechargenum() + 1);
@@ -84,11 +87,14 @@ public class CommUserDayService extends BaseService {
 		masterCommUserDay.setUserid(masterId);
 		if (null == masterCud) {
 			masterCommUserDay.setTodaycommission(masterAward.doubleValue());
+			masterCommUserDay.setTodayrechargetd(real_amount);
+			masterCommUserDay.setTime(new Date());
 			commUserDayMapper.insertSelective(masterCommUserDay);
 		} else {
 			BigDecimal original = new BigDecimal(masterCud.getTodaycommission());
 			masterCommUserDay.setTodaycommission(original.add(masterAward)
 					.doubleValue());
+			masterCommUserDay.setTodayrechargetd(real_amount);
 			commUserDayMapper.updateCurrentInfo(masterCommUserDay);
 		}
 		// 累计 aworad 余额 tbaword 徒弟收益 totalaword 总收益
@@ -111,6 +117,7 @@ public class CommUserDayService extends BaseService {
 			hostCommUserDay.setTodayrechargenum(1);
 			hostCommUserDay.setTodaycommission(hostAward.doubleValue());
 			hostCommUserDay.setTodayrechargetotal(real_amount);
+			hostCommUserDay.setTime(new Date());
 			commUserDayMapper.insertSelective(hostCommUserDay);
 		} else {
 			hostCommUserDay
@@ -166,6 +173,7 @@ public class CommUserDayService extends BaseService {
 		commUserDay.setUserid(id);
 		if (null == cud) {
 			commUserDay.setTodayregisternum(1);
+			commUserDay.setTime(new Date());
 			commUserDayMapper.insertSelective(commUserDay);
 		} else {
 			commUserDay.setTodayregisternum(cud.getTodayregisternum() + 1);
