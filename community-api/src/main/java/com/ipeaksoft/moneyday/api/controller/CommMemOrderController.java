@@ -42,6 +42,9 @@ public class CommMemOrderController extends BaseController {
 	@ResponseBody
 	@RequestMapping("pay")
 	public Object pay(HttpServletRequest request, HttpServletResponse response) {
+
+		// 要不要判断充值状态，只保存充值成功的
+
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
@@ -163,6 +166,7 @@ public class CommMemOrderController extends BaseController {
 			if (null != json.getLong("remark")) {
 				commMemOrder.setRemark(json.getString("remark"));
 			}
+
 			if (commMemOrderService.insertSelective(commMemOrder) < 1) {
 				result.put("code", 1000);
 				result.put("fun", "/user/pay");
@@ -171,10 +175,9 @@ public class CommMemOrderController extends BaseController {
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-            //收益
+			// 收益
 			commUserDayService.statistical(json.getString("agentname"),
 					json.getDouble("real_amount"));
-
 		} catch (IOException e) {
 			result.put("code", 1000);
 			result.put("fun", "/user/pay");

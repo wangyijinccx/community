@@ -1,10 +1,11 @@
 package com.ipeaksoft.moneyday.api.controller;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,6 @@ import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.util.strUtil;
 
-
 @Controller
 @RequestMapping(value = "/user")
 public class CommMembersController extends BaseController {
@@ -34,7 +34,7 @@ public class CommMembersController extends BaseController {
 	CommUserService commUserService;
 	@Autowired
 	CommUserDayService commUserDayService;
-	 
+
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("reg")
@@ -89,8 +89,9 @@ public class CommMembersController extends BaseController {
 			commMembers.setFrom(json.getByte("from"));
 			commMembers.setOaAppId(json.getInteger("app_id"));
 			String agentname = json.getString("agentname");
-			CommUser commUser = commUserService.selectBymobile(strUtil.getAgentName(agentname));
-			if(null == commUser){
+			CommUser commUser = commUserService.selectBymobile(strUtil
+					.getAgentName(agentname));
+			if (null == commUser) {
 				result.put("code", 407);
 				result.put("fun", "/user/uproleinfo");
 				result.put("time", new Date());
@@ -119,6 +120,25 @@ public class CommMembersController extends BaseController {
 			return result;
 		}
 		result.put("code", 200);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping("getgamemems")
+	public Object getGameMems(HttpServletRequest request, Integer gameID,
+			String Token, String sortType, Integer pos, Integer pageSize,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		CommUser commUser = commUserService.selectByIndicate(Token);
+		if(null == commUser){
+			result.put("result", 2);
+			result.put("msg", "该推广员不存在");
+		}
+		List<Map<String, Object>> games = commMembersService.selectGameMems(
+				gameID, commUser.getId(), sortType, pos, pageSize);
+		result.put("result", 1);
+		result.put("gameList", games);
+		result.put("msg", "获取用户信息成功");
 		return result;
 	}
 }

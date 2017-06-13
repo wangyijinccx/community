@@ -204,4 +204,21 @@
     from tb_comm_members
     where username = #{username,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectGameMems" parameterType="java.util.Map" >
+     select tm.id userID ,tmg.role_name nickName,tg.`name` gameName,tmg.server_name gameServerType,tm.username userName,tmg.role_level levelInDay1,
+      FROM_UNIXTIME(tm.reg_time, '%Y-%m-%d %H:%i:%S') registeTime,tmo.sumConsumption
+     from tb_comm_members tm
+     LEFT   JOIN tb_comm_mem_grole tmg on tm.id = tmg.mem_id
+     LEFT JOIN  (select role_id,SUM(real_amount) sumConsumption,time from tb_comm_mem_order where `status` ='2' GROUP BY role_id) tmo on tmo.role_id = tmg.role_id
+     LEFT JOIN tb_comm_game tg on tg.id = tm.oa_app_id
+     where tm.oa_app_id =#{oaAppId,jdbcType=INTEGER} and tm.promoter_id=#{promoterId,jdbcType=INTEGER}
+     <if test="ordeStr !=null">
+		order by ${ordeStr} desc
+	 </if>
+	 <if test="currentPage !=null and pageSize != null">
+	    <![CDATA[  LIMIT #{currentPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} ]]>
+	 </if>
+   </select>
+  
 </mapper>

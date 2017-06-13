@@ -220,4 +220,61 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_mem_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateByOrderId" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
+    update tb_comm_mem_order
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=INTEGER},
+      </if>
+      <if test="groleId != null" >
+        grole_id = #{groleId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null" >
+        from = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="payway != null" >
+        payway = #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="realAmount != null" >
+        real_amount = #{realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="gmCnt != null" >
+        gm_cnt = #{gmCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="rebateCnt != null" >
+        rebate_cnt = #{rebateCnt,jdbcType=DOUBLE},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderI,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>

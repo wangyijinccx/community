@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import java.util.List;
+
 import com.ipeaksoft.moneyday.core.entity.CommMemOrder;
 
 public interface CommMemOrderMapper {
@@ -14,4 +16,10 @@ public interface CommMemOrderMapper {
     int updateByPrimaryKeySelective(CommMemOrder record);
 
     int updateByPrimaryKey(CommMemOrder record);
+    
+    List<CommMemOrder> selectByOrderId(String orderId);
+    
+    int updateByOrderId(CommMemOrder record);
+    
+    
 }
