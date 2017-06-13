@@ -1,5 +1,8 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ipeaksoft.moneyday.core.entity.CommGame;
 
 public interface CommGameMapper {
@@ -16,4 +19,6 @@ public interface CommGameMapper {
     int updateByPrimaryKey(CommGame record);
     
     int updateByGameid(CommGame record);
+    
+    List<Map<String ,Object>> selectGameList();
 }

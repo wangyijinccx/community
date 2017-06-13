@@ -29,6 +29,8 @@ public class CommGame {
 
     private Integer parentId;
 
+    private Byte classify;
+
     public Integer getId() {
         return id;
     }
@@ -139,5 +141,13 @@ public class CommGame {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Byte getClassify() {
+        return classify;
+    }
+
+    public void setClassify(Byte classify) {
+        this.classify = classify;
     }
 }

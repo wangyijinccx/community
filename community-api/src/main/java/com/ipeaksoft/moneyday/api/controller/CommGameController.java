@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +89,7 @@ public class CommGameController extends BaseController {
 			commGame.setInitial(json.getString("initial"));
 			commGame.setIcon(json.getString("icon"));
 			commGame.setStatus(json.getByte("status"));
+			commGame.setClassify(json.getByte("classify"));
 			commGame.setCreateTime(json.getLong("creat_time"));
 			commGame.setUpdateTime(json.getLong("creat_time"));
 			commGame.setListorder(0);
@@ -166,6 +169,7 @@ public class CommGameController extends BaseController {
 			commGame.setInitial(jsonUpInfo.getString("initial"));
 			commGame.setIcon(jsonUpInfo.getString("icon"));
 			commGame.setStatus(jsonUpInfo.getByte("status"));
+			commGame.setClassify(jsonUpInfo.getByte("classify"));
 			commGame.setUpdateTime(jsonUpInfo.getLong("update_time"));
 			commGame.setListorder(0);
 			if (null != jsonUpInfo.getInteger("target_cnt")) {
@@ -319,6 +323,18 @@ public class CommGameController extends BaseController {
 			return result;
 		}
 		result.put("code", 200);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping("getgamelist")
+	public Object getGameList(HttpServletRequest request,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		List<Map<String, Object>> games = commGameService.getGameList();
+		result.put("result", 1);
+		result.put("gameList", games);
+		result.put("msg", "获取游戏列表成功");
 		return result;
 	}
 

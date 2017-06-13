@@ -16,10 +16,11 @@
     <result column="target_cnt" property="targetCnt" jdbcType="INTEGER" />
     <result column="target_level" property="targetLevel" jdbcType="INTEGER" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="classify" property="classify" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, plat_id, game_id, name, gameflag, initial, icon, status, create_time, update_time, 
-    listorder, target_cnt, target_level, parent_id
+    listorder, target_cnt, target_level, parent_id, classify
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -36,12 +37,14 @@
       name, gameflag, initial, 
       icon, status, create_time, 
       update_time, listorder, target_cnt, 
-      target_level, parent_id)
+      target_level, parent_id, classify
+      )
     values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{gameflag,jdbcType=VARCHAR}, #{initial,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{listorder,jdbcType=INTEGER}, #{targetCnt,jdbcType=INTEGER}, 
-      #{targetLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER})
+      #{targetLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{classify,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGame" >
     insert into tb_comm_game
@@ -88,6 +91,9 @@
       <if test="parentId != null" >
         parent_id,
       </if>
+      <if test="classify != null" >
+        classify,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -131,6 +137,9 @@
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null" >
+        #{classify,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
+      <if test="classify != null" >
+        classify = #{classify,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -193,7 +205,8 @@
       listorder = #{listorder,jdbcType=INTEGER},
       target_cnt = #{targetCnt,jdbcType=INTEGER},
       target_level = #{targetLevel,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER}
+      parent_id = #{parentId,jdbcType=INTEGER},
+      classify = #{classify,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -236,7 +249,19 @@
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
+      <if test="classify != null" >
+        classify = #{classify,jdbcType=TINYINT},
+      </if>
     </set>
     where game_id = #{gameId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectGameList" resultType="java.util.HashMap" >
+    select tg.id gameID,tg.`name` gameName,tgs.start_time gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
+    from tb_comm_game tg
+    LEFT JOIN (select a.* from tb_comm_game_server a inner join (select oa_app_id,max(start_time) start_time from tb_comm_game_server group by oa_app_id)b on a.oa_app_id=b.oa_app_id
+    and a.start_time=b.start_time ) tgs on tg.game_id = tgs.oa_app_id
+  </select>
+  
+  
 </mapper>
