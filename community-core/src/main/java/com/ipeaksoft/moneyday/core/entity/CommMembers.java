@@ -29,6 +29,10 @@ public class CommMembers {
 
     private Long updateTime;
 
+    private String qq;
+
+    private String weixin;
+
     public Long getId() {
         return id;
     }
@@ -139,5 +143,21 @@ public class CommMembers {
 
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 }
