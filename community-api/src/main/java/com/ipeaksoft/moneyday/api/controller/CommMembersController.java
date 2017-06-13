@@ -35,6 +35,13 @@ public class CommMembersController extends BaseController {
 	@Autowired
 	CommUserDayService commUserDayService;
 
+	/**
+	 * 用户注册
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("reg")
@@ -123,6 +130,18 @@ public class CommMembersController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 获取玩家详情
+	 * 
+	 * @param request
+	 * @param gameID
+	 * @param Token
+	 * @param sortType
+	 * @param pos
+	 * @param pageSize
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("getgamemems")
 	public Object getGameMems(HttpServletRequest request, Integer gameID,
@@ -130,15 +149,43 @@ public class CommMembersController extends BaseController {
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		CommUser commUser = commUserService.selectByIndicate(Token);
-		if(null == commUser){
+		if (null == commUser) {
 			result.put("result", 2);
 			result.put("msg", "该推广员不存在");
 		}
-		List<Map<String, Object>> games = commMembersService.selectGameMems(
+		List<Map<String, Object>> mems = commMembersService.selectGameMems(
 				gameID, commUser.getId(), sortType, pos, pageSize);
 		result.put("result", 1);
-		result.put("gameList", games);
+		result.put("mems", mems);
 		result.put("msg", "获取用户信息成功");
 		return result;
 	}
+    
+	/**
+	 * 添加qq微信
+	 * @param request
+	 * @param userid
+	 * @param qq
+	 * @param weixin
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("addcontact")
+	public Object addContact(HttpServletRequest request, Integer userid,
+			String qq, String weixin, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+	    CommMembers commMemBers = new CommMembers();
+	    commMemBers.setId((long)userid);
+	    commMemBers.setQq(qq);
+	    commMemBers.setWeixin(weixin);
+	    if(commMembersService.updateByPrimaryKeySelective(commMemBers)<1){
+	    	result.put("result", 2);
+			result.put("msg", "添加qq微信失败");
+	    }
+		result.put("result", 1);
+		result.put("msg", "添加qq微信成功");
+		return result;
+	}
+
 }

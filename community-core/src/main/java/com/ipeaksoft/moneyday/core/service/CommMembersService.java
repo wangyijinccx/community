@@ -23,6 +23,10 @@ public class CommMembersService extends BaseService {
 		return commMembersMapper.selectByUserName(username);
 	}
 
+	public int updateByPrimaryKeySelective(CommMembers record){
+		return commMembersMapper.updateByPrimaryKeySelective(record);
+	}
+	
 	public List<Map<String, Object>> selectGameMems(Integer oaAppId,
 			Integer promoterId, String ordeStr, Integer currentPage,
 			Integer pageSize) {
