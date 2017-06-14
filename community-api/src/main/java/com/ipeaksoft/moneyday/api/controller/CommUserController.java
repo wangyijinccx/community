@@ -324,9 +324,33 @@ public class CommUserController extends BaseController {
 			result.put("msg", "用户不存在");
 			return result;
 		}
-		List<Map<String,Object>> lists = commUserDayService.selectByUserId(model.getId());
+		List<Map<String,Object>> lists = commUserDayService.selectIncomingList(model.getId());
 		result.put("result", 1);
 		result.put("incomingInfoList", lists);
+		result.put("msg", "获取收益详情成功");
+		return result;
+	}
+	
+	
+	/**
+	 * 推广业绩
+	 * @param token
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("promotionlist")
+	public Object promotionList(String token, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		CommUser model = commUserService.selectByIndicate(token);
+		if (model == null) {
+			result.put("result", 2);
+			result.put("msg", "用户不存在");
+			return result;
+		}
+		List<Map<String,Object>> lists = commUserDayService.selectPromotionList(model.getId());
+		result.put("result", 1);
+		result.put("PromotionList", lists);
 		result.put("msg", "获取收益详情成功");
 		return result;
 	}

@@ -40,8 +40,12 @@ public class CommUserDayService extends BaseService {
 		return commUserDayMapper.getConsumptionThisMonth(userid);
 	}
 
-	public List<Map<String, Object>> selectByUserId(Integer userid) {
-		return commUserDayMapper.selectByUserId(userid);
+	public List<Map<String, Object>> selectIncomingList(Integer userid) {
+		return commUserDayMapper.selectIncomingList(userid);
+	}
+	
+	public List<Map<String, Object>> selectPromotionList(Integer userid) {
+		return commUserDayMapper.selectPromotionList(userid);
 	}
 
 	public void statistical(String agentname, double real_amount) {

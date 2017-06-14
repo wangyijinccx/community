@@ -24,5 +24,7 @@ public interface CommUserDayMapper {
 
 	Map<String, Object> getConsumptionThisMonth(Integer userid);
 
-	List<Map<String, Object>> selectByUserId(Integer userid);
+	List<Map<String, Object>> selectIncomingList(Integer userid);
+	
+	List<Map<String, Object>> selectPromotionList(Integer userid);
 }
