@@ -187,14 +187,15 @@ public class CommHostController extends BaseController {
 			return result;
 		}
 		
-		
-		JSONObject Jdata = json.getJSONObject("data");
-		JSONArray array = Jdata.getJSONArray("lists");
-		for (int i = 0 ; i < array.size() ; i++){
-			JSONObject item = array.getJSONObject(i);
-			Integer id = item.getInteger("id");
-			Integer num = id%9;
-			item.put("backgroud", "http://101.201.253.194/imags/f"+num+".png");
+		if(!"10019".equals(json.getString("code"))){
+			JSONObject Jdata = json.getJSONObject("data");
+			JSONArray array = Jdata.getJSONArray("lists");
+			for (int i = 0 ; i < array.size() ; i++){
+				JSONObject item = array.getJSONObject(i);
+				Integer id = item.getInteger("id");
+				Integer num = id%9;
+				item.put("backgroud", "http://101.201.253.194/imags/f"+num+".png");
+			}
 		}
 
 		// 主播在线人数徒弟数
