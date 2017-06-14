@@ -171,7 +171,7 @@ public class CommHostController extends BaseController {
 		String url = "http://e.vhall.com/api/vhallapi/v2/record/list";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("webinar_id", webinarId + "");
-		params.put("pos", pos + "");
+		params.put("pos", pos*30 + "");
 		params.put("limit", "30");
 		params.put("time_seq", "1");
 		params.put("auth_type", auth_type);
