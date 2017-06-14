@@ -444,6 +444,14 @@
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_user
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  
+  
   <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
       tu.id,tu.indicate token,IFNULL(tu.openid,"") openid,IFNULL(tu.nickname,"") nickname,IFNULL(tu.headimgurl,"") headimgurl,

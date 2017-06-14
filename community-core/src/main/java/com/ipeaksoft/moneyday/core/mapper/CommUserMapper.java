@@ -1,5 +1,6 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ipeaksoft.moneyday.core.entity.CommUser;
@@ -26,4 +27,6 @@ public interface CommUserMapper {
     Map<String, Object> selectByIndicateSelective(String indicate);
     
     int updateByIndicate(CommUser record);
+    
+    List<CommUser> selectByPid(Integer pid);
 }

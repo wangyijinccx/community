@@ -1,5 +1,6 @@
 package com.ipeaksoft.moneyday.core.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
-import com.ipeaksoft.moneyday.core.entity.CommUserDay;
 import com.ipeaksoft.moneyday.core.mapper.CommUserMapper;
 import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Service
-public class CommUserService extends BaseService{
+public class CommUserService extends BaseService {
 
 	@Autowired
 	private CommUserMapper commUserMapper;
@@ -38,17 +38,21 @@ public class CommUserService extends BaseService{
 	public CommUser selectByOpenid(String openid) {
 		return commUserMapper.selectByOpenid(openid);
 	}
-	
-	public Map<String, Object> selectByIndicateSelective(String indicate){
+
+	public Map<String, Object> selectByIndicateSelective(String indicate) {
 		return commUserMapper.selectByIndicateSelective(indicate);
 	}
-	
-	public int updateByIndicate(CommUser record){
+
+	public int updateByIndicate(CommUser record) {
 		return commUserMapper.updateByIndicate(record);
 	}
-	
-	public  CommUser selectByPrimaryKey(Integer id){
+
+	public CommUser selectByPrimaryKey(Integer id) {
 		return commUserMapper.selectByPrimaryKey(id);
+	}
+
+	public List<CommUser> selectByPid(Integer pid) {
+		return commUserMapper.selectByPid(pid);
 	}
 
 	public CommUser toUser(CommUser commUser, JSONObject json) {
@@ -77,21 +81,25 @@ public class CommUserService extends BaseService{
 		commUser.setUnionid(unionid == null ? "" : unionid);
 		return commUser;
 	}
-	
-	public JSONObject userInfo(String indicate){
+
+	public JSONObject userInfo(String indicate) {
 		JSONObject result = new JSONObject();
 		Map<String, Object> commUser = selectByIndicateSelective(indicate);
-		Map<String, Object> commUserDay = commUserDayService.getConsumptionThisMonth((Integer) commUser.get("id"));
-		//result.put("token", commUser.getIndicate());
-		Long todayWithdrawalsCount = (Long) commUser.get("todayWithdrawalsCount");
-		String mobile =  (String) commUser.get("mobile");
+		Map<String, Object> commUserDay = commUserDayService
+				.getConsumptionThisMonth((Integer) commUser.get("id"));
+		// result.put("token", commUser.getIndicate());
+		Long todayWithdrawalsCount = (Long) commUser
+				.get("todayWithdrawalsCount");
+		String mobile = (String) commUser.get("mobile");
 		String pass = strUtil.getPassWord(mobile);
-		commUser.put("whaccount",mobile);
-		commUser.put("whpass",pass);
-		commUser.put("xmaccount","xg_"+mobile);
-		commUser.put("xmpass",pass);
-		commUser.put("todayWithdrawalsCount",withdrawalNumber - todayWithdrawalsCount);
-		commUser.put("consumptionThisMonth",null == commUserDay?0:commUserDay.get("consumptionThisMonth"));
+		commUser.put("whaccount", mobile);
+		commUser.put("whpass", pass);
+		commUser.put("xmaccount", "xg_" + mobile);
+		commUser.put("xmpass", pass);
+		commUser.put("todayWithdrawalsCount", withdrawalNumber
+				- todayWithdrawalsCount);
+		commUser.put("consumptionThisMonth", null == commUserDay ? 0
+				: commUserDay.get("consumptionThisMonth"));
 		result.put("user", commUser);
 		return result;
 	}

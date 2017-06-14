@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.api.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -160,9 +162,9 @@ public class CommUserController extends BaseController {
 			commUser.setCreateTime(new Date());
 			commUser.setUpdateTime(new Date());
 			commUser.setStatus("1");
-			commUser.setAward((double)0);
-			commUser.setTdaward((double)0);
-			commUser.setTotalaward((double)0);
+			commUser.setAward((double) 0);
+			commUser.setTdaward((double) 0);
+			commUser.setTotalaward((double) 0);
 			if (commUserService.insertSelective(commUser) < 1) {
 				result.put("result", 3);
 				result.put("msg", "西瓜妹注册失败");
@@ -307,9 +309,10 @@ public class CommUserController extends BaseController {
 		result.put("result", 1);
 		return result;
 	}
-	
+
 	/**
 	 * 收益详情
+	 * 
 	 * @param token
 	 * @param response
 	 * @return
@@ -324,16 +327,17 @@ public class CommUserController extends BaseController {
 			result.put("msg", "用户不存在");
 			return result;
 		}
-		List<Map<String,Object>> lists = commUserDayService.selectIncomingList(model.getId());
+		List<Map<String, Object>> lists = commUserDayService
+				.selectIncomingList(model.getId());
 		result.put("result", 1);
 		result.put("incomingInfoList", lists);
 		result.put("msg", "获取收益详情成功");
 		return result;
 	}
-	
-	
+
 	/**
 	 * 推广业绩
+	 * 
 	 * @param token
 	 * @param response
 	 * @return
@@ -348,10 +352,51 @@ public class CommUserController extends BaseController {
 			result.put("msg", "用户不存在");
 			return result;
 		}
-		List<Map<String,Object>> lists = commUserDayService.selectPromotionList(model.getId());
+		List<Map<String, Object>> lists = commUserDayService
+				.selectPromotionList(model.getId());
 		result.put("result", 1);
 		result.put("PromotionList", lists);
-		result.put("msg", "获取收益详情成功");
+		result.put("msg", "获取推广业绩成功");
 		return result;
 	}
+
+	/**
+	 * 徒弟列表
+	 * 
+	 * @param token
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getdisciples")
+	public Object getDisciples(String token, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		List<Map<String, Object>> discipleList = new ArrayList<Map<String, Object>>();
+		CommUser model = commUserService.selectByIndicate(token);
+		if (model == null) {
+			result.put("result", 2);
+			result.put("msg", "用户不存在");
+			return result;
+		}
+		List<CommUser> disciples = commUserService.selectByPid(model.getId());
+		for (CommUser disciple : disciples) {
+			Map<String, Object> discipleMap = new HashMap<String, Object>();
+			Double disciple_total = disciple.getTotalaward();
+			Double disciple_td = disciple.getTdaward();
+			Double disciple_mems = new BigDecimal(disciple_total).subtract(
+					new BigDecimal(disciple_td)).doubleValue();
+			discipleMap.put("userName",
+					null == disciple.getNickname() ? disciple.getMobile()
+							: disciple.getNickname());
+			discipleMap.put("profit", disciple_mems);
+			discipleList.add(discipleMap);
+		}
+		result.put("invitesNum", disciples.size());
+		result.put("sumIncoming", model.getTdaward());
+		result.put("apprenticeList", discipleList);
+		result.put("result", 1);
+		result.put("msg", "获取徒弟列表成功");
+		return result;
+	}
+
 }
