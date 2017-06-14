@@ -54,7 +54,7 @@ public class CommPlaybackController extends BaseController {
 			result.put("msg", "更新回放列表失败");
 			return result;
 		}
-		Integer webinarId = (Integer) map.get("getwebinarId");
+		Integer webinarId = (Integer) map.get("webinarId");
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 			String url = "http://e.vhall.com/api/vhallapi/v2/record/list";
@@ -146,7 +146,7 @@ public class CommPlaybackController extends BaseController {
 			result.put("msg", "获取回放列表失败");
 			return result;
 		}
-		Integer webinarId = (Integer) map_webinarId.get("getwebinarId");
+		Integer webinarId = (Integer) map_webinarId.get("webinarId");
 		List<Map<String, Object>> lists = commPlaybackService.selectPlaybacks(webinarId, pos, 30);
 		// 获取主播状态
 		CommHost commHost =  commHostService.selectByWebinarId(webinarId);

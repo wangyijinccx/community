@@ -338,6 +338,19 @@ public class CommHostController extends BaseController {
 			map.put("imgUrl", commHost.getImgUrl());
 			map.put("onlinestatus", commHost.getOnlinestatus());
 			map.put("nickname", commHost.getNickname());
+			
+			map.put("headimg", commHost.getHeadimg());
+			map.put("coverimg", commHost.getCoverimg());
+			// 主播在线人数徒弟数
+			JSONObject memberInfo = (JSONObject) getMembers(commHost.getWebinarId());
+			if (null == memberInfo
+					|| !"1".equals(memberInfo.getString("result"))) {
+				result.put("result", 2);
+				result.put("msg", "获取主播在线人数徒弟数失败");
+				return result;
+			}
+			map.put("members", memberInfo.getInteger("members"));
+			map.put("students", memberInfo.getInteger("students"));
 			lists.add(map);
 		}
 		result.put("result", 1);
