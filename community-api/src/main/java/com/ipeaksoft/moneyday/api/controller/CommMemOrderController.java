@@ -53,7 +53,7 @@ public class CommMemOrderController extends BaseController {
 	@RequestMapping("pay")
 	public Object pay(HttpServletRequest request, HttpServletResponse response) {
 
-		// 要不要判断充值状态，只保存充值成功的
+		// 要不要判断充值状态，只保存充值成功的--来的只有充值成功的数据
 
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();

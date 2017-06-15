@@ -4,19 +4,35 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ipeaksoft.moneyday.core.entity.TaskAuto;
 import com.ipeaksoft.moneyday.core.util.HttpRequest;
 
 
 public class TEST {
+	
+	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";
+	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
-		HashMap<String, Object> form = new HashMap<>();
-		form.put("appId", "708985992");
-		form.put("channel", "79");
-		form.put("idfa", "00192E92-9F4F-490B-8E8C-EDCDF632D858");
-		String url = "http://aff.ihmedia.com.cn/channelinterface/filterIdfa";
-		String result = HttpRequest.postForm(url, form);
+		
+	}
+	
+	
+	public static void gameAdd(){
+		String url="http://localhost:8080/community-api/";
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("plat_id", PLAT_ID);
+		p.put("timestamp", System.currentTimeMillis()+"");
+		p.put("sign_type", "MD5");
+		p.put("sign", "");
+		p.put("app_id", 1001);
+		p.put("gamename", "皇室战争");
+	    p.put("classify", 4);
+		p.put("gameflag", "huangshizhanzheng");
+		p.put("creat_time", System.currentTimeMillis()+"");
+		p.put("status", "2");
+		
+		
+		String result = HttpRequest.postForm(url, p);
 		System.out.println(result);
 	}
 	
