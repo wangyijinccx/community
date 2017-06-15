@@ -277,7 +277,7 @@ public class CommHostController extends BaseController {
 	// 预开发接口
 
 	/**
-	 * 更新主播活动
+	 * 更新某个主播活动
 	 * 
 	 * @param hostid
 	 * @return
