@@ -13,7 +13,7 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
-		//gameAdd();
+		gameDelete();
 	}
 	
 	
@@ -36,6 +36,40 @@ public class TEST {
 		String result = HttpRequest.postForm(url, p);
 		System.out.println(result);
 	}
+	
+	
+	public static void gameUpdate(){
+		JSONArray ja = new JSONArray();
+		JSONObject jo = new JSONObject();
+		jo.put("update_time", "1497515216512");
+		jo.put("status", "3");
+		jo.put("pinyin", "huangshizhanzheng1");
+		String url="http://localhost:8080/community-api/game/update";
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("plat_id", PLAT_ID);
+		p.put("timestamp", "1497515216512");
+		p.put("sign_type", "MD5");
+		p.put("sign", "68fac253cecb1229bf4481c6b7ebd8bf");
+		p.put("app_id", 1001);
+		p.put("upinfo", jo.toString());
+		String result = HttpRequest.postForm(url, p);
+		System.out.println(result);
+	}
+	
+	
+	public static void gameDelete(){
+		String url="http://localhost:8080/community-api/game/delete";
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("plat_id", PLAT_ID);
+		p.put("timestamp", "1497515216512");
+		p.put("sign_type", "MD5");
+		p.put("sign", "962c30ef8d87ad5916005ac4eb54c817");
+		p.put("app_id", 1001);
+		p.put("delete_time", "1497515216512");
+		String result = HttpRequest.postForm(url, p);
+		System.out.println(result);
+	}
+	
 	
 	public static void testQueryIdfaBatch()throws IOException{
 		String url = "http://ads.i43.com/api/queryidfabatch";

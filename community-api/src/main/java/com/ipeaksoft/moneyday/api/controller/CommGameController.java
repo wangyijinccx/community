@@ -2,6 +2,7 @@ package com.ipeaksoft.moneyday.api.controller;
 
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommGame;
@@ -135,78 +135,70 @@ public class CommGameController extends BaseController {
 	public Object update(HttpServletRequest request,
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
-		JSONObject json = new JSONObject();
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			Map<String, String[]> maps = request.getParameterMap();
-			String js = strUtil.map2JsonString(maps);
-			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
-			if (!PLAT_ID.equals(json.getString("plat_id"))) {
+			map = strUtil.getMap(maps);
+			JSONObject jsonUpInfo = JSONObject.parseObject(map.get("upinfo"));
+			logger.info("comm_gameadd:{}", map.toString());
+			if (!PLAT_ID.equals(map.get("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
-				result.put("info", json);
+				result.put("info", map.toString());
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-			// JSONObject jsonUpInfo = json.getJSONObject("upinfo");
-			JSONArray jsonUpInfos = json.getJSONArray("upinfo");
 
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("appid"))
-					+ "&timestamp="
-					+ URLEncoder.encode(json.getString("timestamp"))
-					+ "&upinfo=" + URLEncoder.encode(jsonUpInfos.toString())
+					+ "&app_id=" + URLEncoder.encode(map.get("app_id"))
+					+ "&timestamp=" + URLEncoder.encode(map.get("timestamp"))
+					+ "&upinfo=" + URLEncoder.encode(jsonUpInfo.toString())
 					+ "&PLAT_SECURE_KEY=" + URLEncoder.encode(PLAT_SECURE_KEY));
-			String reqSign = json.getString("sign");
+			String reqSign = map.get("sign");
 			if (!sign.equals(reqSign)) {
 				result.put("code", 404);
 				result.put("fun", "/game/update");
 				result.put("time", new Date());
-				result.put("info", json);
+				result.put("info", map.toString());
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-			for (int i = 0; i < jsonUpInfos.size(); i++) {
-				JSONObject jsonUpInfo = jsonUpInfos.getJSONObject(i);
-				CommGame commGame = new CommGame();
-				commGame.setPlatId(json.getInteger("plat_id"));
-				commGame.setGameId(json.getInteger("app_id"));
-				commGame.setName(jsonUpInfo.getString("gamename"));
-				commGame.setGameflag(jsonUpInfo.getString("gameflag"));
-				commGame.setInitial(jsonUpInfo.getString("initial"));
-				commGame.setIcon(jsonUpInfo.getString("icon"));
-				commGame.setStatus(jsonUpInfo.getByte("status"));
-				commGame.setClassify(jsonUpInfo.getByte("classify"));
-				commGame.setUpdateTime(jsonUpInfo.getLong("update_time"));
-				commGame.setListorder(0);
-				if (null != jsonUpInfo.getInteger("target_cnt")) {
-					commGame.setTargetCnt(jsonUpInfo.getInteger("target_cnt"));
-				}
-				if (null != jsonUpInfo.getInteger("target_level")) {
-					commGame.setTargetLevel(jsonUpInfo
-							.getInteger("target_level"));
-				}
-				if (null != jsonUpInfo.getInteger("parent_id")) {
-					commGame.setParentId(jsonUpInfo.getInteger("parent_id"));
-				}
-				//单条修改，为了记录某条出错数据 而且也没几个游戏就不做批量了
-				if (commGameService.updateByGameid(commGame) < 1) {
-					result.put("code", 1000);
-					result.put("fun", "/game/update");
-					result.put("time", new Date());
-					result.put("info", json);
-					result.put("updateerro", jsonUpInfo);
-					sdklogger.info("ERROR:{}", result.toString());
-					//return result;
-				}
+			CommGame commGame = new CommGame();
+			commGame.setPlatId(Integer.parseInt(map.get("plat_id")));
+			commGame.setGameId(Integer.parseInt(map.get("app_id")));
+			commGame.setName(jsonUpInfo.getString("gamename"));
+			commGame.setGameflag(jsonUpInfo.getString("gameflag"));
+			commGame.setInitial(jsonUpInfo.getString("initial"));
+			commGame.setIcon(jsonUpInfo.getString("icon"));
+			commGame.setStatus(jsonUpInfo.getByte("status"));
+			commGame.setClassify(jsonUpInfo.getByte("classify"));
+			commGame.setUpdateTime(jsonUpInfo.getLong("update_time"));
+			commGame.setListorder(0);
+			if (null != jsonUpInfo.getInteger("target_cnt")) {
+				commGame.setTargetCnt(jsonUpInfo.getInteger("target_cnt"));
 			}
-
+			if (null != jsonUpInfo.getInteger("target_level")) {
+				commGame.setTargetLevel(jsonUpInfo.getInteger("target_level"));
+			}
+			if (null != jsonUpInfo.getInteger("parent_id")) {
+				commGame.setParentId(jsonUpInfo.getInteger("parent_id"));
+			}
+			// 单条修改，为了记录某条出错数据 而且也没几个游戏就不做批量了
+			if (commGameService.updateByGameid(commGame) < 1) {
+				result.put("code", 1000);
+				result.put("fun", "/game/update");
+				result.put("time", new Date());
+				result.put("info", map.toString());
+				result.put("updateerro", jsonUpInfo);
+				sdklogger.info("ERROR:{}", result.toString());
+				// return result;
+			}
 		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/update");
 			result.put("time", new Date());
-			result.put("info", json);
+			result.put("info", map.toString());
 			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
