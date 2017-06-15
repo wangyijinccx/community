@@ -13,7 +13,7 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
-		gameAdd();
+		//gameAdd();
 	}
 	
 	
@@ -21,21 +21,18 @@ public class TEST {
 		String url="http://localhost:8080/community-api/game/add";
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("plat_id", PLAT_ID);
-		p.put("timestamp", System.currentTimeMillis()+"");
+		p.put("timestamp", "1497515216512");
 		p.put("sign_type", "MD5");
-		p.put("sign", "dcf6bc6ff0485a2eb7aea1ae844988a1");
+		p.put("sign", "962c30ef8d87ad5916005ac4eb54c817");
 		p.put("app_id", 1001);
 		p.put("gamename", "皇室战争");
 	    p.put("classify", 4);
 		p.put("gameflag", "huangshizhanzheng");
-		p.put("creat_time", System.currentTimeMillis()+"");
+		p.put("creat_time", "1497515216512");
 		p.put("status", "2");
 		p.put("pinyin", "huangshizhanzheng");
 		p.put("initial", "h");
 		p.put("version", 1);
-		
-		
-		
 		String result = HttpRequest.postForm(url, p);
 		System.out.println(result);
 	}
