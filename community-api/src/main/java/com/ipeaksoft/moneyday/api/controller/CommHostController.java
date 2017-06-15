@@ -211,7 +211,7 @@ public class CommHostController extends BaseController {
 		// 主播信息
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (1 == commHost.getOnlinestatus()) {
-			// map.put("id", commHost.getId());
+		    map.put("id", commHost.getId());
 			map.put("webinarId", webinarId);
 			map.put("subject", commHost.getSubject());
 			map.put("imgUrl", commHost.getImgUrl());

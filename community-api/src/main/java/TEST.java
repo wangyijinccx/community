@@ -13,12 +13,12 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
-		
+		gameAdd();
 	}
 	
 	
 	public static void gameAdd(){
-		String url="http://localhost:8080/community-api/";
+		String url="http://localhost:8080/community-api/game/add";
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("plat_id", PLAT_ID);
 		p.put("timestamp", System.currentTimeMillis()+"");
@@ -30,8 +30,9 @@ public class TEST {
 		p.put("gameflag", "huangshizhanzheng");
 		p.put("creat_time", System.currentTimeMillis()+"");
 		p.put("status", "2");
-		
-		
+		p.put("pinyin", "huangshizhanzheng");
+		p.put("initial", "h");
+		p.put("version", 1);
 		String result = HttpRequest.postForm(url, p);
 		System.out.println(result);
 	}

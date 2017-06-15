@@ -37,7 +37,7 @@ public class HttpService extends BaseService {
         //cm.setMaxTotal(15);
         cm.setMaxTotal(500);
         cm.setDefaultMaxPerRoute(300);
-        RequestConfig config = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
+        RequestConfig config = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();
         httpclient = HttpClients.custom().setDefaultRequestConfig(config).setConnectionManager(cm).build();
         logger.info("Httpclient init...!");
     }
