@@ -55,6 +55,14 @@ public class CommMemGroleController extends BaseController {
 			String content = contentBuffer.toString();
 			logger.info("comm_useruproleinfo:{}", content);
 			json = JSONObject.parseObject(content);
+			if (!PLAT_ID.equals(json.getString("plat_id"))) {
+				result.put("code", 401);
+				result.put("fun", "/game/update");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			Map<String, Object> map = JSONObject
 					.parseObject(content, Map.class);
 			for (Entry<String, Object> entry : map.entrySet()) {
@@ -113,9 +121,10 @@ public class CommMemGroleController extends BaseController {
 			if (null != json.getLong("rolelevel_mtime")) {
 				comm.setRolelevelMtime(json.getLong("rolelevel_mtime"));
 			}
-            
-			CommMemGrole commMemGrole = commMemGroleService.selectByRoleId(json.getString("role_id"));
-			if(null == commMemGrole){
+
+			CommMemGrole commMemGrole = commMemGroleService.selectByRoleId(json
+					.getString("role_id"));
+			if (null == commMemGrole) {
 				comm.setCreatTime(json.getLong("time"));
 				if (commMemGroleService.insertSelective(comm) < 1) {
 					result.put("code", 1000);
@@ -125,7 +134,7 @@ public class CommMemGroleController extends BaseController {
 					sdklogger.info("ERROR:{}", result.toString());
 					return result;
 				}
-			}else{
+			} else {
 				if (commMemGroleService.updateByRoleId(comm) < 1) {
 					result.put("code", 1000);
 					result.put("fun", "/user/uproleinfo");

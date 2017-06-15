@@ -40,9 +40,10 @@ public class CommMemOrderController extends BaseController {
 	CommMemOrderService commMemOrderService;
 	@Autowired
 	CommUserDayService commUserDayService;
-    
+
 	/**
 	 * 充值
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
@@ -67,9 +68,16 @@ public class CommMemOrderController extends BaseController {
 			String content = contentBuffer.toString();
 			logger.info("comm_userpay:{}", content);
 			json = JSONObject.parseObject(content);
-
+			if (!PLAT_ID.equals(json.getString("plat_id"))) {
+				result.put("code", 401);
+				result.put("fun", "/user/pay");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
+					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
 					+ "&timestamp="
 					+ URLEncoder.encode(json.getString("timestamp"))
 					+ "&uersname="
@@ -114,27 +122,6 @@ public class CommMemOrderController extends BaseController {
 				return result;
 			} else {
 				CommMemGrole comm = new CommMemGrole();
-				/*
-				 * 这些可以不更新 comm.setPlatId(json.getInteger("plat_id"));
-				 * comm.setOaAppId(json.getInteger("app_id")); CommMembers mems
-				 * = commMembersService.selectByUserName(json
-				 * .getString("username")); if (null == mems) {
-				 * result.put("code", 406); result.put("fun", "/user/pay");
-				 * result.put("time", new Date()); result.put("info", json);
-				 * sdklogger.info("ERROR:{}", result.toString()); return result;
-				 * } comm.setMemId(mems.getId().intValue()); String agentname =
-				 * json.getString("agentname"); CommUser commUser =
-				 * commUserService.selectBymobile(strUtil
-				 * .getAgentName(agentname)); if (null == commUser) {
-				 * result.put("code", 407); result.put("fun", "/user/pay");
-				 * result.put("time", new Date()); result.put("info", json);
-				 * sdklogger.info("ERROR:{}", result.toString()); return result;
-				 * } comm.setPromoterId(commUser.getId());
-				 * comm.setIp(json.getInteger("ip"));//充值公网ip ，跟角色表对应
-				 * comm.setUpdateTime(json.getLong("time"));//充值时间，跟角色表对应
-				 * comm.setDeviceId(json.getString("device_id"));//充值，跟角色表对应
-				 * comm.setFrom(json.getByte("from"));//充值，跟角色表对应
-				 */
 				comm.setRoleId(json.getString("role_id"));
 				comm.setRoleLevel(json.getInteger("role_level"));
 				comm.setRoleName(json.getString("role_name"));
@@ -198,13 +185,13 @@ public class CommMemOrderController extends BaseController {
 		result.put("code", 200);
 		return result;
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping("getorders")
-	public Object getOrders(HttpServletRequest request, Long userId, HttpServletResponse response) {
+	public Object getOrders(HttpServletRequest request, Long userId,
+			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
-		List<Map<String,Object>> lists = commMemOrderService.getOrders(userId);
+		List<Map<String, Object>> lists = commMemOrderService.getOrders(userId);
 		result.put("result", 1);
 		result.put("userOrderList", lists);
 		result.put("msg", "添加qq微信成功");

@@ -49,8 +49,16 @@ public class CommGameServerController extends BaseController {
 			String content = contentBuffer.toString();
 			logger.info("comm_serveradd:{}", content);
 			json = JSONObject.parseObject(content);
+			if(!PLAT_ID.equals(json.getString("plat_id"))){
+				result.put("code", 401);
+				result.put("fun", "/server/add");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
+					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
 					+ "&server_id="
 					+ URLEncoder.encode(json.getString("server_id"))
 					+ "&server_code="
@@ -127,9 +135,17 @@ public class CommGameServerController extends BaseController {
 			String content = contentBuffer.toString();
 			logger.info("comm_serverupdate:{}", content);
 			json = JSONObject.parseObject(content);
+			if(!PLAT_ID.equals(json.getString("plat_id"))){
+				result.put("code", 401);
+				result.put("fun", "/server/update");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			JSONObject jsonUpInfo = json.getJSONObject("serinfo");
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
+					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
 					+ "&gamename="
 					+ URLEncoder.encode(json.getString("gamename"))
 					+ "&timestamp="

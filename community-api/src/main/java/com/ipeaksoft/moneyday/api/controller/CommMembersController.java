@@ -59,8 +59,16 @@ public class CommMembersController extends BaseController {
 			String content = contentBuffer.toString();
 			logger.info("comm_userreg:{}", content);
 			json = JSONObject.parseObject(content);
+			if(!PLAT_ID.equals(json.getString("plat_id"))){
+				result.put("code", 401);
+				result.put("fun", "/user/reg");
+				result.put("time", new Date());
+				result.put("info", json);
+				sdklogger.info("ERROR:{}", result.toString());
+				return result;
+			}
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("plat_id"))
+					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
 					+ "&timestamp="
 					+ URLEncoder.encode(json.getString("timestamp"))
 					+ "&gamename="
