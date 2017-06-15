@@ -1,7 +1,5 @@
 package com.ipeaksoft.moneyday.api.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommGame;
 import com.ipeaksoft.moneyday.core.service.CommGameService;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
 @RequestMapping(value = "/game")
@@ -43,16 +42,10 @@ public class CommGameController extends BaseController {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_gameadd:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/add");
@@ -116,7 +109,7 @@ public class CommGameController extends BaseController {
 				return result;
 			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/add");
 			result.put("time", new Date());
@@ -143,16 +136,10 @@ public class CommGameController extends BaseController {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_gameupdate:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/update");
@@ -206,7 +193,7 @@ public class CommGameController extends BaseController {
 				return result;
 			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/update");
 			result.put("time", new Date());
@@ -233,16 +220,10 @@ public class CommGameController extends BaseController {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_gamedelete:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/delete");
@@ -280,7 +261,7 @@ public class CommGameController extends BaseController {
 				return result;
 			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/delete");
 			result.put("time", new Date());
@@ -300,16 +281,10 @@ public class CommGameController extends BaseController {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_gamedelete:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/restore");
@@ -346,7 +321,7 @@ public class CommGameController extends BaseController {
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/game/restore");
 			result.put("time", new Date());

@@ -23,7 +23,7 @@ public class TEST {
 		p.put("plat_id", PLAT_ID);
 		p.put("timestamp", System.currentTimeMillis()+"");
 		p.put("sign_type", "MD5");
-		p.put("sign", "");
+		p.put("sign", "dcf6bc6ff0485a2eb7aea1ae844988a1");
 		p.put("app_id", 1001);
 		p.put("gamename", "皇室战争");
 	    p.put("classify", 4);
@@ -33,6 +33,9 @@ public class TEST {
 		p.put("pinyin", "huangshizhanzheng");
 		p.put("initial", "h");
 		p.put("version", 1);
+		
+		
+		
 		String result = HttpRequest.postForm(url, p);
 		System.out.println(result);
 	}

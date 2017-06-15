@@ -1,7 +1,5 @@
 package com.ipeaksoft.moneyday.api.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +17,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommMemGrole;
 import com.ipeaksoft.moneyday.core.entity.CommMemOrder;
-import com.ipeaksoft.moneyday.core.entity.CommMembers;
 import com.ipeaksoft.moneyday.core.service.CommMemGroleService;
 import com.ipeaksoft.moneyday.core.service.CommMemOrderService;
 import com.ipeaksoft.moneyday.core.service.CommMembersService;
 import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -58,16 +56,10 @@ public class CommMemOrderController extends BaseController {
 		JSONObject result = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_userpay:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/user/pay");
@@ -174,7 +166,7 @@ public class CommMemOrderController extends BaseController {
 			// 收益
 			commUserDayService.statistical(json.getString("agentname"),
 					json.getDouble("real_amount"));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/user/pay");
 			result.put("time", new Date());

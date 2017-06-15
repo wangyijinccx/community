@@ -1,7 +1,5 @@
 package com.ipeaksoft.moneyday.api.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Map;
@@ -45,16 +43,10 @@ public class CommMemGroleController extends BaseController {
 		JSONObject json = new JSONObject();
 		String str = "";
 		try {
-			BufferedReader reader = request.getReader();
-			char[] buf = new char[512];
-			int len = 0;
-			StringBuffer contentBuffer = new StringBuffer();
-			while ((len = reader.read(buf)) != -1) {
-				contentBuffer.append(buf, 0, len);
-			}
-			String content = contentBuffer.toString();
-			logger.info("comm_useruproleinfo:{}", content);
-			json = JSONObject.parseObject(content);
+			Map<String,String[]> maps = request.getParameterMap();
+			String js= strUtil.map2JsonString(maps);
+			json = JSONObject.parseObject(js);
+			logger.info("comm_gameadd:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/update");
@@ -64,7 +56,7 @@ public class CommMemGroleController extends BaseController {
 				return result;
 			}
 			Map<String, Object> map = JSONObject
-					.parseObject(content, Map.class);
+					.parseObject(js, Map.class);
 			for (Entry<String, Object> entry : map.entrySet()) {
 				str += entry.getKey() + "="
 						+ URLEncoder.encode((String) entry.getValue()) + "&";
@@ -144,7 +136,7 @@ public class CommMemGroleController extends BaseController {
 					return result;
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			result.put("code", 1000);
 			result.put("fun", "/user/uproleinfo");
 			result.put("time", new Date());
