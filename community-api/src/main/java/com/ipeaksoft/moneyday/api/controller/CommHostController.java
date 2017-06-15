@@ -259,7 +259,7 @@ public class CommHostController extends BaseController {
 				return result;
 			}
 			redis.setInteger(key, json.getInteger("data"));
-			redis.expire(key,35);
+			redis.expire(key,40);
 			result.put("result", 1);
 			result.put("members", json.getInteger("data"));
 			result.put("students", lists.size());
