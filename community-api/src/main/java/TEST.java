@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.util.HttpRequest;
 
@@ -40,7 +39,6 @@ public class TEST {
 	
 	
 	public static void serverUpdate(){
-		JSONArray ja = new JSONArray();
 		JSONObject jo = new JSONObject();
 		jo.put("update_time", 149751);
 		jo.put("server_name", "huangshiserver1");
@@ -102,7 +100,6 @@ public class TEST {
 	
 	
 	public static void gameUpdate(){
-		JSONArray ja = new JSONArray();
 		JSONObject jo = new JSONObject();
 		jo.put("update_time", "1497515216512");
 		jo.put("status", "3");
