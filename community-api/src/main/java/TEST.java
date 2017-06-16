@@ -71,6 +71,8 @@ public class TEST {
 	}
 	
 	
+	
+	
 	public static void testQueryIdfaBatch()throws IOException{
 		String url = "http://ads.i43.com/api/queryidfabatch";
 //		String url = "http://localhost:8080/moneyday-api/queryidfa";
