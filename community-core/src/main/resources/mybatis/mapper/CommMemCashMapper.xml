@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommMemCashMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="totalcredits" property="totalcredits" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="operate_result" property="operateResult" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, orderid, description, openid, real_name, amount, totalcredits, status, operate_time, 
+    operate_result, operator, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_mem_cash
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_comm_mem_cash
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    insert into tb_comm_mem_cash (id, orderid, description, 
+      openid, real_name, amount, 
+      totalcredits, status, operate_time, 
+      operate_result, operator, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{openid,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{totalcredits,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
+      #{operateResult,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    insert into tb_comm_mem_cash
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="totalcredits != null" >
+        totalcredits,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+      <if test="operateResult != null" >
+        operate_result,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredits != null" >
+        #{totalcredits,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateResult != null" >
+        #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    update tb_comm_mem_cash
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredits != null" >
+        totalcredits = #{totalcredits,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateResult != null" >
+        operate_result = #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    update tb_comm_mem_cash
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      totalcredits = #{totalcredits,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      operate_result = #{operateResult,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
