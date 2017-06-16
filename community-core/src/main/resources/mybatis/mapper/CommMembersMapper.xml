@@ -231,7 +231,7 @@
   
   <select id="selectGameMems" resultType="java.util.HashMap">
      select tm.id userID ,tmg.role_name nickName,tg.`name` gameName,tmg.server_name gameServerType,tm.username userName,tmg.role_level levelInDay1,
-      FROM_UNIXTIME(tm.reg_time, '%Y-%m-%d %H:%i:%S') registeTime,IFNULL(tmo.sumConsumption,0) sumConsumption,IFNULL(tm.qq,'') qq,IFNULL(tm.weixin,'') weixin
+      FROM_UNIXTIME(tm.reg_time, '%Y-%m-%d %H:%i:%S') registeTime,inet_ntoa(tm.reg_ip) registeIp,IFNULL(tmo.sumConsumption,0) sumConsumption,IFNULL(tm.qq,'') qq,IFNULL(tm.weixin,'') weixin
      from tb_comm_members tm
      LEFT   JOIN tb_comm_mem_grole tmg on tm.id = tmg.mem_id
      LEFT JOIN  (select role_id,SUM(real_amount) sumConsumption,time from tb_comm_mem_order where `status` ='2' GROUP BY role_id) tmo on tmo.role_id = tmg.role_id
