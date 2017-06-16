@@ -12,7 +12,36 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
+		userUproleinfo();
+	}
+	
+	public static void userUproleinfo(){
+		String url="http://localhost:8080/community-api/user/uproleinfo";
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("plat_id", PLAT_ID);
+		p.put("timestamp", "149751");
+		p.put("sign_type", "MD5");
+		p.put("sign", "063e859aaaa561403c5b16403dae388b");
+		p.put("app_id", 1001);
+		p.put("username", "ztwireless");
+		p.put("agentname", "xg_13552886455");
+		p.put("ip", "106.37.252.136");
+		p.put("time", "149751");
+		p.put("device_id", "macsgi12351");
+		p.put("from", 4);
+		p.put("userua", "1231212");
 		
+		
+		
+		p.put("role_id", "r10012");
+		p.put("role_level", 100);
+		p.put("role_name", "二当家");
+		p.put("server_id", "10011");
+		p.put("server_name", "天下一通");
+		
+		
+		String result = HttpRequest.postForm(url, p);
+		System.out.println(result);
 	}
 	
 	

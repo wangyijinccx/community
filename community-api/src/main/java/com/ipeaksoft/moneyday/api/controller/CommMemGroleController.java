@@ -46,7 +46,7 @@ public class CommMemGroleController extends BaseController {
 			Map<String,String[]> maps = request.getParameterMap();
 			String js= strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_useruproleinfo:{}", json.toString());
+			logger.info("comm_useruproleinfo:{}", js);
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/update");
@@ -58,11 +58,13 @@ public class CommMemGroleController extends BaseController {
 			Map<String, Object> map = JSONObject
 					.parseObject(js, Map.class);
 			for (Entry<String, Object> entry : map.entrySet()) {
-				str += entry.getKey() + "="
-						+ URLEncoder.encode((String) entry.getValue()) + "&";
+				if(!"sign".equals(entry.getKey())){
+					str += entry.getKey() + "="
+							+ URLEncoder.encode((String) entry.getValue()) + "&";	
+				}
 			}
-			String sign = MD5Util.md5(str + "PLAT_SECURE_KEY="
-					+ URLEncoder.encode(PLAT_SECURE_KEY));
+			str +="key="+ URLEncoder.encode(PLAT_SECURE_KEY);
+			String sign = MD5Util.md5(str);
 			String reqSign = json.getString("sign");
 			if (!sign.equals(reqSign)) {
 				result.put("code", 404);

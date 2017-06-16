@@ -21,7 +21,7 @@
     <result column="rolelevel_mtime" property="rolelevelMtime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, plat_id, oa_app_id, mem_id, promoter_id, ip, update_time, device_id, from, role_id, 
+    id, plat_id, oa_app_id, mem_id, promoter_id, ip, update_time, device_id, `from`, role_id, 
     role_level, role_name, server_id, server_name, creat_time, rolelevel_ctime, rolelevel_mtime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -37,7 +37,7 @@
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemGrole" >
     insert into tb_comm_mem_grole (id, plat_id, oa_app_id, 
       mem_id, promoter_id, ip, 
-      update_time, device_id, from, 
+      update_time, device_id, `from`, 
       role_id, role_level, role_name, 
       server_id, server_name, creat_time, 
       rolelevel_ctime, rolelevel_mtime)
@@ -76,7 +76,7 @@
         device_id,
       </if>
       <if test="from != null" >
-        from,
+        `from`,
       </if>
       <if test="roleId != null" >
         role_id,
@@ -182,7 +182,7 @@
         device_id = #{deviceId,jdbcType=VARCHAR},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="roleId != null" >
         role_id = #{roleId,jdbcType=VARCHAR},
@@ -220,7 +220,7 @@
       ip = #{ip,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       device_id = #{deviceId,jdbcType=VARCHAR},
-      from = #{from,jdbcType=TINYINT},
+      `from` = #{from,jdbcType=TINYINT},
       role_id = #{roleId,jdbcType=VARCHAR},
       role_level = #{roleLevel,jdbcType=INTEGER},
       role_name = #{roleName,jdbcType=VARCHAR},
@@ -258,7 +258,7 @@
         device_id = #{deviceId,jdbcType=VARCHAR},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="roleLevel != null" >
         role_level = #{roleLevel,jdbcType=INTEGER},
