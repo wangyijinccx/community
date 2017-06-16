@@ -20,7 +20,7 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, plat_id, grole_id, ip, time, device_id, from, order_id, payway, real_amount, 
+    id, plat_id, grole_id, ip, time, device_id, `from`, order_id, payway, real_amount, 
     amount, gm_cnt, status, rebate_cnt, role_id, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -35,7 +35,7 @@
   </delete>
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
     insert into tb_comm_mem_order (id, plat_id, grole_id, 
-      ip, time, device_id, from, 
+      ip, time, device_id, `from`, 
       order_id, payway, real_amount, 
       amount, gm_cnt, status, 
       rebate_cnt, role_id, remark
@@ -69,7 +69,7 @@
         device_id,
       </if>
       <if test="from != null" >
-        from,
+        `from`,
       </if>
       <if test="orderId != null" >
         order_id,
@@ -169,7 +169,7 @@
         device_id = #{deviceId,jdbcType=VARCHAR},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=VARCHAR},
@@ -208,7 +208,7 @@
       ip = #{ip,jdbcType=BIGINT},
       time = #{time,jdbcType=BIGINT},
       device_id = #{deviceId,jdbcType=VARCHAR},
-      from = #{from,jdbcType=TINYINT},
+      `from` = #{from,jdbcType=TINYINT},
       order_id = #{orderId,jdbcType=VARCHAR},
       payway = #{payway,jdbcType=VARCHAR},
       real_amount = #{realAmount,jdbcType=DOUBLE},
@@ -247,7 +247,7 @@
         device_id = #{deviceId,jdbcType=VARCHAR},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="payway != null" >
         payway = #{payway,jdbcType=VARCHAR},

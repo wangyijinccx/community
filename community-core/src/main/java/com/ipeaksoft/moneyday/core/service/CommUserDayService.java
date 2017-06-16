@@ -78,7 +78,7 @@ public class CommUserDayService extends BaseService {
 			commUserDay.setTodaycommission(original.add(promoterAward)
 					.doubleValue());
 			commUserDay.setTodayrechargetotal(realAmonut.add(
-					new BigDecimal(commUserDay.getTodayrechargetotal()))
+					new BigDecimal(cud.getTodayrechargetotal()))
 					.doubleValue());
 			commUserDayMapper.updateCurrentInfo(commUserDay);
 		}

@@ -22,7 +22,7 @@ public class CommHostService extends BaseService{
 	}
 	
 	public int updateByPrimaryKeySelective(CommHost record){
-		return commHostMapper.updateByPrimaryKey(record);
+		return commHostMapper.updateByPrimaryKeySelective(record);
 	}
 	
 	public CommHost selectByPrimaryKey(Integer id){
