@@ -140,7 +140,7 @@ public class CommGameController extends BaseController {
 			Map<String, String[]> maps = request.getParameterMap();
 			map = strUtil.getMap(maps);
 			JSONObject jsonUpInfo = JSONObject.parseObject(map.get("upinfo"));
-			logger.info("comm_gameadd:{}", map.toString());
+			logger.info("comm_gameupdate:{}", map.toString());
 			if (!PLAT_ID.equals(map.get("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/update");
@@ -224,7 +224,7 @@ public class CommGameController extends BaseController {
 			Map<String, String[]> maps = request.getParameterMap();
 			String js = strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
+			logger.info("comm_gamedelete:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/delete");
@@ -285,7 +285,7 @@ public class CommGameController extends BaseController {
 			Map<String, String[]> maps = request.getParameterMap();
 			String js = strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
+			logger.info("comm_gamerestore:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/game/restore");

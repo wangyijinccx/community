@@ -59,7 +59,7 @@ public class CommMemOrderController extends BaseController {
 			Map<String,String[]> maps = request.getParameterMap();
 			String js= strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
+			logger.info("comm_userpay:{}", json.toString());
 			if (!PLAT_ID.equals(json.getString("plat_id"))) {
 				result.put("code", 401);
 				result.put("fun", "/user/pay");

@@ -50,7 +50,7 @@ public class CommMembersController extends BaseController {
 			Map<String,String[]> maps = request.getParameterMap();
 			String js= strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
+			logger.info("comm_userreg:{}", js);
 			if(!PLAT_ID.equals(json.getString("plat_id"))){
 				result.put("code", 401);
 				result.put("fun", "/user/reg");
@@ -61,22 +61,18 @@ public class CommMembersController extends BaseController {
 			}
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
 					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
+					+ "&username="
+					+ URLEncoder.encode(json.getString("username"))
 					+ "&timestamp="
 					+ URLEncoder.encode(json.getString("timestamp"))
-					+ "&gamename="
-					+ URLEncoder.encode(json.getString("gamename"))
-					+ "&classify="
-					+ URLEncoder.encode(json.getString("classify"))
-					+ "&gameflag="
-					+ URLEncoder.encode(json.getString("gameflag"))
-					+ "&creat_time="
-					+ URLEncoder.encode(json.getString("creat_time"))
-					+ "&status=" + URLEncoder.encode(json.getString("status"))
-					+ "&pinyin=" + URLEncoder.encode(json.getString("pinyin"))
-					+ "&initial="
-					+ URLEncoder.encode(json.getString("initial"))
-					+ "&version="
-					+ URLEncoder.encode(json.getString("version"))
+					+ "&time="
+					+ URLEncoder.encode(json.getString("time"))
+					+ "&ip="
+					+ URLEncoder.encode(json.getString("ip"))
+					+ "&device_id="
+					+ URLEncoder.encode(json.getString("device_id"))
+					+ "&from=" + URLEncoder.encode(json.getString("from"))
+					+ "&userua=" + URLEncoder.encode(json.getString("userua"))
 					+ "&PLAT_SECURE_KEY=" + URLEncoder.encode(PLAT_SECURE_KEY));
 			String reqSign = json.getString("sign");
 			if (!sign.equals(reqSign)) {

@@ -2,6 +2,7 @@ package com.ipeaksoft.moneyday.api.controller;
 
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ public class CommGameServerController extends BaseController {
 			Map<String,String[]> maps = request.getParameterMap();
 			String js= strUtil.map2JsonString(maps);
 			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
+			logger.info("comm_serveradd:{}", js);
 			if(!PLAT_ID.equals(json.getString("plat_id"))){
 				result.put("code", 401);
 				result.put("fun", "/server/add");
@@ -117,49 +118,48 @@ public class CommGameServerController extends BaseController {
 	public Object update(HttpServletRequest request,
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
-		JSONObject json = new JSONObject();
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			Map<String,String[]> maps = request.getParameterMap();
-			String js= strUtil.map2JsonString(maps);
-			json = JSONObject.parseObject(js);
-			logger.info("comm_gameadd:{}", json.toString());
-			if(!PLAT_ID.equals(json.getString("plat_id"))){
+			map = strUtil.getMap(maps);
+			JSONObject jsonUpInfo = JSONObject.parseObject(map.get("serinfo"));
+			logger.info("comm_serverupdate:{}", map.toString());
+			if(!PLAT_ID.equals(map.get("plat_id"))){
 				result.put("code", 401);
 				result.put("fun", "/server/update");
 				result.put("time", new Date());
-				result.put("info", json);
+				result.put("info", map.toString());
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
-			JSONObject jsonUpInfo = json.getJSONObject("serinfo");
 			String sign = MD5Util.md5("plat_id=" + URLEncoder.encode(PLAT_ID)
-					+ "&app_id=" + URLEncoder.encode(json.getString("app_id"))
+					+ "&app_id=" + URLEncoder.encode(map.get("app_id"))
 					+ "&gamename="
-					+ URLEncoder.encode(json.getString("gamename"))
+					+ URLEncoder.encode(map.get("gamename"))
 					+ "&timestamp="
-					+ URLEncoder.encode(json.getString("timestamp"))
+					+ URLEncoder.encode(map.get("timestamp"))
 					+ "&serinfo=" + URLEncoder.encode(jsonUpInfo.toString())
 					+ "&PLAT_SECURE_KEY=" + URLEncoder.encode(PLAT_SECURE_KEY));
-			String reqSign = json.getString("sign");
+			String reqSign = map.get("sign");
 			if (!sign.equals(reqSign)) {
 				result.put("code", 404);
 				result.put("fun", "/server/update");
 				result.put("time", new Date());
-				result.put("info", json);
+				result.put("info", map.toString());
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
 			CommGameServer commGameServer = new CommGameServer();
 			commGameServer.setServerId(jsonUpInfo.getInteger("server_id"));
-			if (null != json.getLong("run_time")) {
+			if (null != jsonUpInfo.getLong("run_time")) {
 				commGameServer.setStartTime(jsonUpInfo.getLong("run_time"));
 			}
-			commGameServer.setOaAppId(json.getInteger("app_id"));
-			if (null != json.getLong("server_code")) {
+			commGameServer.setOaAppId(Integer.parseInt(map.get("app_id")));
+			if (null != jsonUpInfo.getString("server_code")) {
 				commGameServer.setSerCode(jsonUpInfo.getString("server_code"));
 			}
 
-			if (null != json.getLong("server_name")) {
+			if (null != jsonUpInfo.getString("server_name")) {
 				commGameServer.setSerCode(jsonUpInfo.getString("server_name"));
 			}
 			commGameServer.setUpdateTime(jsonUpInfo.getLong("update_time"));
@@ -167,7 +167,7 @@ public class CommGameServerController extends BaseController {
 				result.put("code", 1000);
 				result.put("fun", "/server/update");
 				result.put("time", new Date());
-				result.put("info", json);
+				result.put("info", map.toString());
 				sdklogger.info("ERROR:{}", result.toString());
 				return result;
 			}
@@ -176,7 +176,7 @@ public class CommGameServerController extends BaseController {
 			result.put("code", 1000);
 			result.put("fun", "/server/update");
 			result.put("time", new Date());
-			result.put("info", json);
+			result.put("info", map.toString());
 			sdklogger.info("ERROR:{}", result.toString());
 			return result;
 		}
