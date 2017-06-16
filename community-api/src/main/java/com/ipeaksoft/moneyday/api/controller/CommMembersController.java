@@ -87,7 +87,8 @@ public class CommMembersController extends BaseController {
 			commMembers.setUsername(json.getString("uersname"));
 			commMembers.setPassword(json.getString("password"));
 			commMembers.setDeviceId(json.getString("device_id"));
-			commMembers.setRegIp(json.getInteger("ip"));
+			String ip = json.getString("ip");
+			commMembers.setRegIp(strUtil.ipToLong(ip));
 			commMembers.setPlatId(json.getInteger("plat_id"));
 			commMembers.setFrom(json.getByte("from"));
 			commMembers.setOaAppId(json.getInteger("app_id"));

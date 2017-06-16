@@ -98,7 +98,7 @@ public class CommMemGroleController extends BaseController {
 				return result;
 			}
 			comm.setPromoterId(commUser.getId());
-			comm.setIp(json.getInteger("ip"));
+			comm.setIp(strUtil.ipToLong(json.getString("ip")));
 			comm.setUpdateTime(json.getLong("time"));
 			comm.setDeviceId(json.getString("device_id"));
 			comm.setFrom(json.getByte("from"));

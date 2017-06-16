@@ -15,7 +15,7 @@ public class CommMembers {
 
     private String deviceId;
 
-    private Integer regIp;
+    private Long regIp;
 
     private Integer platId;
 
@@ -89,11 +89,11 @@ public class CommMembers {
         this.deviceId = deviceId;
     }
 
-    public Integer getRegIp() {
+    public Long getRegIp() {
         return regIp;
     }
 
-    public void setRegIp(Integer regIp) {
+    public void setRegIp(Long regIp) {
         this.regIp = regIp;
     }
 

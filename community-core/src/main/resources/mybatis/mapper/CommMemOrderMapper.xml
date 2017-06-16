@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="plat_id" property="platId" jdbcType="INTEGER" />
     <result column="grole_id" property="groleId" jdbcType="INTEGER" />
-    <result column="ip" property="ip" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="BIGINT" />
     <result column="time" property="time" jdbcType="BIGINT" />
     <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
     <result column="from" property="from" jdbcType="TINYINT" />
@@ -35,17 +35,17 @@
   </delete>
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
     insert into tb_comm_mem_order (id, plat_id, grole_id, 
-      ip, time, device_id, 
-      from, order_id, payway, 
-      real_amount, amount, gm_cnt, 
-      status, rebate_cnt, role_id, 
-      remark)
+      ip, time, device_id, from, 
+      order_id, payway, real_amount, 
+      amount, gm_cnt, status, 
+      rebate_cnt, role_id, remark
+      )
     values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{groleId,jdbcType=INTEGER}, 
-      #{ip,jdbcType=INTEGER}, #{time,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, 
-      #{from,jdbcType=TINYINT}, #{orderId,jdbcType=VARCHAR}, #{payway,jdbcType=VARCHAR}, 
-      #{realAmount,jdbcType=DOUBLE}, #{amount,jdbcType=DOUBLE}, #{gmCnt,jdbcType=DOUBLE}, 
-      #{status,jdbcType=TINYINT}, #{rebateCnt,jdbcType=DOUBLE}, #{roleId,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{ip,jdbcType=BIGINT}, #{time,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, 
+      #{orderId,jdbcType=VARCHAR}, #{payway,jdbcType=VARCHAR}, #{realAmount,jdbcType=DOUBLE}, 
+      #{amount,jdbcType=DOUBLE}, #{gmCnt,jdbcType=DOUBLE}, #{status,jdbcType=TINYINT}, 
+      #{rebateCnt,jdbcType=DOUBLE}, #{roleId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemOrder" >
     insert into tb_comm_mem_order
@@ -110,7 +110,7 @@
         #{groleId,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
-        #{ip,jdbcType=INTEGER},
+        #{ip,jdbcType=BIGINT},
       </if>
       <if test="time != null" >
         #{time,jdbcType=BIGINT},
@@ -160,7 +160,7 @@
         grole_id = #{groleId,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
-        ip = #{ip,jdbcType=INTEGER},
+        ip = #{ip,jdbcType=BIGINT},
       </if>
       <if test="time != null" >
         time = #{time,jdbcType=BIGINT},
@@ -205,7 +205,7 @@
     update tb_comm_mem_order
     set plat_id = #{platId,jdbcType=INTEGER},
       grole_id = #{groleId,jdbcType=INTEGER},
-      ip = #{ip,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=BIGINT},
       time = #{time,jdbcType=BIGINT},
       device_id = #{deviceId,jdbcType=VARCHAR},
       from = #{from,jdbcType=TINYINT},

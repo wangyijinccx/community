@@ -139,7 +139,7 @@ public class CommMemOrderController extends BaseController {
 			CommMemOrder commMemOrder = new CommMemOrder();
 			commMemOrder.setPlatId(json.getInteger("plat_id"));
 			commMemOrder.setGroleId(commMemGrole.getId());
-			commMemOrder.setIp(json.getInteger("ip"));
+			commMemOrder.setIp(strUtil.ipToLong(json.getString("ip")));
 			commMemOrder.setTime(json.getLong("time"));
 			commMemOrder.setDeviceId(json.getString("device_id"));
 			commMemOrder.setFrom(json.getByte("from"));

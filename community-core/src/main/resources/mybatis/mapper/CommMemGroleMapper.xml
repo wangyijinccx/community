@@ -7,7 +7,7 @@
     <result column="oa_app_id" property="oaAppId" jdbcType="INTEGER" />
     <result column="mem_id" property="memId" jdbcType="INTEGER" />
     <result column="promoter_id" property="promoterId" jdbcType="INTEGER" />
-    <result column="ip" property="ip" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
     <result column="from" property="from" jdbcType="TINYINT" />
@@ -42,7 +42,7 @@
       server_id, server_name, creat_time, 
       rolelevel_ctime, rolelevel_mtime)
     values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{oaAppId,jdbcType=INTEGER}, 
-      #{memId,jdbcType=INTEGER}, #{promoterId,jdbcType=INTEGER}, #{ip,jdbcType=INTEGER}, 
+      #{memId,jdbcType=INTEGER}, #{promoterId,jdbcType=INTEGER}, #{ip,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, 
       #{roleId,jdbcType=VARCHAR}, #{roleLevel,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, 
       #{serverId,jdbcType=INTEGER}, #{serverName,jdbcType=VARCHAR}, #{creatTime,jdbcType=BIGINT}, 
@@ -120,7 +120,7 @@
         #{promoterId,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
-        #{ip,jdbcType=INTEGER},
+        #{ip,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=BIGINT},
@@ -173,7 +173,7 @@
         promoter_id = #{promoterId,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
-        ip = #{ip,jdbcType=INTEGER},
+        ip = #{ip,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=BIGINT},
@@ -217,7 +217,7 @@
       oa_app_id = #{oaAppId,jdbcType=INTEGER},
       mem_id = #{memId,jdbcType=INTEGER},
       promoter_id = #{promoterId,jdbcType=INTEGER},
-      ip = #{ip,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       device_id = #{deviceId,jdbcType=VARCHAR},
       from = #{from,jdbcType=TINYINT},

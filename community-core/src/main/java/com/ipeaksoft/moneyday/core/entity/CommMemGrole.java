@@ -11,7 +11,7 @@ public class CommMemGrole {
 
     private Integer promoterId;
 
-    private Integer ip;
+    private Long ip;
 
     private Long updateTime;
 
@@ -75,11 +75,11 @@ public class CommMemGrole {
         this.promoterId = promoterId;
     }
 
-    public Integer getIp() {
+    public Long getIp() {
         return ip;
     }
 
-    public void setIp(Integer ip) {
+    public void setIp(Long ip) {
         this.ip = ip;
     }
 

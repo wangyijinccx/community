@@ -7,7 +7,7 @@ public class CommMemOrder {
 
     private Integer groleId;
 
-    private Integer ip;
+    private Long ip;
 
     private Long time;
 
@@ -57,11 +57,11 @@ public class CommMemOrder {
         this.groleId = groleId;
     }
 
-    public Integer getIp() {
+    public Long getIp() {
         return ip;
     }
 
-    public void setIp(Integer ip) {
+    public void setIp(Long ip) {
         this.ip = ip;
     }
 
