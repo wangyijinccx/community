@@ -20,7 +20,7 @@
     <result column="weixin" property="weixin" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, nickname, password, email, mobile, device_id, reg_ip, plat_id, from, 
+    id, username, nickname, password, email, mobile, device_id, reg_ip, plat_id, `from`, 
     oa_app_id, promoter_id, reg_time, update_time, qq, weixin
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -37,7 +37,7 @@
     insert into tb_comm_members (id, username, nickname, 
       password, email, mobile, 
       device_id, reg_ip, plat_id, 
-      from, oa_app_id, promoter_id, 
+      `from`, oa_app_id, promoter_id, 
       reg_time, update_time, qq, 
       weixin)
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
@@ -78,7 +78,7 @@
         plat_id,
       </if>
       <if test="from != null" >
-        from,
+        `from`,
       </if>
       <if test="oaAppId != null" >
         oa_app_id,
@@ -178,7 +178,7 @@
         plat_id = #{platId,jdbcType=INTEGER},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="oaAppId != null" >
         oa_app_id = #{oaAppId,jdbcType=INTEGER},
@@ -211,7 +211,7 @@
       device_id = #{deviceId,jdbcType=VARCHAR},
       reg_ip = #{regIp,jdbcType=BIGINT},
       plat_id = #{platId,jdbcType=INTEGER},
-      from = #{from,jdbcType=TINYINT},
+      `from` = #{from,jdbcType=TINYINT},
       oa_app_id = #{oaAppId,jdbcType=INTEGER},
       promoter_id = #{promoterId,jdbcType=INTEGER},
       reg_time = #{regTime,jdbcType=BIGINT},

@@ -12,7 +12,7 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
-		userReg();
+		
 	}
 	
 	

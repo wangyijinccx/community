@@ -84,7 +84,8 @@ public class CommMembersController extends BaseController {
 				return result;
 			}
 			CommMembers commMembers = new CommMembers();
-			commMembers.setUsername(json.getString("uersname"));
+			commMembers.setUsername(json.getString("username"));
+			//commMembers.setNickname(json.getString("username"));
 			commMembers.setPassword(json.getString("password"));
 			commMembers.setDeviceId(json.getString("device_id"));
 			String ip = json.getString("ip");
