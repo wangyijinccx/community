@@ -25,4 +25,6 @@ public interface CommHostMapper {
     List<Map<String,Object>> getStudents(Integer webinarId);
     
     Map<String ,Object> getwebinarId(String token);
+    
+    CommHost selectByUserID(Integer userId);
 }

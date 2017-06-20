@@ -163,6 +163,8 @@ public class CommUserController extends BaseController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			int z =1;
+			if(1 != z){
 			String xgurl ="http://101.201.253.175/index.php/Register/remote";
 			Map<String, String> postParamsXg = new HashMap<String, String>();
 			postParamsXg.put("name", xgName);
@@ -170,7 +172,7 @@ public class CommUserController extends BaseController {
 			postParamsXg.put("sign", encStr);
 			String callback = httpService.post(xgurl, postParamsXg);
 			//验证？？
-			
+			}
 			
 			
 			

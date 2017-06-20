@@ -19,10 +19,12 @@
     <result column="award" property="award" jdbcType="DOUBLE" />
     <result column="tdaward" property="tdaward" jdbcType="DOUBLE" />
     <result column="totalaward" property="totalaward" jdbcType="DOUBLE" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account, pass, mobile, subject, introduction, img_url, onlineStatus, webinar_id, 
-    nickname, createtime, updatetime, headimg, coverimg, award, tdaward, totalaward
+    nickname, createtime, updatetime, headimg, coverimg, award, tdaward, totalaward, 
+    user_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -40,13 +42,15 @@
       img_url, onlineStatus, webinar_id, 
       nickname, createtime, updatetime, 
       headimg, coverimg, award, 
-      tdaward, totalaward)
+      tdaward, totalaward, user_id
+      )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
       #{imgUrl,jdbcType=VARCHAR}, #{onlinestatus,jdbcType=INTEGER}, #{webinarId,jdbcType=INTEGER}, 
       #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{headimg,jdbcType=VARCHAR}, #{coverimg,jdbcType=VARCHAR}, #{award,jdbcType=DOUBLE}, 
-      #{tdaward,jdbcType=DOUBLE}, #{totalaward,jdbcType=DOUBLE})
+      #{tdaward,jdbcType=DOUBLE}, #{totalaward,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
     insert into tb_comm_host
@@ -102,6 +106,9 @@
       <if test="totalaward != null" >
         totalaward,
       </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -154,6 +161,9 @@
       </if>
       <if test="totalaward != null" >
         #{totalaward,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -208,6 +218,9 @@
       <if test="totalaward != null" >
         totalaward = #{totalaward,jdbcType=DOUBLE},
       </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -228,7 +241,8 @@
       coverimg = #{coverimg,jdbcType=VARCHAR},
       award = #{award,jdbcType=DOUBLE},
       tdaward = #{tdaward,jdbcType=DOUBLE},
-      totalaward = #{totalaward,jdbcType=DOUBLE}
+      totalaward = #{totalaward,jdbcType=DOUBLE},
+      user_id = #{userId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -245,7 +259,12 @@
     from tb_comm_host
     where webinar_id = #{webinarId,jdbcType=INTEGER}
   </select>
-
+   <select id="selectByUserID" resultMap="BaseResultMap"  >
+    select 
+     <include refid="Base_Column_List" />
+    from tb_comm_host
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="getStudents" resultType="java.util.HashMap" parameterType="java.lang.Integer" > 
    select tu.*  from tb_comm_host th 
 	 LEFT JOIN tb_comm_user tu on th.id = tu.commid 

@@ -42,4 +42,8 @@ public class CommHostService extends BaseService{
 		return commHostMapper.getwebinarId(token);
 	}
 	
+	public CommHost selectByUserID(Integer userId){
+		return commHostMapper.selectByUserID(userId);
+	}
+	
 }

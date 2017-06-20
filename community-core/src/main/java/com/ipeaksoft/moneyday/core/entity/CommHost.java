@@ -37,6 +37,8 @@ public class CommHost {
 
     private Double totalaward;
 
+    private Integer userId;
+
     public Integer getId() {
         return id;
     }
@@ -171,5 +173,13 @@ public class CommHost {
 
     public void setTotalaward(Double totalaward) {
         this.totalaward = totalaward;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
