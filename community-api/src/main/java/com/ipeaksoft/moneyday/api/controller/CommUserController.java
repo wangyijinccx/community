@@ -11,7 +11,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,6 +89,7 @@ public class CommUserController extends BaseController {
 	 *            邀请码
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("registered")
 	public Object registered(String phoneNumber, String code,
@@ -153,18 +153,15 @@ public class CommUserController extends BaseController {
 
 			// 注册小妹公会服务器
 			String xgName = "xg_"+phoneNumber;
-			byte[] srcBytes = (xgName + pass).getBytes();
 			String encStr ="";
 			try {
-				byte[] encBytes = RSAutil.encrypt(srcBytes);
-				byte[] baseBytes = Base64.encodeBase64(encBytes);
-				encStr = URLEncoder.encode(new String(baseBytes));
+				String signstr = RSAutil.sign(xgName+pass);
+				encStr = URLEncoder.encode(signstr);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				result.put("result", 3);
+				result.put("msg", "注册公会服务器签名失败");
+				return result;
 			}
-			int z =1;
-			if(1 != z){
 			String xgurl ="http://101.201.253.175/index.php/Register/remote";
 			Map<String, String> postParamsXg = new HashMap<String, String>();
 			postParamsXg.put("name", xgName);
@@ -172,7 +169,6 @@ public class CommUserController extends BaseController {
 			postParamsXg.put("sign", encStr);
 			String callback = httpService.post(xgurl, postParamsXg);
 			//验证？？
-			}
 			
 			
 			

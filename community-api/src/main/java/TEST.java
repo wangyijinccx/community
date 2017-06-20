@@ -1,9 +1,14 @@
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.alibaba.fastjson.JSONObject;
 import com.ipeaksoft.moneyday.core.util.HttpRequest;
+import com.ipeaksoft.moneyday.core.util.RSAutil;
+import com.ipeaksoft.moneyday.core.util.strUtil;
 
 
 public class TEST {
@@ -12,8 +17,36 @@ public class TEST {
 	public static final String PLAT_ID ="1869527";
 
 	public static void main(String[] args) throws IOException {
+		String a ="bBlrW2iAKZ6UZBccRnBkiaMrqumO3Ybbj%2BE6Bj78DGSotwPhkLssoFGWbkuqAhCnE3Ew7rvbbekS%2BDKKnAeWoJ7UAmfr4FiVhbf5zkeuZ6NEOPMPDOP4lKKvcKiXW6GgSw0LILzlbEzH7Dme6Q0J5B9DtOZu6HEjoL8a28CpAsY%3D";
+		String b= "bBlrW2iAKZ6UZBccRnBkiaMrqumO3Ybbj%2BE6Bj78DGSotwPhkLssoFGWbkuqAhCnE3Ew7rvbbekS%2BDKKnAeWoJ7UAmfr4FiVhbf5zkeuZ6NEOPMPDOP4lKKvcKiXW6GgSw0LILzlbEzH7Dme6Q0J5B9DtOZu6HEjoL8a28CpAsY%3D";
+		System.out.println(a.equals(b));
+		reg("12347856879");
 	}
 	
+	
+	public static void reg(String phoneNumber){
+		String xgName = "calvin";
+		String pass = "123456";
+		String encStr ="";
+		try {
+			String content = xgName+pass;
+			System.out.println("签名前="+content);
+			String signstr = RSAutil.sign(content);
+			encStr = URLEncoder.encode(signstr);
+			System.out.println("签名后="+encStr);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String xgurl ="http://101.201.253.175/index.php/Register/remote";
+		Map<String, Object> postParamsXg = new HashMap<String, Object>();
+		postParamsXg.put("name", xgName);
+		postParamsXg.put("pwd", pass);
+		postParamsXg.put("sign", encStr);
+		String callback = HttpRequest.postForm(xgurl, postParamsXg);
+		System.out.println(callback);
+		//验证？？
+	}
 	
 	public static void userPay(){
 		String url="http://localhost:8080/community-api/user/pay";
