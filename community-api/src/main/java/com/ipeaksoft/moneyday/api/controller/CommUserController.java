@@ -1,6 +1,7 @@
 package com.ipeaksoft.moneyday.api.controller;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import com.ipeaksoft.moneyday.core.enums.SMSType;
 import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
+import com.ipeaksoft.moneyday.core.util.RSAutil;
 import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
@@ -112,7 +115,7 @@ public class CommUserController extends BaseController {
 				result.put("msg", "邀请码不存在");
 				return result;
 			}
-
+			String pass = strUtil.getPassWord(phoneNumber);
 			// 注册微吼 密码为手机号的后六位
 			// 验证手机号是否注册过微吼账号 注册过就不用注册了
 			String validationUrl = "http://e.vhall.com/api/vhallapi/v2/user/get-user-id";
@@ -132,7 +135,6 @@ public class CommUserController extends BaseController {
 			}
 			if (!"200".equals(validationJson.getString("code"))) {
 				// 没有注册过
-				String pass = strUtil.getPassWord(phoneNumber);
 				String url = "http://e.vhall.com/api/vhallapi/v2/user/register";
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("third_user_id", phoneNumber);
@@ -149,8 +151,30 @@ public class CommUserController extends BaseController {
 				}
 			}
 
-			// 注册小妹公会服务器 不需要验证是否注册过了
-
+			// 注册小妹公会服务器
+			String xgName = "xg_"+phoneNumber;
+			byte[] srcBytes = (xgName + pass).getBytes();
+			String encStr ="";
+			try {
+				byte[] encBytes = RSAutil.encrypt(srcBytes);
+				byte[] baseBytes = Base64.encodeBase64(encBytes);
+				encStr = URLEncoder.encode(new String(baseBytes));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String xgurl ="http://101.201.253.175/index.php/Register/remote";
+			Map<String, String> postParamsXg = new HashMap<String, String>();
+			postParamsXg.put("name", xgName);
+			postParamsXg.put("pwd", pass);
+			postParamsXg.put("sign", encStr);
+			String callback = httpService.post(xgurl, postParamsXg);
+			//验证？？
+			
+			
+			
+			
+			
 			// 生成token 注册西瓜妹社区
 			// 验证是否注册过西瓜妹社区
 			String token = UUID.randomUUID().toString().replace("-", "");
