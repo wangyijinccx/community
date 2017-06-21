@@ -46,4 +46,8 @@ public class CommHostService extends BaseService{
 		return commHostMapper.selectByUserID(userId);
 	}
 	
+	public List<Map<String,Object>> getStudentsNew(Integer userId){
+		return commHostMapper.getStudentsNew(userId);
+	}
+	
 }

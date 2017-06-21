@@ -275,4 +275,9 @@
 	left  JOIN tb_comm_user tu on th.id = tu.commid
 	 where tu.indicate =#{token,jdbcType=VARCHAR}
   </select>
+  <select id="getStudentsNew" resultType="java.util.HashMap" parameterType="java.lang.Integer" > 
+   select tu.*  from tb_comm_host th 
+	 LEFT JOIN tb_comm_user tu on th.id = tu.commid 
+   where th.user_id= #{userId,jdbcType=INTEGER}
+   </select>
 </mapper>
