@@ -42,10 +42,36 @@ public class CommUserController extends BaseController {
 	@Autowired
 	CommUserDayService commUserDayService;
 
+	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("testMobile")
 	public Object test() {
 		JSONObject result = new JSONObject();
+		String phone = "13456079877";
+		String pass = strUtil.getPassWord(phone);
+		String xgName = "xg_" + phone;
+		String encStr = "";
+		try {
+			String signstr = RSAutil.sign(xgName + pass);
+			encStr = URLEncoder.encode(signstr);
+		} catch (Exception e) {
+			result.put("result", 3);
+			result.put("msg", "注册公会服务器签名失败");
+			return result;
+		}
+		String xgurl = "http://101.201.253.175/index.php/Register/remote";
+		Map<String, String> postParamsXg = new HashMap<String, String>();
+		postParamsXg.put("name", xgName);
+		postParamsXg.put("pwd", pass);
+		postParamsXg.put("sign", encStr);
+		String callback = httpService.post(xgurl, postParamsXg);
+		JSONObject xgjson = JSONObject.parseObject(callback);
+		if (null == xgjson || !"1".equals(xgjson.getString("status"))) {
+			result.put("result", 3);
+			result.put("msg", "注册公会服务器失败");
+			return result;
+		}
+		result.put("result", 1);
 		return result;
 	}
 
@@ -152,27 +178,29 @@ public class CommUserController extends BaseController {
 			}
 
 			// 注册小妹公会服务器
-			String xgName = "xg_"+phoneNumber;
-			String encStr ="";
+			String xgName = "xg_" + phoneNumber;
+			String encStr = "";
 			try {
-				String signstr = RSAutil.sign(xgName+pass);
+				String signstr = RSAutil.sign(xgName + pass);
 				encStr = URLEncoder.encode(signstr);
 			} catch (Exception e) {
 				result.put("result", 3);
 				result.put("msg", "注册公会服务器签名失败");
 				return result;
 			}
-			String xgurl ="http://101.201.253.175/index.php/Register/remote";
+			String xgurl = "http://101.201.253.175/index.php/Register/remote";
 			Map<String, String> postParamsXg = new HashMap<String, String>();
 			postParamsXg.put("name", xgName);
 			postParamsXg.put("pwd", pass);
 			postParamsXg.put("sign", encStr);
 			String callback = httpService.post(xgurl, postParamsXg);
-			//验证？？
-			
-			
-			
-			
+			JSONObject xgjson = JSONObject.parseObject(callback);
+			if (null == xgjson || !"1".equals(xgjson.getString("status"))) {
+				result.put("result", 3);
+				result.put("msg", "注册公会服务器失败");
+				return result;
+			}
+
 			// 生成token 注册西瓜妹社区
 			// 验证是否注册过西瓜妹社区
 			String token = UUID.randomUUID().toString().replace("-", "");
