@@ -305,7 +305,9 @@ public class CommUserController extends BaseController {
 			result.put("msg", "保存信息失败");
 			return result;
 		}
+		JSONObject userInfo = commUserService.userInfo(token);
 		result.put("result", 1);
+		result.put("userInfo", userInfo);
 		result.put("msg", "绑定成功");
 		return result;
 	}
