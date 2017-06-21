@@ -21,11 +21,12 @@
     <result column="size" property="size" jdbcType="DOUBLE" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="rules" property="rules" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, plat_id, game_id, name, gameflag, initial, icon, status, create_time, update_time, 
     listorder, target_cnt, target_level, parent_id, classify, description, size, start_time, 
-    end_time
+    end_time, rules
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -44,14 +45,14 @@
       update_time, listorder, target_cnt, 
       target_level, parent_id, classify, 
       description, size, start_time, 
-      end_time)
+      end_time, rules)
     values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{gameflag,jdbcType=VARCHAR}, #{initial,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{listorder,jdbcType=INTEGER}, #{targetCnt,jdbcType=INTEGER}, 
       #{targetLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{classify,jdbcType=TINYINT}, 
       #{description,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP})
+      #{endTime,jdbcType=TIMESTAMP}, #{rules,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGame" >
     insert into tb_comm_game
@@ -113,6 +114,9 @@
       <if test="endTime != null" >
         end_time,
       </if>
+      <if test="rules != null" >
+        rules,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -171,6 +175,9 @@
       </if>
       <if test="endTime != null" >
         #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rules != null" >
+        #{rules,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,6 +238,9 @@
       <if test="endTime != null" >
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="rules != null" >
+        rules = #{rules,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -253,7 +263,8 @@
       description = #{description,jdbcType=VARCHAR},
       size = #{size,jdbcType=DOUBLE},
       start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP}
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      rules = #{rules,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -304,7 +315,7 @@
   </update>
   
   <select id="selectGameList" resultType="java.util.HashMap" >
-    select tg.id gameID,tg.`name` gameName,FROM_UNIXTIME(tgs.start_time, '%Y-%m-%d %H:%i:%S') gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,tg.size gameSize,
+    select tg.id gameID,tg.`name` gameName,FROM_UNIXTIME(tgs.start_time, '%Y-%m-%d %H:%i:%S') gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,tg.size gameSize,tg.description gameDescription,
     CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
     from tb_comm_game tg
     LEFT JOIN (select a.* from tb_comm_game_server a inner join (select oa_app_id,max(start_time) start_time from tb_comm_game_server group by oa_app_id)b on a.oa_app_id=b.oa_app_id
