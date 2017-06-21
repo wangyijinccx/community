@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +23,7 @@ import com.ipeaksoft.moneyday.api.service.ComConfirmService;
 import com.ipeaksoft.moneyday.api.service.WeChatService;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
 import com.ipeaksoft.moneyday.core.enums.SMSType;
+import com.ipeaksoft.moneyday.core.service.CommMembersService;
 import com.ipeaksoft.moneyday.core.service.CommUserDayService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.service.HttpService;
@@ -41,6 +43,8 @@ public class CommUserController extends BaseController {
 	WeChatService weChatService;
 	@Autowired
 	CommUserDayService commUserDayService;
+	@Autowired
+	CommMembersService commMembersService;
 
 	@SuppressWarnings("deprecation")
 	@ResponseBody
@@ -409,6 +413,35 @@ public class CommUserController extends BaseController {
 		result.put("result", 1);
 		result.put("PromotionList", lists);
 		result.put("msg", "获取推广业绩成功");
+		return result;
+	}
+	
+	/**
+	 * 推广详情
+	 * @param request
+	 * @param token
+	 * @param pos
+	 * @param pageSize
+	 * @param time
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getPromoteDetails")
+	public Object getPromoteDetails(HttpServletRequest request, 
+			String token, Integer pos, Integer pageSize,String time,
+			HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+		CommUser commUser = commUserService.selectByIndicate(token);
+		if (null == commUser) {
+			result.put("result", 2);
+			result.put("msg", "该推广员不存在");
+		}
+		List<Map<String, Object>> mems = commMembersService.selectPromoteDetails(
+				commUser.getId(), time, pos, pageSize);
+		result.put("result", 1);
+		result.put("userList", mems);
+		result.put("msg", "获取推广详情成功");
 		return result;
 	}
 

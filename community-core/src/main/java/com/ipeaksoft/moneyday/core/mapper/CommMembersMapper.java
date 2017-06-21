@@ -22,7 +22,14 @@ public interface CommMembersMapper {
 
 	CommMembers selectByUserName(String username);
 
-	List<Map<String, Object>> selectGameMems(@Param("oaAppId")Integer oaAppId,
-			@Param("promoterId")Integer promoterId, @Param("ordeStr")String ordeStr, @Param("currentPage")Integer currentPage,
-			@Param("pageSize")Integer pageSize);
+	List<Map<String, Object>> selectGameMems(@Param("oaAppId") Integer oaAppId,
+			@Param("promoterId") Integer promoterId,
+			@Param("ordeStr") String ordeStr,
+			@Param("currentPage") Integer currentPage,
+			@Param("pageSize") Integer pageSize);
+
+	List<Map<String, Object>> selectPromoteDetails(@Param("pid") Integer pid,
+			@Param("searchFrom") String searchFrom,
+			@Param("currentPage") Integer currentPage,
+			@Param("pageSize") Integer pageSize);
 }
