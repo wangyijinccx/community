@@ -25,7 +25,7 @@ public class TEST {
 	
 	
 	public static void reg(String phoneNumber){
-		String xgName = "calvin";
+		String xgName = "calvin2";
 		String pass = "123456";
 		String encStr ="";
 		try {
