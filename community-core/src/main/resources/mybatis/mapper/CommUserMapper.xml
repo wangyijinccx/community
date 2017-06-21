@@ -455,7 +455,7 @@
   <select id="selectByIndicateSelective" resultType="java.util.HashMap" parameterType="java.lang.String" >
     select 
       tu.id,tu.indicate token,IFNULL(tu.openid,"") openid,IFNULL(tu.nickname,"") nickname,IFNULL(tu.headimgurl,"") headimgurl,
-      tu.mobile,tu.award accountBalance,tu.tdaward,totalaward sumIncome,IFNULL(tu.user_id,0) hostid,
+      tu.mobile,tu.award accountBalance,tu.tdaward,totalaward sumIncome,IFNULL(tu.commid,0) hostid,
       IFNULL(tud.todayCommission,0) todayCommission,IFNULL(tud.todayRechargeNum,0) todayRechargeNum,IFNULL(tud.todayRegisterNum,0) todayRegisterNum
       ,IFNULL(tud.todayWithdrawalsCount,0) todayWithdrawalsCount ,IFNULL(tud.todayRechargeTotal,0) todayRechargeTotal
     from tb_comm_user tu
