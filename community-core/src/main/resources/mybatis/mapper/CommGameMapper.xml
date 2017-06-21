@@ -17,10 +17,15 @@
     <result column="target_level" property="targetLevel" jdbcType="INTEGER" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="classify" property="classify" jdbcType="TINYINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="DOUBLE" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, plat_id, game_id, name, gameflag, initial, icon, status, create_time, update_time, 
-    listorder, target_cnt, target_level, parent_id, classify
+    listorder, target_cnt, target_level, parent_id, classify, description, size, start_time, 
+    end_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -37,14 +42,16 @@
       name, gameflag, initial, 
       icon, status, create_time, 
       update_time, listorder, target_cnt, 
-      target_level, parent_id, classify
-      )
+      target_level, parent_id, classify, 
+      description, size, start_time, 
+      end_time)
     values (#{id,jdbcType=INTEGER}, #{platId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{gameflag,jdbcType=VARCHAR}, #{initial,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=BIGINT}, #{listorder,jdbcType=INTEGER}, #{targetCnt,jdbcType=INTEGER}, 
-      #{targetLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{classify,jdbcType=TINYINT}
-      )
+      #{targetLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{classify,jdbcType=TINYINT}, 
+      #{description,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGame" >
     insert into tb_comm_game
@@ -94,6 +101,18 @@
       <if test="classify != null" >
         classify,
       </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,6 +159,18 @@
       </if>
       <if test="classify != null" >
         #{classify,jdbcType=TINYINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -188,6 +219,18 @@
       <if test="classify != null" >
         classify = #{classify,jdbcType=TINYINT},
       </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -206,7 +249,11 @@
       target_cnt = #{targetCnt,jdbcType=INTEGER},
       target_level = #{targetLevel,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
-      classify = #{classify,jdbcType=TINYINT}
+      classify = #{classify,jdbcType=TINYINT},
+      description = #{description,jdbcType=VARCHAR},
+      size = #{size,jdbcType=DOUBLE},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -257,7 +304,8 @@
   </update>
   
   <select id="selectGameList" resultType="java.util.HashMap" >
-    select tg.id gameID,tg.`name` gameName,FROM_UNIXTIME(tgs.start_time, '%Y-%m-%d %H:%i:%S') gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
+    select tg.id gameID,tg.`name` gameName,FROM_UNIXTIME(tgs.start_time, '%Y-%m-%d %H:%i:%S') gameBegin,tgs.ser_name gameRegion,tg.icon gameImageUrl,tg.size gameSize,
+    CASE tg.classify WHEN 3 THEN 'ANDROID' WHEN 4 THEN 'IOS' WHEN 401 THEN 'IOS切换'  ELSE '未知'  END as  sysType
     from tb_comm_game tg
     LEFT JOIN (select a.* from tb_comm_game_server a inner join (select oa_app_id,max(start_time) start_time from tb_comm_game_server group by oa_app_id)b on a.oa_app_id=b.oa_app_id
     and a.start_time=b.start_time ) tgs on tg.game_id = tgs.oa_app_id

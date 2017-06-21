@@ -1,5 +1,9 @@
 package com.ipeaksoft.moneyday.core.entity;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class CommGame {
     private Integer id;
 
@@ -30,6 +34,14 @@ public class CommGame {
     private Integer parentId;
 
     private Byte classify;
+
+    private String description;
+
+    private Double size;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date endTime;
 
     public Integer getId() {
         return id;
@@ -149,5 +161,37 @@ public class CommGame {
 
     public void setClassify(Byte classify) {
         this.classify = classify;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getSize() {
+        return size;
+    }
+
+    public void setSize(Double size) {
+        this.size = size;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }
