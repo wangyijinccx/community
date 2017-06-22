@@ -26,6 +26,8 @@ public interface CommUserMapper {
     
     Map<String, Object> selectByIndicateSelective(String indicate);
     
+    Map<String, Object> selectByIndicateSelective2(String indicate);
+    
     int updateByIndicate(CommUser record);
     
     List<CommUser> selectByPid(Integer pid);

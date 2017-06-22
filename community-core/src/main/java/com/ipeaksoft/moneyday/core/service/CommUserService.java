@@ -42,6 +42,10 @@ public class CommUserService extends BaseService {
 	public Map<String, Object> selectByIndicateSelective(String indicate) {
 		return commUserMapper.selectByIndicateSelective(indicate);
 	}
+	
+	public Map<String, Object> selectByIndicateSelective2(String indicate) {
+		return commUserMapper.selectByIndicateSelective2(indicate);
+	}
 
 	public int updateByIndicate(CommUser record) {
 		return commUserMapper.updateByIndicate(record);
@@ -85,6 +89,9 @@ public class CommUserService extends BaseService {
 	public JSONObject userInfo(String indicate) {
 		JSONObject result = new JSONObject();
 		Map<String, Object> commUser = selectByIndicateSelective(indicate);
+		if(null == commUser){
+			commUser = selectByIndicateSelective2(indicate);
+		}
 		Map<String, Object> commUserDay = commUserDayService
 				.getConsumptionThisMonth((Integer) commUser.get("id"));
 		// result.put("token", commUser.getIndicate());
