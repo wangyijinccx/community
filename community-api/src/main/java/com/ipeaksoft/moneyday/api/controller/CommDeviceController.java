@@ -27,8 +27,8 @@ public class CommDeviceController extends BaseController {
 
 
 	@ResponseBody
-	@RequestMapping("add")
-	public Object add(HttpServletRequest request, String token,
+	@RequestMapping("addforpromate")
+	public Object addForPromate(HttpServletRequest request, String token,
 			String device, Integer type, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		CommUser commUser = commUserService.selectByIndicate(token);
@@ -36,9 +36,9 @@ public class CommDeviceController extends BaseController {
 			result.put("result", 2);
 			result.put("msg", "推广员不存在");
 		}
-		CommDevice  model  =  commDeviceService.selectByUserId(commUser.getId());
+		CommDevice  model  =  commDeviceService.selectByUserId(token);
 		CommDevice commDevice = new CommDevice();
-		commDevice.setUserId(commUser.getId());
+		commDevice.setUserId(token);
 		commDevice.setDeviceToken(device);
 		commDevice.setType((byte)type.intValue());
 		if(null == model){
@@ -58,6 +58,17 @@ public class CommDeviceController extends BaseController {
 		}
 		result.put("result", 1);
 		result.put("msg", "添加用户设备信息成功");
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("addforhost")
+	public Object addForHost(HttpServletRequest request, String token,
+			String device, Integer type, HttpServletResponse response) {
+		JSONObject result = new JSONObject();
+	
+		result.put("result", 1);
+		result.put("msg", "");
 		return result;
 	}
 

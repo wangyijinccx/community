@@ -15,5 +15,5 @@ public interface CommDeviceMapper {
 
     int updateByPrimaryKey(CommDevice record);
     
-    CommDevice selectByUserId(Integer userId);
+    CommDevice selectByUserId(String userId);
 }

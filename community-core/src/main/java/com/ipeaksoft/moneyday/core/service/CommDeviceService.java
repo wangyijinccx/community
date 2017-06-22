@@ -19,7 +19,7 @@ public class CommDeviceService extends BaseService {
 	}
 
     
-    public CommDevice selectByUserId(Integer userId){
+    public CommDevice selectByUserId(String userId){
     	return commDeviceMapper.selectByUserId(userId);
     }
     

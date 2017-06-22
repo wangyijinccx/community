@@ -20,11 +20,12 @@
     <result column="tdaward" property="tdaward" jdbcType="DOUBLE" />
     <result column="totalaward" property="totalaward" jdbcType="DOUBLE" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="indicate" property="indicate" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account, pass, mobile, subject, introduction, img_url, onlineStatus, webinar_id, 
     nickname, createtime, updatetime, headimg, coverimg, award, tdaward, totalaward, 
-    user_id
+    user_id, indicate
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -42,15 +43,15 @@
       img_url, onlineStatus, webinar_id, 
       nickname, createtime, updatetime, 
       headimg, coverimg, award, 
-      tdaward, totalaward, user_id
-      )
+      tdaward, totalaward, user_id, 
+      indicate)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
       #{imgUrl,jdbcType=VARCHAR}, #{onlinestatus,jdbcType=INTEGER}, #{webinarId,jdbcType=INTEGER}, 
       #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{headimg,jdbcType=VARCHAR}, #{coverimg,jdbcType=VARCHAR}, #{award,jdbcType=DOUBLE}, 
-      #{tdaward,jdbcType=DOUBLE}, #{totalaward,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER}
-      )
+      #{tdaward,jdbcType=DOUBLE}, #{totalaward,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER}, 
+      #{indicate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommHost" >
     insert into tb_comm_host
@@ -109,6 +110,9 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="indicate != null" >
+        indicate,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -164,6 +168,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="indicate != null" >
+        #{indicate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="indicate != null" >
+        indicate = #{indicate,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -242,7 +252,8 @@
       award = #{award,jdbcType=DOUBLE},
       tdaward = #{tdaward,jdbcType=DOUBLE},
       totalaward = #{totalaward,jdbcType=DOUBLE},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      indicate = #{indicate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

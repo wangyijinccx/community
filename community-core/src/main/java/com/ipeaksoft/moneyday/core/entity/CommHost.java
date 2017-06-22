@@ -39,6 +39,8 @@ public class CommHost {
 
     private Integer userId;
 
+    private String indicate;
+
     public Integer getId() {
         return id;
     }
@@ -181,5 +183,13 @@ public class CommHost {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getIndicate() {
+        return indicate;
+    }
+
+    public void setIndicate(String indicate) {
+        this.indicate = indicate;
     }
 }
