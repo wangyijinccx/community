@@ -11,8 +11,8 @@ import org.apache.commons.codec.binary.Base64;
 public class RSAutil {
 
 	public static final String publicKey = "/mnt/key/rsa_public_key_xiguamei_union.pem";
-	//public static final String privateKey = "/mnt/key/rsa_private_key_xiguamei_union.pkcs8.pem";
-	public static final String privateKey = "C:/Users/sjk/Desktop/bat2/rsa_private_key_xiguamei_union.pkcs8.pem";
+	public static final String privateKey = "/mnt/key/rsa_private_key_xiguamei_union.pkcs8.pem";
+	//public static final String privateKey = "C:/Users/sjk/Desktop/bat2/rsa_private_key_xiguamei_union.pkcs8.pem";
     
 	/**
 	 * 从文件中加载私钥

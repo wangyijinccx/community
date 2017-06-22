@@ -26,8 +26,8 @@ public class TEST {
 	
 	
 	public static void reg(String phoneNumber){
-		String xgName = "calvin";
-		String pass = "362623";
+		String xgName = "xg_18601042108";
+		String pass = "042108";
 		String encStr ="";
 		try {
 			String content = xgName+pass;
@@ -39,15 +39,14 @@ public class TEST {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String xgurl ="http://101.201.253.175/index.php/Register/pack";
+		String xgurl ="http://101.201.253.175/index.php/Register/remote";
 		Map<String, Object> postParamsXg = new HashMap<String, Object>();
-		postParamsXg.put("agent", xgName);
-		postParamsXg.put("appid", pass);
+		postParamsXg.put("name", xgName);
+		postParamsXg.put("pwd", pass);
 		postParamsXg.put("sign", encStr);
 		String callback = HttpRequest.postForm(xgurl, postParamsXg);
 		System.out.println(callback);
-		JSONObject json = JSONObject.parseObject(callback);
-		String url = "http://101.201.253.175"+json.getString("url");
+
 		//验证？？
 	}
 	
