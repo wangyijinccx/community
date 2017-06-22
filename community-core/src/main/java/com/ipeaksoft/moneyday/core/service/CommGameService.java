@@ -22,9 +22,13 @@ public class CommGameService extends BaseService {
 	public int updateByGameid(CommGame record) {
 		return commGameMapper.updateByGameid(record);
 	}
-	
-	public List<Map<String ,Object>> getGameList(){
+
+	public List<Map<String, Object>> getGameList() {
 		return commGameMapper.selectGameList();
+	}
+
+	public CommGame selectByPrimaryKey(Integer id) {
+		return commGameMapper.selectByPrimaryKey(id);
 	}
 
 }

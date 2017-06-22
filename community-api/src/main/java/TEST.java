@@ -25,8 +25,8 @@ public class TEST {
 	
 	
 	public static void reg(String phoneNumber){
-		String xgName = "calvin2";
-		String pass = "123456";
+		String xgName = "calvin";
+		String pass = "362623";
 		String encStr ="";
 		try {
 			String content = xgName+pass;
@@ -38,10 +38,10 @@ public class TEST {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String xgurl ="http://101.201.253.175/index.php/Register/remote";
+		String xgurl ="http://101.201.253.175/index.php/Register/pack";
 		Map<String, Object> postParamsXg = new HashMap<String, Object>();
-		postParamsXg.put("name", xgName);
-		postParamsXg.put("pwd", pass);
+		postParamsXg.put("agent", xgName);
+		postParamsXg.put("appid", pass);
 		postParamsXg.put("sign", encStr);
 		String callback = HttpRequest.postForm(xgurl, postParamsXg);
 		System.out.println(callback);

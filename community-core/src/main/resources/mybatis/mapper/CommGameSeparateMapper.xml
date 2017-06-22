@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommGameSeparateMapper" >
+  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="promoter_id" property="promoterId" jdbcType="INTEGER" />
+    <result column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="url1" property="url1" jdbcType="VARCHAR" />
+    <result column="url2" property="url2" jdbcType="VARCHAR" />
+    <result column="bak" property="bak" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, promoter_id, app_id, url1, url2, bak
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_game_separate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comm_game_separate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    insert into tb_comm_game_separate (id, promoter_id, app_id, 
+      url1, url2, bak)
+    values (#{id,jdbcType=INTEGER}, #{promoterId,jdbcType=INTEGER}, #{appId,jdbcType=INTEGER}, 
+      #{url1,jdbcType=VARCHAR}, #{url2,jdbcType=VARCHAR}, #{bak,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    insert into tb_comm_game_separate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="promoterId != null" >
+        promoter_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="url1 != null" >
+        url1,
+      </if>
+      <if test="url2 != null" >
+        url2,
+      </if>
+      <if test="bak != null" >
+        bak,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="promoterId != null" >
+        #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="url1 != null" >
+        #{url1,jdbcType=VARCHAR},
+      </if>
+      <if test="url2 != null" >
+        #{url2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null" >
+        #{bak,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    update tb_comm_game_separate
+    <set >
+      <if test="promoterId != null" >
+        promoter_id = #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="url1 != null" >
+        url1 = #{url1,jdbcType=VARCHAR},
+      </if>
+      <if test="url2 != null" >
+        url2 = #{url2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null" >
+        bak = #{bak,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    update tb_comm_game_separate
+    set promoter_id = #{promoterId,jdbcType=INTEGER},
+      app_id = #{appId,jdbcType=INTEGER},
+      url1 = #{url1,jdbcType=VARCHAR},
+      url2 = #{url2,jdbcType=VARCHAR},
+      bak = #{bak,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <select id="selectByPromoterIdAndAppid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comm_game_separate
+    where promoter_id = #{promoterId,jdbcType=INTEGER} and app_id = #{appId,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateByPromoterIdAndAppid" parameterType="com.ipeaksoft.moneyday.core.entity.CommGameSeparate" >
+    update tb_comm_game_separate
+    <set >
+      <if test="url1 != null" >
+        url1 = #{url1,jdbcType=VARCHAR},
+      </if>
+      <if test="url2 != null" >
+        url2 = #{url2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null" >
+        bak = #{bak,jdbcType=VARCHAR},
+      </if>
+    </set>
+   where promoter_id = #{promoterId,jdbcType=INTEGER} and app_id = #{appId,jdbcType=INTEGER}
+  </update>
+</mapper>
