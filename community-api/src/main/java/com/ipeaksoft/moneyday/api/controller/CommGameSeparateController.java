@@ -2,9 +2,7 @@ package com.ipeaksoft.moneyday.api.controller;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ipeaksoft.moneyday.api.util.MD5Util;
 import com.ipeaksoft.moneyday.core.entity.CommGame;
 import com.ipeaksoft.moneyday.core.entity.CommGameSeparate;
 import com.ipeaksoft.moneyday.core.entity.CommUser;
@@ -25,7 +22,6 @@ import com.ipeaksoft.moneyday.core.service.CommGameService;
 import com.ipeaksoft.moneyday.core.service.CommUserService;
 import com.ipeaksoft.moneyday.core.util.HttpRequest;
 import com.ipeaksoft.moneyday.core.util.RSAutil;
-import com.ipeaksoft.moneyday.core.util.strUtil;
 
 @Controller
 @RequestMapping(value = "/separate")
@@ -39,7 +35,16 @@ public class CommGameSeparateController extends BaseController {
 
 	@Autowired
 	CommGameSeparateService commGameSeparateService;
-
+    
+	/**
+	 * 更新游戏包
+	 * @param request
+	 * @param token
+	 * @param gameid
+	 * @param response
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("update")
 	public Object update(HttpServletRequest request, String token,
@@ -102,6 +107,14 @@ public class CommGameSeparateController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 游戏详情
+	 * @param request
+	 * @param token
+	 * @param gameid
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("details")
 	public Object details(HttpServletRequest request, String token,
