@@ -93,7 +93,7 @@ public class CommUserService extends BaseService {
 			commUser = selectByIndicateSelective2(indicate);
 		}
 		Map<String, Object> commUserDay = commUserDayService
-				.getConsumptionThisMonth((Integer) commUser.get("id"));
+				.getConsumptionThisMonth((String) commUser.get("token"));
 		// result.put("token", commUser.getIndicate());
 		Long todayWithdrawalsCount = (Long) commUser
 				.get("todayWithdrawalsCount");

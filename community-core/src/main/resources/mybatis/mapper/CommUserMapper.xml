@@ -459,7 +459,7 @@
       IFNULL(tud.todayCommission,0) todayCommission,IFNULL(tud.todayRechargeNum,0) todayRechargeNum,IFNULL(tud.todayRegisterNum,0) todayRegisterNum
       ,IFNULL(tud.todayWithdrawalsCount,0) todayWithdrawalsCount ,IFNULL(tud.todayRechargeTotal,0) todayRechargeTotal
     from tb_comm_user tu
-    LEFT JOIN tb_comm_user_day tud on tu.id = tud.userid
+    LEFT JOIN tb_comm_user_day tud on tu.indicate = tud.userid
     where tu.indicate = #{indicate,jdbcType=VARCHAR} and tud.time = DATE_FORMAT(current_date,'%Y-%m-%d') 
   </select>
   

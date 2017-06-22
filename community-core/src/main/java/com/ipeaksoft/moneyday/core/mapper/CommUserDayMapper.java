@@ -18,13 +18,13 @@ public interface CommUserDayMapper {
 
 	int updateByPrimaryKey(CommUserDay record);
 
-	CommUserDay selectCurrentInfo(Integer userid);
+	CommUserDay selectCurrentInfo(String userid);
 
 	int updateCurrentInfo(CommUserDay record);
 
-	Map<String, Object> getConsumptionThisMonth(Integer userid);
+	Map<String, Object> getConsumptionThisMonth(String userid);
 
-	List<Map<String, Object>> selectIncomingList(Integer userid);
+	List<Map<String, Object>> selectIncomingList(String userid);
 	
-	List<Map<String, Object>> selectPromotionList(Integer userid);
+	List<Map<String, Object>> selectPromotionList(String userid);
 }

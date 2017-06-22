@@ -33,7 +33,14 @@ public class CommMemGroleController extends BaseController {
 	CommMembersService commMembersService;
 	@Autowired
 	CommUserService commUserService;
-
+    
+	
+	/**
+	 * 上传游戏角色
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@ResponseBody
 	@RequestMapping("uproleinfo")

@@ -384,7 +384,7 @@ public class CommUserController extends BaseController {
 			return result;
 		}
 		List<Map<String, Object>> lists = commUserDayService
-				.selectIncomingList(model.getId());
+				.selectIncomingList(model.getIndicate());
 		result.put("result", 1);
 		result.put("incomingInfoList", lists);
 		result.put("msg", "获取收益详情成功");
@@ -409,7 +409,7 @@ public class CommUserController extends BaseController {
 			return result;
 		}
 		List<Map<String, Object>> lists = commUserDayService
-				.selectPromotionList(model.getId());
+				.selectPromotionList(token);
 		result.put("result", 1);
 		result.put("PromotionList", lists);
 		result.put("msg", "获取推广业绩成功");

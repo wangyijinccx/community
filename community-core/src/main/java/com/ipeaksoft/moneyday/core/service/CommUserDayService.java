@@ -28,7 +28,7 @@ public class CommUserDayService extends BaseService {
 		return commUserDayMapper.insertSelective(record);
 	}
 
-	public CommUserDay selectCurrentInfo(Integer userid) {
+	public CommUserDay selectCurrentInfo(String userid) {
 		return commUserDayMapper.selectCurrentInfo(userid);
 	}
 
@@ -36,15 +36,15 @@ public class CommUserDayService extends BaseService {
 		return commUserDayMapper.updateCurrentInfo(record);
 	}
 
-	public Map<String, Object> getConsumptionThisMonth(Integer userid) {
+	public Map<String, Object> getConsumptionThisMonth(String userid) {
 		return commUserDayMapper.getConsumptionThisMonth(userid);
 	}
 
-	public List<Map<String, Object>> selectIncomingList(Integer userid) {
+	public List<Map<String, Object>> selectIncomingList(String userid) {
 		return commUserDayMapper.selectIncomingList(userid);
 	}
 
-	public List<Map<String, Object>> selectPromotionList(Integer userid) {
+	public List<Map<String, Object>> selectPromotionList(String userid) {
 		return commUserDayMapper.selectPromotionList(userid);
 	}
 
@@ -54,8 +54,11 @@ public class CommUserDayService extends BaseService {
 		// 用户做任务前，绑定了师傅和主播了
 		// 有一个推广员没有师傅--老板账号
 		Integer promoterId = commUser.getId();
+		String  promoterToken = commUser.getIndicate();
 		Integer masterId = commUser.getPid();
+		String  masterToken = commUserService.selectByPrimaryKey(masterId).getIndicate();
 		Integer hostId = commUser.getCommid();
+		String  hostToken = commHostService.selectByPrimaryKey(hostId).getIndicate();
 		BigDecimal realAmonut = new BigDecimal(real_amount);
 		BigDecimal promoterAward = realAmonut.multiply(promoterCommission);
 		// BigDecimal masterAward = realAmonut.multiply(masterCommission);
@@ -63,9 +66,9 @@ public class CommUserDayService extends BaseService {
 		// todayRegisterNum 今日注册数 todayRechargeNum 今日充值人数 todayCommission 今日收益总数
 		// todayRechargeTotal 今日充值总数(推广员玩家) todayRechargeTd 今日徒弟玩家充值总数
 		// 推广员
-		CommUserDay cud = selectCurrentInfo(promoterId);
+		CommUserDay cud = selectCurrentInfo(promoterToken);
 		CommUserDay commUserDay = new CommUserDay();
-		commUserDay.setUserid(promoterId);
+		commUserDay.setUserid(promoterToken);
 		if (null == cud) {
 			commUserDay.setTodayrechargenum(1);
 			commUserDay.setTodaycommission(promoterAward.doubleValue());
@@ -94,9 +97,9 @@ public class CommUserDayService extends BaseService {
 		if (null != masterId) {
 			BigDecimal masterAward = realAmonut.multiply(masterCommission);
 			// 推广员的师傅
-			CommUserDay masterCud = selectCurrentInfo(masterId);
+			CommUserDay masterCud = selectCurrentInfo(masterToken);
 			CommUserDay masterCommUserDay = new CommUserDay();
-			masterCommUserDay.setUserid(masterId);
+			masterCommUserDay.setUserid(masterToken);
 			if (null == masterCud) {
 				masterCommUserDay.setTodaycommission(masterAward.doubleValue());
 				masterCommUserDay.setTodayrechargetd(real_amount);
@@ -124,9 +127,9 @@ public class CommUserDayService extends BaseService {
 		}
 
 		// 主播
-		CommUserDay hostCud = selectCurrentInfo(hostId);
+		CommUserDay hostCud = selectCurrentInfo(hostToken);
 		CommUserDay hostCommUserDay = new CommUserDay();
-		hostCommUserDay.setUserid(hostId);
+		hostCommUserDay.setUserid(hostToken);
 		if (null == hostCud) {
 			hostCommUserDay.setTodayrechargenum(1);
 			hostCommUserDay.setTodaycommission(hostAward.doubleValue());
@@ -158,12 +161,14 @@ public class CommUserDayService extends BaseService {
 	public void registered(CommUser commUser) {
 		// 玩家 玩家所属推广员+1 推广员所属主播+1 一天一个user只有一条记录
 		Integer hostId = commUser.getCommid();
-		Integer promotersId = commUser.getId();
-		registered_update(promotersId);
-		registered_update(hostId);
+		String  hostToken = commHostService.selectByPrimaryKey(hostId).getIndicate();
+		//Integer promotersId = commUser.getId();
+		String  promoterToken = commUser.getIndicate();
+		registered_update(hostToken);
+		registered_update(promoterToken);
 	}
 
-	public void registered_update(Integer id) {
+	public void registered_update(String id) {
 		CommUserDay cud = selectCurrentInfo(id);
 		CommUserDay commUserDay = new CommUserDay();
 		commUserDay.setUserid(id);

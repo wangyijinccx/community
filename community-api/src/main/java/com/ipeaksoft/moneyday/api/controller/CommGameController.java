@@ -273,7 +273,13 @@ public class CommGameController extends BaseController {
 		result.put("code", 200);
 		return result;
 	}
-
+    
+	/**
+	 * 删除还原游戏
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("restore")
@@ -333,7 +339,13 @@ public class CommGameController extends BaseController {
 		result.put("code", 200);
 		return result;
 	}
-
+    
+	/**
+	 * 获取游戏列表
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("getgamelist")
 	public Object getGameList(HttpServletRequest request,

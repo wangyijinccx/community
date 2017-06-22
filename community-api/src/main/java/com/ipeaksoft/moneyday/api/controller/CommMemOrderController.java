@@ -177,7 +177,14 @@ public class CommMemOrderController extends BaseController {
 		result.put("code", 200);
 		return result;
 	}
-
+    
+	/**
+	 * 用户订单
+	 * @param request
+	 * @param userId
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("getorders")
 	public Object getOrders(HttpServletRequest request, Long userId,
@@ -186,7 +193,7 @@ public class CommMemOrderController extends BaseController {
 		List<Map<String, Object>> lists = commMemOrderService.getOrders(userId);
 		result.put("result", 1);
 		result.put("userOrderList", lists);
-		result.put("msg", "添加qq微信成功");
+		result.put("msg", "获取订单成功");
 		return result;
 	}
 }
