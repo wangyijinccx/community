@@ -76,7 +76,7 @@ public class CommGameSeparateController extends BaseController {
 		CommGameSeparate commGameSeparate = new CommGameSeparate();
 		commGameSeparate.setPromoterId(commUser.getId());
 		commGameSeparate.setAppId(gameid);
-		commGameSeparate.setUrl1(json.getString("url"));
+		commGameSeparate.setUrl1(gh_url+json.getString("url"));
 
 		CommGameSeparate model = commGameSeparateService
 				.selectByPromoterIdAndAppid(commUser.getId(), gameid);

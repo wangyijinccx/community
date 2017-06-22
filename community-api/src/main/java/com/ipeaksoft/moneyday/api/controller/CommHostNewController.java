@@ -200,12 +200,27 @@ public class CommHostNewController extends BaseController {
 		 		}
 		 		
 		 		//活动信息
-		 		/*
+		 		String fields = "subject,introduction,img_url,type";
+		 		String webinarUrl = "http://e.vhall.com/api/vhallapi/v2/webinar/fetch";
+				Map<String, String> webinarparams = new HashMap<String, String>();
+				webinarparams.put("webinar_id", webinarId + "");
+				webinarparams.put("fields", fields);
+				webinarparams.put("auth_type", auth_type);
+				webinarparams.put("account", account);
+				webinarparams.put("password", password);
+				String webinarCallback = httpService.post(webinarUrl, webinarparams);
+				JSONObject webinarJson = JSONObject.parseObject(webinarCallback);
+				if (null == webinarJson || !"200".equals(webinarJson.getString("code"))) {
+					result.put("result", 2);
+					result.put("msg", "获取活动信息失败");
+					return result;
+				}
+				JSONObject data = webinarJson.getJSONObject("data");
 		 		map.put("id", commhost.getId());
 				map.put("webinarId", webinarId);
-				map.put("subject", item.getString("subject"));
-				map.put("imgUrl",item.getString("webinar_id"));
-				map.put("onlinestatus", 1);*/
+				map.put("subject",data.getString("subject"));
+				map.put("imgUrl",data.getString("img_url"));
+				map.put("onlinestatus", 1);
 		 		result.put("members", memberInfo.getInteger("members"));
 	    	}
 	    }

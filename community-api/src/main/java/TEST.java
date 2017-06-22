@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ipeaksoft.moneyday.core.entity.CommGameSeparate;
 import com.ipeaksoft.moneyday.core.util.HttpRequest;
 import com.ipeaksoft.moneyday.core.util.RSAutil;
 import com.ipeaksoft.moneyday.core.util.strUtil;
@@ -45,6 +46,8 @@ public class TEST {
 		postParamsXg.put("sign", encStr);
 		String callback = HttpRequest.postForm(xgurl, postParamsXg);
 		System.out.println(callback);
+		JSONObject json = JSONObject.parseObject(callback);
+		String url = "http://101.201.253.175"+json.getString("url");
 		//验证？？
 	}
 	
