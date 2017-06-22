@@ -41,8 +41,8 @@ public class CommGameSeparateController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public Object update(HttpServletRequest request, String token, Integer gameid,
-			HttpServletResponse response) {
+	public Object update(HttpServletRequest request, String token,
+			Integer gameid, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		CommUser commUser = commUserService.selectByIndicate(token);
 		if (null == commUser) {
@@ -110,16 +110,22 @@ public class CommGameSeparateController extends BaseController {
 		if (null == commUser) {
 			result.put("result", 2);
 			result.put("msg", "推广员不存在");
+			return result;
 		}
 		// 游戏信息
 		CommGame commGame = commGameService.selectByPrimaryKey(gameid);
+		if (null == commGame) {
+			result.put("result", 3);
+			result.put("msg", "游戏不存在");
+			return result;
+		}
 		// 分包信息
 		CommGameSeparate model = commGameSeparateService
 				.selectByPromoterIdAndAppid(commUser.getId(), gameid);
 		result.put("beginTime", commGame.getStartTime());
 		result.put("endTime", commGame.getEndTime());
 		result.put("rule", commGame.getRules());
-		result.put("url", model.getUrl1());
+		result.put("url", null == model ? "" : model.getUrl1());
 		result.put("result", 1);
 		result.put("msg", "获取游戏详情成功");
 		return result;
