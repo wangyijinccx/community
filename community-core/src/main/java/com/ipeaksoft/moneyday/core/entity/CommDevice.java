@@ -15,6 +15,8 @@ public class CommDevice {
 
     private Date updateTime;
 
+    private Byte userType;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class CommDevice {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Byte getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Byte userType) {
+        this.userType = userType;
     }
 }
