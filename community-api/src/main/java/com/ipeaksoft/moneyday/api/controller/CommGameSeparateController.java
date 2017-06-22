@@ -41,7 +41,7 @@ public class CommGameSeparateController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public Object add(HttpServletRequest request, String token, Integer gameid,
+	public Object update(HttpServletRequest request, String token, Integer gameid,
 			HttpServletResponse response) {
 		JSONObject result = new JSONObject();
 		CommUser commUser = commUserService.selectByIndicate(token);

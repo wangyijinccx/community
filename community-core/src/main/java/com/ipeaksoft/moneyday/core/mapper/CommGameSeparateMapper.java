@@ -1,5 +1,7 @@
 package com.ipeaksoft.moneyday.core.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ipeaksoft.moneyday.core.entity.CommGameSeparate;
 
 public interface CommGameSeparateMapper {
@@ -15,8 +17,8 @@ public interface CommGameSeparateMapper {
 
 	int updateByPrimaryKey(CommGameSeparate record);
 
-	CommGameSeparate selectByPromoterIdAndAppid(Integer promoterId,
-			Integer appid);
+	CommGameSeparate selectByPromoterIdAndAppid(@Param("promoterId")Integer promoterId,
+			@Param("appId")Integer appid);
 
 	int updateByPromoterIdAndAppid(CommGameSeparate record);
 }
