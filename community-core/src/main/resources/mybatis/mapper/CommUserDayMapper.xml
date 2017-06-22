@@ -149,7 +149,7 @@
 		#{userid,jdbcType=VARCHAR}
 	</select>
 
-	<select id="getConsumptionThisMonth" resultMap="BaseResultMap"
+	<select id="getConsumptionThisMonth" resultType="java.util.HashMap"
 		parameterType="java.lang.String">
 		select sum(todayCommission) consumptionThisMonth from tb_comm_user_day
 		where DATE_FORMAT(time,'%Y-%m') = DATE_FORMAT(current_date,'%Y-%m') and
