@@ -1,6 +1,7 @@
 package com.ipeaksoft.moneyday.api.controller;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -106,6 +107,7 @@ public class CommGameSeparateController extends BaseController {
 	public Object details(HttpServletRequest request, String token,
 			Integer gameid, HttpServletResponse response) {
 		JSONObject result = new JSONObject();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		CommUser commUser = commUserService.selectByIndicate(token);
 		if (null == commUser) {
 			result.put("result", 2);
@@ -122,8 +124,8 @@ public class CommGameSeparateController extends BaseController {
 		// 分包信息
 		CommGameSeparate model = commGameSeparateService
 				.selectByPromoterIdAndAppid(commUser.getId(), gameid);
-		result.put("beginTime", commGame.getStartTime());
-		result.put("endTime", commGame.getEndTime());
+		result.put("beginTime",simpleDateFormat.format(commGame.getStartTime()));
+		result.put("endTime", simpleDateFormat.format(commGame.getEndTime()));
 		result.put("rule", commGame.getRules());
 		result.put("url", null == model ? "" : model.getUrl1());
 		result.put("result", 1);

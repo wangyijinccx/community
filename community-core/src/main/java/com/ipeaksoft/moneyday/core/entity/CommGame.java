@@ -2,6 +2,8 @@ package com.ipeaksoft.moneyday.core.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class CommGame {
     private Integer id;
 
@@ -36,9 +38,9 @@ public class CommGame {
     private String description;
 
     private Double size;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
     private String rules;
