@@ -125,4 +125,30 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="selectOrderInfo" resultType="java.util.HashMap" parameterType="java.lang.String">
+	  select tm.username,tg.`name` from tb_comm_mem_order tmo
+		LEFT JOIN tb_comm_mem_grole tmg on tmg.id = tmo.grole_id
+		LEFT JOIN tb_comm_members tm on tmg.mem_id = tm.id
+		LEFT JOIN tb_comm_game tg on tg.game_id = tm.oa_app_id
+	  where tmo.order_id=#{orderId,jdbcType=VARCHAR}
+   </select>
+
+	<select id="findUnreadCount" resultType="Integer" parameterType="java.lang.String">
+		select COUNT(*) from tb_comm_message where
+		token=#{token,jdbcType=VARCHAR} and isread = 0
+	</select>
+	<update id="updateRead" parameterType="java.lang.Integer">
+	    UPDATE tb_comm_message set isread = '1' where id =#{id,jdbcType=INTEGER}
+    </update>
+    
+    <select id="selectMessages"  parameterType="java.lang.String"  resultMap="BaseResultMap">
+       select 
+        <include refid="Base_Column_List" />
+       from tb_comm_message where token =#{token,jdbcType=VARCHAR} 
+       ORDER BY create_time desc 
+       <if test="currentPage !=null and pageSize != null">
+         <![CDATA[  LIMIT #{currentPage},#{pageSize} ]]>
+	   </if>
+    </select>
 </mapper>
