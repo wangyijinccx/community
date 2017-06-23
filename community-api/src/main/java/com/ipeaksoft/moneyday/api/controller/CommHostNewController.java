@@ -182,9 +182,9 @@ public class CommHostNewController extends BaseController {
 			result.put("msg", "获取主播列表失败");
 			return result;
 		}
-		 if(10019 == json.getInteger("code")){
+		 if(10019 == statusjson.getInteger("code")){
 			 result.put("members",0);
-	    }else if(200 == json.getInteger("code")){
+	    }else if(200 == statusjson.getInteger("code")){
 	    	//一个子账号 只能有一个活动在直播
 	    	JSONObject jo =  statusjson.getJSONObject("data");
 	    	JSONArray ja = jo.getJSONArray("lists");
