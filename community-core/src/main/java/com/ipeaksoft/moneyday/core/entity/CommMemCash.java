@@ -3,7 +3,7 @@ package com.ipeaksoft.moneyday.core.entity;
 import java.util.Date;
 
 public class CommMemCash {
-    private Long id;
+    private Integer id;
 
     private String orderid;
 
@@ -15,9 +15,9 @@ public class CommMemCash {
 
     private Integer amount;
 
-    private Integer totalcredits;
+    private Double totalcredits;
 
-    private String status;
+    private Byte status;
 
     private Date operateTime;
 
@@ -27,11 +27,15 @@ public class CommMemCash {
 
     private Date createTime;
 
-    public Long getId() {
+    private String alipayAccount;
+
+    private Byte type;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,19 +79,19 @@ public class CommMemCash {
         this.amount = amount;
     }
 
-    public Integer getTotalcredits() {
+    public Double getTotalcredits() {
         return totalcredits;
     }
 
-    public void setTotalcredits(Integer totalcredits) {
+    public void setTotalcredits(Double totalcredits) {
         this.totalcredits = totalcredits;
     }
 
-    public String getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -121,5 +125,21 @@ public class CommMemCash {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getAlipayAccount() {
+        return alipayAccount;
+    }
+
+    public void setAlipayAccount(String alipayAccount) {
+        this.alipayAccount = alipayAccount;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
     }
 }

@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ipeaksoft.moneyday.core.mapper.CommMemCashMapper" >
-  <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+   <resultMap id="BaseResultMap" type="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="orderid" property="orderid" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="openid" property="openid" jdbcType="VARCHAR" />
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="INTEGER" />
-    <result column="totalcredits" property="totalcredits" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="totalcredits" property="totalcredits" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="TINYINT" />
     <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
     <result column="operate_result" property="operateResult" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="alipay_account" property="alipayAccount" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, orderid, description, openid, real_name, amount, totalcredits, status, operate_time, 
-    operate_result, operator, create_time
+    operate_result, operator, create_time, alipay_account, type
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_comm_mem_cash
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_comm_mem_cash
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
     insert into tb_comm_mem_cash (id, orderid, description, 
       openid, real_name, amount, 
       totalcredits, status, operate_time, 
-      operate_result, operator, create_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{orderid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      operate_result, operator, create_time, 
+      alipay_account, type)
+    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{openid,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
-      #{totalcredits,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
-      #{operateResult,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{totalcredits,jdbcType=DOUBLE}, #{status,jdbcType=TINYINT}, #{operateTime,jdbcType=TIMESTAMP}, 
+      #{operateResult,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{alipayAccount,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
+  <insert id="insertSelective" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" 
+    useGeneratedKeys="true" keyProperty="id">
     insert into tb_comm_mem_cash
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,10 +83,16 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="alipayAccount != null" >
+        alipay_account,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="orderid != null" >
         #{orderid,jdbcType=VARCHAR},
@@ -101,10 +110,10 @@
         #{amount,jdbcType=INTEGER},
       </if>
       <if test="totalcredits != null" >
-        #{totalcredits,jdbcType=INTEGER},
+        #{totalcredits,jdbcType=DOUBLE},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=CHAR},
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="operateTime != null" >
         #{operateTime,jdbcType=TIMESTAMP},
@@ -117,6 +126,12 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alipayAccount != null" >
+        #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -139,10 +154,10 @@
         amount = #{amount,jdbcType=INTEGER},
       </if>
       <if test="totalcredits != null" >
-        totalcredits = #{totalcredits,jdbcType=INTEGER},
+        totalcredits = #{totalcredits,jdbcType=DOUBLE},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=CHAR},
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="operateTime != null" >
         operate_time = #{operateTime,jdbcType=TIMESTAMP},
@@ -156,8 +171,14 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="alipayAccount != null" >
+        alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ipeaksoft.moneyday.core.entity.CommMemCash" >
     update tb_comm_mem_cash
@@ -166,12 +187,14 @@
       openid = #{openid,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},
       amount = #{amount,jdbcType=INTEGER},
-      totalcredits = #{totalcredits,jdbcType=INTEGER},
-      status = #{status,jdbcType=CHAR},
+      totalcredits = #{totalcredits,jdbcType=DOUBLE},
+      status = #{status,jdbcType=TINYINT},
       operate_time = #{operateTime,jdbcType=TIMESTAMP},
       operate_result = #{operateResult,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

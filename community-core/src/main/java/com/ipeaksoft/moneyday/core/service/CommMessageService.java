@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +93,7 @@ public class CommMessageService extends BaseService {
 			Integer badge = findUnreadCount(promateToken);
 			if (0 == type) {
 				// android
+				MessageSend.AndroidSend(deviceToken, content);
 			} else {
 				// ios
 				MessageSend.iosSend(deviceToken, content, badge);

@@ -16,13 +16,13 @@ public class BaseController {
     protected Logger logger = null;
     protected Logger sdklogger = null;
     protected String className = "";
-    public static final Integer withdrawalNumber = 3;
-    public static final String auth_type = "1";
-	public static final String account = "v14903519";
-	public static final String password = "anywn123";
-	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";
-	public static final String PLAT_ID ="1869527";
-	public static final String gh_url = "http://101.201.253.175";
+    public static final Integer withdrawalNumber = 3;//提现次数
+    public static final String auth_type = "1";//微吼
+	public static final String account = "v14903519";//微吼
+	public static final String password = "anywn123";//微吼
+	public static final String PLAT_SECURE_KEY = "5e511d59019de14691b8f0f360bf6841";//数据同步
+	public static final String PLAT_ID ="1869527";//数据同步
+	public static final String gh_url = "http://101.201.253.175";//公会服务器地址
 
     public BaseController(){
         className = getClass().getName();
