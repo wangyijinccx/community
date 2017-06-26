@@ -7,14 +7,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.ipeaksoft.moneyday.api.service.CallbackService;
 import com.ipeaksoft.moneyday.core.service.BaseService;
 
 @Service
 @Lazy(true)
 public class ScheduleService extends BaseService {
-	@Autowired
-	CallbackService callbackService;
+	
 	
     @PostConstruct
     public void init() {
@@ -23,8 +21,7 @@ public class ScheduleService extends BaseService {
 	
     @Scheduled(cron = "0 */1 * * * ?")
     public void doCacheMinute(){
-        logger.debug("schedule()...");
-    	callbackService.schedule();
+      
     }
     
 
